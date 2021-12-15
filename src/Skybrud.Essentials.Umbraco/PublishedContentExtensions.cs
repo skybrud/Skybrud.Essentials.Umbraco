@@ -9,12 +9,12 @@ namespace Skybrud.Essentials.Umbraco {
     /// </summary>
     public static class PublishedContentExtensions {
 
-        public static CultureInfo GetCultureInfo(this IPublishedContent content) {
-            throw new NotImplementedException();
-            //if (content == null) return CultureInfo.GetCultureInfo(global::Umbraco.Web.Composing.Current.UmbracoContext.Domains.DefaultCulture);
-            //string code = content.GetCultureFromDomains();
-            //return string.IsNullOrWhiteSpace(code) ? GetCultureInfo(content.Parent) : CultureInfo.GetCultureInfo(code);
-        }
+        //public static CultureInfo GetCultureInfo(this IPublishedContent content) {
+        //    throw new NotImplementedException();
+        //    //if (content == null) return CultureInfo.GetCultureInfo(global::Umbraco.Web.Composing.Current.UmbracoContext.Domains.DefaultCulture);
+        //    //string code = content.GetCultureFromDomains();
+        //    //return string.IsNullOrWhiteSpace(code) ? GetCultureInfo(content.Parent) : CultureInfo.GetCultureInfo(code);
+        //}
 
     }
 
