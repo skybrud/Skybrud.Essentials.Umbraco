@@ -5,7 +5,7 @@ using Umbraco.Cms.Core.DependencyInjection;
 
 namespace Skybrud.Essentials.Umbraco.Composers {
     
-    public class EssentialsComposer : IComposer {
+    internal class EssentialsComposer : IComposer {
         
         public void Compose(IUmbracoBuilder builder) {
             builder.Services.AddTransient<TaskHelper>();
