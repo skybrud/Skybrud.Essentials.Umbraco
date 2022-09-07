@@ -2,9 +2,10 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using Microsoft.AspNetCore.Hosting;
 using Skybrud.Essentials.Time;
 using Umbraco.Cms.Core;
-using Umbraco.Cms.Core.Hosting;
+using Umbraco.Cms.Core.Extensions;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Sync;
 
@@ -17,7 +18,7 @@ namespace Skybrud.Essentials.Umbraco.Scheduling {
 
         private readonly IRuntimeState _runtimeState;
         private readonly IServerRoleAccessor _serverRoleAccessor;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         #region Properties
 
@@ -40,11 +41,11 @@ namespace Skybrud.Essentials.Umbraco.Scheduling {
         /// </summary>
         /// <param name="runtimeState">A reference to the current <see cref="IRuntimeState"/>.</param>
         /// <param name="serverRoleAccessor">A reference to the current <see cref="IServerRoleAccessor"/>.</param>
-        /// <param name="hostingEnvironment">A reference to the current <see cref="IHostingEnvironment"/>.</param>
-        public TaskHelper(IRuntimeState runtimeState, IServerRoleAccessor serverRoleAccessor, IHostingEnvironment hostingEnvironment) {
+        /// <param name="webHostEnvironment">A reference to the current <see cref="IWebHostEnvironment"/>.</param>
+        public TaskHelper(IRuntimeState runtimeState, IServerRoleAccessor serverRoleAccessor, IWebHostEnvironment webHostEnvironment) {
             _runtimeState = runtimeState;
             _serverRoleAccessor = serverRoleAccessor;
-            _hostingEnvironment = hostingEnvironment;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         #endregion
@@ -57,23 +58,12 @@ namespace Skybrud.Essentials.Umbraco.Scheduling {
         /// <param name="task">The task.</param>
         /// <returns>The name of the task.</returns>
         protected virtual string GetTaskName(object task) {
-
-            switch (task) {
-
-                case null:
-                    throw new ArgumentNullException(nameof(task));
-
-                case string str:
-                    return str;
-
-                case Type type:
-                    return type.FullName;
-
-                default:
-                    return task.GetType().FullName;
-
-            }
-
+            return task switch  {
+                null => throw new ArgumentNullException(nameof(task)),
+                string str => str,
+                Type type => type.FullName!,
+                _ => task.GetType().FullName!
+            };
         }
 
         /// <summary>
@@ -107,7 +97,7 @@ namespace Skybrud.Essentials.Umbraco.Scheduling {
         /// <param name="minute">The minute the task should run.</param>
         /// <param name="weekdays">The days of the week the task should run.</param>
         /// <returns><c>true</c> if the task should run; otherwise <c>false</c>.</returns>
-        public bool ShouldRun(object task, DateTime now, int hour, int minute, DayOfWeek[] weekdays) {
+        public bool ShouldRun(object task, DateTime now, int hour, int minute, DayOfWeek[]? weekdays) {
 
             // Determine when the task is supposed to run on the current day
             DateTime scheduled = new(now.Year, now.Month, now.Day, hour, minute, 0);
@@ -218,8 +208,8 @@ namespace Skybrud.Essentials.Umbraco.Scheduling {
         /// <returns>The directory path for the task.</returns>
         protected virtual string GetTaskDirectoryPath(string taskName) {
             string directory = taskName.IndexOf("Limbo.", StringComparison.Ordinal) == 0 ? "Limbo" : "Skybrud";
-            string path = Path.Combine(Constants.SystemDirectories.Umbraco, directory, "Tasks", taskName);
-            return _hostingEnvironment.MapPathContentRoot(path);
+            string path = Path.Combine(Constants.SystemDirectories.Data, directory, "Tasks", taskName);
+            return _webHostEnvironment.MapPathContentRoot(path);
         }
         
         /// <summary>

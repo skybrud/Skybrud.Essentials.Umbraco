@@ -37,13 +37,13 @@ namespace Skybrud.Essentials.Umbraco {
         /// has been found or the top of the tree has been reached. If none of the content items along the path specify
         /// a culture, the default culture configured in Umbraco (typically <c>en-US</c>) will be used as fallback.</para>
         /// </remarks>
-        public static CultureInfo GetCultureInfo(this IPublishedContent content, Uri uri = null) {
+        public static CultureInfo? GetCultureInfo(this IPublishedContent? content, Uri? uri = null) {
 
             // If no content item is specified, we return the default culture
             if (content == null) return null;
 
             // Get culture code via Umbraco's extension method
-            string code = content.GetCultureFromDomains(uri);
+            string? code = content.GetCultureFromDomains(uri);
             
             // If no culture code was found, try the parent node - otherwise return the matching CultureInfo
             return string.IsNullOrWhiteSpace(code) ? GetCultureInfo(content.Parent, uri) : CultureInfo.GetCultureInfo(code);
@@ -77,16 +77,16 @@ namespace Skybrud.Essentials.Umbraco {
         /// has been found or the top of the tree has been reached. If none of the content items along the path specify
         /// a culture, the default culture configured in Umbraco (typically <c>en-US</c>) will be used as fallback.</para>
         /// </remarks>
-        public static CultureInfo GetCultureInfo(this IPublishedContent content, IUmbracoContextAccessor umbracoContextAccessor, ISiteDomainMapper siteDomainMapper, Uri uri = null) {
+        public static CultureInfo? GetCultureInfo(this IPublishedContent? content, IUmbracoContextAccessor umbracoContextAccessor, ISiteDomainMapper siteDomainMapper, Uri? uri = null) {
 
             // If no content item is specified, we return the default culture
             if (content == null) {
                 IUmbracoContext ctx = umbracoContextAccessor.GetRequiredUmbracoContext();
-                return CultureInfo.GetCultureInfo(ctx.Domains.DefaultCulture);
+                return CultureInfo.GetCultureInfo(ctx.Domains!.DefaultCulture);
             }
 
             // Get culture code via Umbraco's extension method
-            string code = content.GetCultureFromDomains(umbracoContextAccessor, siteDomainMapper, uri);
+            string? code = content.GetCultureFromDomains(umbracoContextAccessor, siteDomainMapper, uri);
             
             // If no culture code was found, try the parent node - otherwise return the matching CultureInfo
             return string.IsNullOrWhiteSpace(code) ? GetCultureInfo(content.Parent, umbracoContextAccessor, siteDomainMapper, uri) : CultureInfo.GetCultureInfo(code);
