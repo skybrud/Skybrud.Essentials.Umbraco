@@ -9,11 +9,11 @@
   </tr>
   <tr>
     <td><strong>Umbraco:</strong></td>
-    <td>Umbraco 10 (and [Umbraco 9](https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v1/main))</td>
+    <td>Umbraco 10 <sub><sup>(and <a href="https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v1/main">Umbraco 9</a>)</sup></sub></td>
   </tr>
   <tr>
-    <td><strong>Target Frameworks:</strong></td>
-    <td>.NET 6 (and [.NET 5](https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v1/main))</td>
+    <td><strong>Target Framework:</strong></td>
+    <td>.NET 6 <sub><sup>(and <a href="https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v1/main">.NET 5</a>)</sup></sub></td>
   </tr>
 </table>
 
