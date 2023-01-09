@@ -1,23 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <LangVersion>11.0</LangVersion>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>2.0.0-alpha001</Version>
+    <VersionPrefix>2.0.0-alpha001</VersionPrefix>
+    <VersionSuffix Condition="'$(Configuration)'=='Debug'">build$([System.DateTime]::UtcNow.ToString(`yyyyMMddHHmm`))</VersionSuffix>
     <Authors>Anders Bjerner</Authors>
     <Company>Limbo</Company>
     <Product>Skybrud.Essentials</Product>
-    <Description>Skybrud.Essentials addon for working with Umbraco 10.</Description>
-    <Copyright>Copyright © 2022</Copyright>
+    <Description>Skybrud.Essentials addon for working with Umbraco 10+.</Description>
+    <Copyright>Copyright © $([System.DateTime]::UtcNow.ToString(`yyyy`))</Copyright>
   </PropertyGroup>
 
   <!-- Information for the NuGet package -->
   <PropertyGroup>
     <PackageId>Skybrud.Essentials.Umbraco</PackageId>
-    <PackageTags>Skybrud, Limbo, Essentials, Umbraco</PackageTags>
+    <PackageTags>Skybrud, Limbo, Essentials, Umbraco, Extensions, Umbraco-Marketplace</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://packages.skybrud.dk/skybrud.essentials.umbraco/</PackageProjectUrl>
     <PackageIcon>Limbo.png</PackageIcon>
