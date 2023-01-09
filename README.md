@@ -30,11 +30,11 @@
 To install the package via [NuGet](https://www.nuget.org/packages/Skybrud.Essentials.Umbraco), you can use either .NET CLI:
 
 ```
-dotnet add package Skybrud.Essentials.Umbraco --version 2.0.0-alpha001
+dotnet add package Skybrud.Essentials.Umbraco --version 2.0.0-alpha002
 ```
 
 or the older Nuget package manager:
 
 ```
-Install-Package Skybrud.Essentials.Umbraco -Version 2.0.0-alpha001
+Install-Package Skybrud.Essentials.Umbraco -Version 2.0.0-alpha002
 ```
