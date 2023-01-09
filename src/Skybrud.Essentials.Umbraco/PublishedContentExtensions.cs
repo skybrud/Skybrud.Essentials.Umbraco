@@ -6,12 +6,12 @@ using Umbraco.Cms.Core.Web;
 using Umbraco.Extensions;
 
 namespace Skybrud.Essentials.Umbraco {
-    
+
     /// <summary>
     /// Static class with various extension methods for working with <see cref="IPublishedContent"/>.
     /// </summary>
     public static class PublishedContentExtensions {
-        
+
         /// <summary>
         /// Gets the <see cref="CultureInfo"/> of the specified <paramref name="content"/> item.
         /// </summary>
@@ -32,7 +32,7 @@ namespace Skybrud.Essentials.Umbraco {
         /// yet been published doesn't work properly, as the methods returns <c>null</c> instead of the actual culture
         /// node. This appears to be an issue with Umbraco as the internal logic fails to look up the route of the
         /// content item.
-        /// 
+        ///
         /// While it ought to be fixed in Umbraco, this method has been updated to traverse up the tree until a culture
         /// has been found or the top of the tree has been reached. If none of the content items along the path specify
         /// a culture, the default culture configured in Umbraco (typically <c>en-US</c>) will be used as fallback.</para>
@@ -44,12 +44,12 @@ namespace Skybrud.Essentials.Umbraco {
 
             // Get culture code via Umbraco's extension method
             string? code = content.GetCultureFromDomains(uri);
-            
+
             // If no culture code was found, try the parent node - otherwise return the matching CultureInfo
             return string.IsNullOrWhiteSpace(code) ? GetCultureInfo(content.Parent, uri) : CultureInfo.GetCultureInfo(code);
 
         }
-        
+
         /// <summary>
         /// Gets the <see cref="CultureInfo"/> of the specified <paramref name="content"/> item.
         /// </summary>
@@ -72,7 +72,7 @@ namespace Skybrud.Essentials.Umbraco {
         /// yet been published doesn't work properly, as the methods returns <c>null</c> instead of the actual culture
         /// node. This appears to be an issue with Umbraco as the internal logic fails to look up the route of the
         /// content item.
-        /// 
+        ///
         /// While it ought to be fixed in Umbraco, this method has been updated to traverse up the tree until a culture
         /// has been found or the top of the tree has been reached. If none of the content items along the path specify
         /// a culture, the default culture configured in Umbraco (typically <c>en-US</c>) will be used as fallback.</para>
@@ -87,7 +87,7 @@ namespace Skybrud.Essentials.Umbraco {
 
             // Get culture code via Umbraco's extension method
             string? code = content.GetCultureFromDomains(umbracoContextAccessor, siteDomainMapper, uri);
-            
+
             // If no culture code was found, try the parent node - otherwise return the matching CultureInfo
             return string.IsNullOrWhiteSpace(code) ? GetCultureInfo(content.Parent, umbracoContextAccessor, siteDomainMapper, uri) : CultureInfo.GetCultureInfo(code);
 
