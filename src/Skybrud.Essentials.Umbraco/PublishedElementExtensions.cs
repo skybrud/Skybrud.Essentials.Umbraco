@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using Skybrud.Essentials.Strings;
 using Skybrud.Essentials.Strings.Extensions;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Extensions;
@@ -94,7 +93,8 @@ namespace Skybrud.Essentials.Umbraco {
         /// <returns>An instance of <see cref="string"/> if successful; otherwise, <paramref name="fallback"/>.</returns>
         [return: NotNullIfNotNull("fallback")]
         public static string? GetString(this IPublishedElement? element, string alias, string? fallback) {
-            return StringUtils.FirstWithValue(element?.Value<string>(alias), fallback);
+            string? value = element?.Value<string>(alias);
+            return string.IsNullOrWhiteSpace(value) ? fallback : value;
         }
 
         /// <summary>
