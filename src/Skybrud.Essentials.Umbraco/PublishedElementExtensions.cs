@@ -133,6 +133,23 @@ namespace Skybrud.Essentials.Umbraco {
         }
 
         /// <summary>
+        /// Returns a <see cref="DateTime"/> value of the property with the specified <paramref name="alias"/>, or
+        /// <see langword="null"/> if the type of the property value doesn't match a <see cref="DateTime"/>.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <returns>An instance of <see cref="DateTime"/> if successful; otherwise, <see langword="null"/>.</returns>
+        public static DateTime? GetDateTimeOrNull(this IPublishedElement? element, string alias) {
+
+            // Get the property value
+            DateTime? dt = element?.Value<DateTime>(alias);
+
+            // Correct for wrong time zone as Umbraco returns the DateTime as "Utc" even though it is actually "Local"
+            return dt is null ? null : new DateTime(dt.Value.Ticks, DateTimeKind.Local);
+
+        }
+
+        /// <summary>
         /// Attempts to get the <see cref="DateTime"/> value of the property with the specified <paramref name="alias"/>.
         /// </summary>
         /// <param name="element">The element holding the property.</param>
@@ -151,6 +168,29 @@ namespace Skybrud.Essentials.Umbraco {
             }
 
             value = default;
+            return false;
+
+        }
+
+        /// <summary>
+        /// Attempts to get the <see cref="DateTime"/> value of the property with the specified <paramref name="alias"/>.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <param name="value">When this method returns, holds the <see cref="DateTime"/> value if successful; otherwise <see langword="null"/>.</param>
+        /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+        public static bool TryGetDateTime(this IPublishedElement? element, string alias, out DateTime? value) {
+
+            if (element is not null && element.HasValue(alias) && element.Value(alias) is DateTime dt) {
+
+                // Correct for wrong time zone as Umbraco returns the DateTime as "Utc" even though it is actually "Local"
+                value = new DateTime(dt.Ticks, DateTimeKind.Local);
+
+                return true;
+
+            }
+
+            value = null;
             return false;
 
         }
