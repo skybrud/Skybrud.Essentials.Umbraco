@@ -59,7 +59,6 @@ namespace Skybrud.Essentials.Umbraco {
         /// <returns>An instance of <see cref="string"/> if successful; otherwise, <paramref name="fallback"/>.</returns>
         [return: NotNullIfNotNull("fallback")]
         public static string? GetString(this IPublishedElement element, string alias, string? fallback) {
-            // TODO: Move to Skybrud.Essentials.Umbraco
             return StringUtils.FirstWithValue(element?.Value<string>(alias), fallback);
         }
 
