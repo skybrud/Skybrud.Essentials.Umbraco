@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using Skybrud.Essentials.Strings;
+using Skybrud.Essentials.Strings.Extensions;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Extensions;
 
@@ -40,6 +41,41 @@ namespace Skybrud.Essentials.Umbraco {
         }
 
         /// <summary>
+        /// Attempts to get a GUID value from the property with the specified <paramref name="alias"/>.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <param name="result">When this method returns, holds <see cref="Guid"/> value if successful; otherwise, <see cref="Guid.Empty"/>.</param>
+        /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+        public static bool TryGetGuid(this IPublishedElement? element, string alias, out Guid result) {
+            if (element.TryGetGuid(alias, out Guid? guid)) {
+                result = guid.Value;
+                return true;
+            }
+            result = Guid.Empty;
+            return false;
+        }
+
+        /// <summary>
+        /// Attempts to get a GUID value from the property with the specified <paramref name="alias"/>.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <param name="result">When this method returns, holds <see cref="Guid"/> value if successful; otherwise, <see langword="null"/>.</param>
+        /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+        public static bool TryGetGuid(this IPublishedElement? element, string alias, [NotNullWhen(true)] out Guid? result) {
+
+            if (element is not null && element.HasProperty(alias)) {
+                result = element.GetGuidOrNull(alias);
+                return result is not null;
+            }
+
+            result = null;
+            return false;
+
+        }
+
+        /// <summary>
         /// Returns the string value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found or it's value converted to a <see cref="string"/> instance.
         /// </summary>
         /// <param name="element">The element holding the property.</param>
@@ -59,6 +95,25 @@ namespace Skybrud.Essentials.Umbraco {
         [return: NotNullIfNotNull("fallback")]
         public static string? GetString(this IPublishedElement? element, string alias, string? fallback) {
             return StringUtils.FirstWithValue(element?.Value<string>(alias), fallback);
+        }
+
+        /// <summary>
+        /// Attempts to get a string value from the property with the specified <paramref name="alias"/>.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <param name="result">When this method returns, holds the string value if successful; otherwise, <see langword="null"/>.</param>
+        /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+        public static bool TryGetString(this IPublishedElement? element, string alias, [NotNullWhen(true)] out string? result) {
+
+            if (element is not null && element.HasProperty(alias)) {
+                result = element.GetString(alias).NullIfWhiteSpace();
+                return result is not null;
+            }
+
+            result = null;
+            return false;
+
         }
 
         /// <summary>
