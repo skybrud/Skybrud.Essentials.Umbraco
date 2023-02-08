@@ -47,7 +47,6 @@ namespace Skybrud.Essentials.Umbraco {
         /// <param name="alias">The alias of the property.</param>
         /// <returns>An instance of <see cref="string"/> if successful; otherwise, <see langword="null"/>.</returns>
         public static string? GetString(this IPublishedElement element, string alias) {
-            // TODO: Move to Skybrud.Essentials.Umbraco
             return element?.Value<string>(alias);
         }
 
