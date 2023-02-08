@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Text.RegularExpressions;
 using Skybrud.Essentials.Strings;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Extensions;
@@ -32,8 +31,8 @@ namespace Skybrud.Essentials.Umbraco {
         /// <param name="element">The element holding the property.</param>
         /// <param name="alias">The alias of the property.</param>
         /// <returns>An instance of <see cref="Guid"/> if successful; otherwise, <see langword="null"/>.</returns>
-        public static Guid? GetGuidOrNull(this IPublishedElement element, string alias) {
-            return element.Value(alias) switch {
+        public static Guid? GetGuidOrNull(this IPublishedElement? element, string alias) {
+            return element?.Value(alias) switch {
                 Guid guid => guid,
                 string str => (Guid.TryParse(str, out Guid g) ? g : null),
                 _ => null
@@ -46,7 +45,7 @@ namespace Skybrud.Essentials.Umbraco {
         /// <param name="element">The element holding the property.</param>
         /// <param name="alias">The alias of the property.</param>
         /// <returns>An instance of <see cref="string"/> if successful; otherwise, <see langword="null"/>.</returns>
-        public static string? GetString(this IPublishedElement element, string alias) {
+        public static string? GetString(this IPublishedElement? element, string alias) {
             return element?.Value<string>(alias);
         }
 
@@ -58,7 +57,7 @@ namespace Skybrud.Essentials.Umbraco {
         /// <param name="fallback">The fallback value.</param>
         /// <returns>An instance of <see cref="string"/> if successful; otherwise, <paramref name="fallback"/>.</returns>
         [return: NotNullIfNotNull("fallback")]
-        public static string? GetString(this IPublishedElement element, string alias, string? fallback) {
+        public static string? GetString(this IPublishedElement? element, string alias, string? fallback) {
             return StringUtils.FirstWithValue(element?.Value<string>(alias), fallback);
         }
 
@@ -68,13 +67,13 @@ namespace Skybrud.Essentials.Umbraco {
         /// <param name="element">The element holding the property.</param>
         /// <param name="alias">The alias of the property.</param>
         /// <returns>An instance of <see cref="DateTime"/>.</returns>
-        public static DateTime GetDateTime(this IPublishedElement element, string alias) {
+        public static DateTime GetDateTime(this IPublishedElement? element, string alias) {
 
             // Get the property value
-            DateTime dt = element.Value<DateTime>(alias);
+            DateTime? dt = element?.Value<DateTime>(alias);
 
             // Correct for wrong time zone as Umbraco returns the DateTime as "Utc" even though it is actually "Local"
-            return new DateTime(dt.Ticks, DateTimeKind.Local);
+            return dt is null ? DateTime.MinValue : new DateTime(dt.Value.Ticks, DateTimeKind.Local);
 
         }
 
@@ -85,9 +84,9 @@ namespace Skybrud.Essentials.Umbraco {
         /// <param name="alias">The alias of the property.</param>
         /// <param name="value">When this method returns, holds the <see cref="DateTime"/> value if successful; otherwise <see cref="DateTime.MinValue"/>.</param>
         /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-        public static bool TryGetDateTime(this IPublishedElement element, string alias, out DateTime value) {
+        public static bool TryGetDateTime(this IPublishedElement? element, string alias, out DateTime value) {
 
-            if (element.HasValue(alias) && element.Value(alias) is DateTime dt) {
+            if (element is not null && element.HasValue(alias) && element.Value(alias) is DateTime dt) {
 
                 // Correct for wrong time zone as Umbraco returns the DateTime as "Utc" even though it is actually "Local"
                 value = new DateTime(dt.Ticks, DateTimeKind.Local);
@@ -102,4 +101,5 @@ namespace Skybrud.Essentials.Umbraco {
         }
 
     }
+
 }
