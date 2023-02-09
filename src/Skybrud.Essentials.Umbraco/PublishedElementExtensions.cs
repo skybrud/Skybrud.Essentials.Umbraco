@@ -195,6 +195,26 @@ namespace Skybrud.Essentials.Umbraco {
 
         }
 
+        /// <summary>
+        /// Attempts to get the value of type <typeparamref name="T"/> from the property with the specified <paramref name="propertyAlias"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of the value.</typeparam>
+        /// <param name="element">The <see cref="IPublishedElement"/> holding the property.</param>
+        /// <param name="propertyAlias">The alias of the property.</param>
+        /// <param name="result">When this method returns, holds the <typeparamref name="T"/> value of the property if successful; otherwise, <see langword="null"/>.</param>
+        /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+        public static bool TryGetValue<T>(this IPublishedElement? element, string propertyAlias, out T? result) {
+
+            result = default;
+
+            if (element == null) return false;
+            if (!element.HasValue(propertyAlias)) return false;
+
+            result = element.Value<T>(propertyAlias);
+            return result != null;
+
+        }
+
     }
 
 }
