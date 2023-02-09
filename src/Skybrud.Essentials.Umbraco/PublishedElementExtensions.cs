@@ -177,7 +177,7 @@ namespace Skybrud.Essentials.Umbraco {
         /// </summary>
         /// <param name="element">The element holding the property.</param>
         /// <param name="alias">The alias of the property.</param>
-        /// <param name="value">When this method returns, holds the <see cref="DateTime"/> value if successful; otherwise <see langword="null"/>.</param>
+        /// <param name="value">When this method returns, holds the <see cref="DateTime"/> value if successful; otherwise, <see langword="null"/>.</param>
         /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
         public static bool TryGetDateTime(this IPublishedElement? element, string alias, out DateTime? value) {
 
