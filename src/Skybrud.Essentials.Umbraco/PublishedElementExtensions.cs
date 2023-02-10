@@ -215,6 +215,73 @@ namespace Skybrud.Essentials.Umbraco {
 
         #endregion
 
+        #region Float
+
+        /// <summary>
+        /// Returns the single-precision floating point value of the property with the specified <paramref name="alias"/>, or <c>0</c> if a matching property could not be found or it's value converted to a <see cref="float"/> instance.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <returns>An instance of <see cref="float"/>.</returns>
+        public static float GetFloat(this IPublishedElement element, string alias) {
+            return GetFloatOrNull(element, alias) ?? default;
+        }
+
+        /// <summary>
+        /// Returns the single-precision floating point value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found or it's value converted to a <see cref="float"/> instance.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <returns>An instance of <see cref="float"/> if successful; otherwise, <see langword="null"/>.</returns>
+        public static float? GetFloatOrNull(this IPublishedElement? element, string alias) {
+            return element?.Value(alias) switch {
+                int number => number,
+                float floating => floating,
+                string str => StringUtils.ParseFloatOrNull(str),
+                _ => null
+            };
+        }
+
+        /// <summary>
+        /// Attempts to get a single-precision floating point value from the property with the specified <paramref name="alias"/>.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <param name="result">When this method returns, holds the <see cref="float"/> value if successful; otherwise, <see langword="false"/>.</param>
+        /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+        public static bool TryGetFloat(this IPublishedElement? element, string alias, out float result) {
+
+            if (element.TryGetFloat(alias, out float? guid)) {
+                result = guid.Value;
+                return true;
+            }
+
+            result = default;
+            return false;
+
+        }
+
+        /// <summary>
+        /// Attempts to get a single-precision floating point value from the property with the specified <paramref name="alias"/>.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <param name="result">When this method returns, holds the <see cref="float"/> value if successful; otherwise, <see langword="null"/>.</param>
+        /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+        public static bool TryGetFloat(this IPublishedElement? element, string alias, [NotNullWhen(true)] out float? result) {
+
+            if (element is not null && element.HasProperty(alias)) {
+                result = element.GetFloatOrNull(alias);
+                return result is not null;
+            }
+
+            result = null;
+            return false;
+
+        }
+
+        #endregion
+
         #region Guid
 
         /// <summary>
