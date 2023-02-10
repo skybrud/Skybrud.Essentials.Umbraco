@@ -148,6 +148,72 @@ namespace Skybrud.Essentials.Umbraco {
 
         #endregion
 
+        #region Int64
+
+        /// <summary>
+        /// Returns the 64-bit signed integer value of the property with the specified <paramref name="alias"/>, or <c>0</c> if a matching property could not be found or it's value converted to a <see cref="long"/> instance.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <returns>An instance of <see cref="long"/>.</returns>
+        public static long GetInt64(this IPublishedElement element, string alias) {
+            return GetInt64OrNull(element, alias) ?? default;
+        }
+
+        /// <summary>
+        /// Returns the 64-bit signed integer value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found or it's value converted to a <see cref="long"/> instance.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <returns>An instance of <see cref="long"/> if successful; otherwise, <see langword="null"/>.</returns>
+        public static long? GetInt64OrNull(this IPublishedElement? element, string alias) {
+            return element?.Value(alias) switch {
+                bool boolean => boolean ? 1 : 0,
+                int number => number,
+                string str => StringUtils.ParseInt64OrNull(str),
+                _ => null
+            };
+        }
+
+        /// <summary>
+        /// Attempts to get a 64-bit signed integer value from the property with the specified <paramref name="alias"/>.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <param name="result">When this method returns, holds the <see cref="long"/> value if successful; otherwise, <see langword="false"/>.</param>
+        /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+        public static bool TryGetInt64(this IPublishedElement? element, string alias, out long result) {
+
+            if (element.TryGetInt64(alias, out long? guid)) {
+                result = guid.Value;
+                return true;
+            }
+
+            result = default;
+            return false;
+
+        }
+
+        /// <summary>
+        /// Attempts to get a 64-bit signed integer value from the property with the specified <paramref name="alias"/>.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <param name="result">When this method returns, holds the <see cref="long"/> value if successful; otherwise, <see langword="null"/>.</param>
+        /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+        public static bool TryGetInt64(this IPublishedElement? element, string alias, [NotNullWhen(true)] out long? result) {
+
+            if (element is not null && element.HasProperty(alias)) {
+                result = element.GetInt64OrNull(alias);
+                return result is not null;
+            }
+
+            result = null;
+            return false;
+
+        }
+
+        #endregion
 
         #region Guid
 
