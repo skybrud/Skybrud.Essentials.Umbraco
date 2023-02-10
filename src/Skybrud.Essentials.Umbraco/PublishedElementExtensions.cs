@@ -15,7 +15,7 @@ namespace Skybrud.Essentials.Umbraco {
         #region Boolean
 
         /// <summary>
-        /// Returns the boolean value of the property with the specified <paramref name="alias"/>, or <see langwird="false"/> if a matching property could not be found or it's value converted to a <see cref="bool"/> instance.
+        /// Returns the boolean value of the property with the specified <paramref name="alias"/>, or <see langword="false"/> if a matching property could not be found or it's value converted to a <see cref="bool"/> instance.
         /// </summary>
         /// <param name="element">The element holding the property.</param>
         /// <param name="alias">The alias of the property.</param>
@@ -52,12 +52,15 @@ namespace Skybrud.Essentials.Umbraco {
         /// <param name="result">When this method returns, holds the <see cref="bool"/> value if successful; otherwise, <see langword="false"/>.</param>
         /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
         public static bool TryGetBoolean(this IPublishedElement? element, string alias, out bool result) {
-            if (element.TryGetBoolean(alias, out bool? guid)) {
-                result = guid.Value;
+
+            if (element.TryGetBoolean(alias, out bool? temp)) {
+                result = temp.Value;
                 return true;
             }
+
             result = default;
             return false;
+
         }
 
         /// <summary>
@@ -117,8 +120,8 @@ namespace Skybrud.Essentials.Umbraco {
         /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
         public static bool TryGetInt32(this IPublishedElement? element, string alias, out int result) {
 
-            if (element.TryGetInt32(alias, out int? guid)) {
-                result = guid.Value;
+            if (element.TryGetInt32(alias, out int? temp)) {
+                result = temp.Value;
                 return true;
             }
 
@@ -169,7 +172,7 @@ namespace Skybrud.Essentials.Umbraco {
         public static long? GetInt64OrNull(this IPublishedElement? element, string alias) {
             return element?.Value(alias) switch {
                 bool boolean => boolean ? 1 : 0,
-                int number => number,
+                long number => number,
                 string str => StringUtils.ParseInt64OrNull(str),
                 _ => null
             };
@@ -184,8 +187,8 @@ namespace Skybrud.Essentials.Umbraco {
         /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
         public static bool TryGetInt64(this IPublishedElement? element, string alias, out long result) {
 
-            if (element.TryGetInt64(alias, out long? guid)) {
-                result = guid.Value;
+            if (element.TryGetInt64(alias, out long? temp)) {
+                result = temp.Value;
                 return true;
             }
 
@@ -251,8 +254,8 @@ namespace Skybrud.Essentials.Umbraco {
         /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
         public static bool TryGetFloat(this IPublishedElement? element, string alias, out float result) {
 
-            if (element.TryGetFloat(alias, out float? guid)) {
-                result = guid.Value;
+            if (element.TryGetFloat(alias, out float? temp)) {
+                result = temp.Value;
                 return true;
             }
 
@@ -318,8 +321,8 @@ namespace Skybrud.Essentials.Umbraco {
         /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
         public static bool TryGetDouble(this IPublishedElement? element, string alias, out double result) {
 
-            if (element.TryGetDouble(alias, out double? guid)) {
-                result = guid.Value;
+            if (element.TryGetDouble(alias, out double? temp)) {
+                result = temp.Value;
                 return true;
             }
 
