@@ -11,6 +11,8 @@ namespace Skybrud.Essentials.Umbraco {
     /// </summary>
     public static class PublishedElementExtensions {
 
+        #region Guid
+
         /// <summary>
         /// Returns the GUID value of the property with the specified <paramref name="alias"/>, or <see cref="Guid.Empty"/> if a matching property could not be found or it's value converted to a <see cref="Guid"/> instance.
         /// </summary>
@@ -74,6 +76,10 @@ namespace Skybrud.Essentials.Umbraco {
 
         }
 
+        #endregion
+
+        #region String
+
         /// <summary>
         /// Returns the string value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found or it's value converted to a <see cref="string"/> instance.
         /// </summary>
@@ -115,6 +121,10 @@ namespace Skybrud.Essentials.Umbraco {
             return false;
 
         }
+
+        #endregion
+
+        #region DateTime
 
         /// <summary>
         /// Returns a <see cref="DateTime"/> value of the property with the specified <paramref name="alias"/>.
@@ -194,6 +204,8 @@ namespace Skybrud.Essentials.Umbraco {
             return false;
 
         }
+
+        #endregion
 
         /// <summary>
         /// Attempts to get the value of type <typeparamref name="T"/> from the property with the specified <paramref name="propertyAlias"/>.
