@@ -81,6 +81,74 @@ namespace Skybrud.Essentials.Umbraco {
 
         #endregion
 
+        #region Int32
+
+        /// <summary>
+        /// Returns the 32-bit signed integer value of the property with the specified <paramref name="alias"/>, or <c>0</c> if a matching property could not be found or it's value converted to a <see cref="int"/> instance.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <returns>An instance of <see cref="int"/>.</returns>
+        public static int GetInt32(this IPublishedElement element, string alias) {
+            return GetInt32OrNull(element, alias) ?? default;
+        }
+
+        /// <summary>
+        /// Returns the 32-bit signed integer value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found or it's value converted to a <see cref="int"/> instance.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <returns>An instance of <see cref="int"/> if successful; otherwise, <see langword="null"/>.</returns>
+        public static int? GetInt32OrNull(this IPublishedElement? element, string alias) {
+            return element?.Value(alias) switch {
+                bool boolean => boolean ? 1 : 0,
+                int number => number,
+                string str => StringUtils.ParseInt32OrNull(str),
+                _ => null
+            };
+        }
+
+        /// <summary>
+        /// Attempts to get a 32-bit signed integer value from the property with the specified <paramref name="alias"/>.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <param name="result">When this method returns, holds the <see cref="int"/> value if successful; otherwise, <see langword="false"/>.</param>
+        /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+        public static bool TryGetInt32(this IPublishedElement? element, string alias, out int result) {
+
+            if (element.TryGetInt32(alias, out int? guid)) {
+                result = guid.Value;
+                return true;
+            }
+
+            result = default;
+            return false;
+
+        }
+
+        /// <summary>
+        /// Attempts to get a 32-bit signed integer value from the property with the specified <paramref name="alias"/>.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <param name="result">When this method returns, holds the <see cref="int"/> value if successful; otherwise, <see langword="null"/>.</param>
+        /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+        public static bool TryGetInt32(this IPublishedElement? element, string alias, [NotNullWhen(true)] out int? result) {
+
+            if (element is not null && element.HasProperty(alias)) {
+                result = element.GetInt32OrNull(alias);
+                return result is not null;
+            }
+
+            result = null;
+            return false;
+
+        }
+
+        #endregion
+
+
         #region Guid
 
         /// <summary>
