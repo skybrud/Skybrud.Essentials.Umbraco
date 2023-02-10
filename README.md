@@ -9,7 +9,7 @@
   </tr>
   <tr>
     <td><strong>Umbraco:</strong></td>
-    <td>Umbraco 10 <sub><sup>(and <a href="https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v1/main">Umbraco 9</a>)</sup></sub></td>
+    <td>Umbraco 10 and 11 <sub><sup>(and <a href="https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v1/main">Umbraco 9</a>)</sup></sub></td>
   </tr>
   <tr>
     <td><strong>Target Framework:</strong></td>
@@ -30,11 +30,11 @@
 To install the package via [NuGet](https://www.nuget.org/packages/Skybrud.Essentials.Umbraco), you can use either .NET CLI:
 
 ```
-dotnet add package Skybrud.Essentials.Umbraco --version 2.0.0-alpha002
+dotnet add package Skybrud.Essentials.Umbraco --version 2.0.0-alpha003
 ```
 
 or the older Nuget package manager:
 
 ```
-Install-Package Skybrud.Essentials.Umbraco -Version 2.0.0-alpha002
+Install-Package Skybrud.Essentials.Umbraco -Version 2.0.0-alpha003
 ```
