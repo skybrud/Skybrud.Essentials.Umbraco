@@ -282,6 +282,73 @@ namespace Skybrud.Essentials.Umbraco {
 
         #endregion
 
+        #region Double
+
+        /// <summary>
+        /// Returns the double-precision doubleing point value of the property with the specified <paramref name="alias"/>, or <c>0</c> if a matching property could not be found or it's value converted to a <see cref="double"/> instance.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <returns>An instance of <see cref="double"/>.</returns>
+        public static double GetDouble(this IPublishedElement element, string alias) {
+            return GetDoubleOrNull(element, alias) ?? default;
+        }
+
+        /// <summary>
+        /// Returns the double-precision doubleing point value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found or it's value converted to a <see cref="double"/> instance.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <returns>An instance of <see cref="double"/> if successful; otherwise, <see langword="null"/>.</returns>
+        public static double? GetDoubleOrNull(this IPublishedElement? element, string alias) {
+            return element?.Value(alias) switch {
+                long number => number,
+                double floating => floating,
+                string str => StringUtils.ParseDoubleOrNull(str),
+                _ => null
+            };
+        }
+
+        /// <summary>
+        /// Attempts to get a double-precision doubleing point value from the property with the specified <paramref name="alias"/>.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <param name="result">When this method returns, holds the <see cref="double"/> value if successful; otherwise, <see langword="false"/>.</param>
+        /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+        public static bool TryGetDouble(this IPublishedElement? element, string alias, out double result) {
+
+            if (element.TryGetDouble(alias, out double? guid)) {
+                result = guid.Value;
+                return true;
+            }
+
+            result = default;
+            return false;
+
+        }
+
+        /// <summary>
+        /// Attempts to get a double-precision doubleing point value from the property with the specified <paramref name="alias"/>.
+        /// </summary>
+        /// <param name="element">The element holding the property.</param>
+        /// <param name="alias">The alias of the property.</param>
+        /// <param name="result">When this method returns, holds the <see cref="double"/> value if successful; otherwise, <see langword="null"/>.</param>
+        /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+        public static bool TryGetDouble(this IPublishedElement? element, string alias, [NotNullWhen(true)] out double? result) {
+
+            if (element is not null && element.HasProperty(alias)) {
+                result = element.GetDoubleOrNull(alias);
+                return result is not null;
+            }
+
+            result = null;
+            return false;
+
+        }
+
+        #endregion
+
         #region Guid
 
         /// <summary>
