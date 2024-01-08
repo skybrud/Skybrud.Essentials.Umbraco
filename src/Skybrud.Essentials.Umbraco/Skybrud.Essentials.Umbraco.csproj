@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>1.0.0-alpha002</Version>
+    <Version>1.0.0</Version>
     <Authors>Anders Bjerner</Authors>
     <Company>Limbo</Company>
     <Product>Skybrud.Essentials</Product>
     <Description>Skybrud.Essentials addon for working with Umbraco 9.</Description>
-    <Copyright>Copyright © 2022</Copyright>
+    <Copyright>Copyright © $([System.DateTime]::UtcNow.ToString(`yyyy`))</Copyright>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -24,10 +24,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Skybrud.Essentials" Version="1.1.34" />
-    <PackageReference Include="Umbraco.Cms.Core" Version="9.0.0" />
-    <PackageReference Include="Umbraco.Cms.Web.Website" Version="9.0.0" />
-    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.0.0" />
+    <PackageReference Include="Skybrud.Essentials" Version="1.1.54" />
+    <PackageReference Include="Umbraco.Cms.Core" Version="[9.0,10.0)" />
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="[9.0,10.0)" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[9.0,10.0)" />
   </ItemGroup>
 
   <PropertyGroup>
