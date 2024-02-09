@@ -5,14 +5,12 @@ using Umbraco.Cms.Core.DependencyInjection;
 
 #pragma warning disable CS1591
 
-namespace Skybrud.Essentials.Umbraco.Composers {
+namespace Skybrud.Essentials.Umbraco.Composers;
 
-    public class EssentialsComposer : IComposer {
+public class EssentialsComposer : IComposer {
 
-        public void Compose(IUmbracoBuilder builder) {
-            builder.Services.AddTransient<TaskHelper>();
-        }
-
+    public void Compose(IUmbracoBuilder builder) {
+        builder.Services.AddTransient<TaskHelper>();
     }
 
 }
