@@ -438,7 +438,7 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <param name="fallback">The fallback value.</param>
     /// <returns>An instance of <see cref="string"/> if successful; otherwise, <paramref name="fallback"/>.</returns>
-    [return: NotNullIfNotNull("fallback")]
+    [return: NotNullIfNotNull(nameof(fallback))]
     public static string? GetString(this IPublishedElement? element, string alias, string? fallback) {
         string? value = element?.Value<string>(alias);
         return string.IsNullOrWhiteSpace(value) ? fallback : value;
