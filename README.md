@@ -13,11 +13,11 @@
   </tr>
   <tr>
     <td><strong>Umbraco:</strong></td>
-    <td>Umbraco 10, 11 and 12 <sub><sup>(and <a href="https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v1/main">Umbraco 9</a>)</sup></sub></td>
+    <td>Umbraco 13 <sub><sup>(also <a href="https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v10/main">Umbraco 10-12</a> and <a href="https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v1/main">Umbraco 9</a>)</sup></sub></td>
   </tr>
   <tr>
     <td><strong>Target Framework:</strong></td>
-    <td>.NET 6 <sub><sup>(and <a href="https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v1/main">.NET 5</a>)</sup></sub></td>
+    <td>.NET 8 <sub><sup>(also <a href="https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v1/main">.NET 6</a> and <a href="https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v1/main">.NET 5</a>)</sup></sub></td>
   </tr>
 </table>
 
@@ -31,14 +31,14 @@
 
 ### NuGet
 
-To install the package via [NuGet](https://www.nuget.org/packages/Skybrud.Essentials.Umbraco), you can use either .NET CLI:
+To install the package via [**NuGet**](https://www.nuget.org/packages/Skybrud.Essentials.Umbraco), you can use either .NET CLI:
 
 ```
-dotnet add package Skybrud.Essentials.Umbraco --version 10.0.0
+dotnet add package Skybrud.Essentials.Umbraco --version 13.0.0
 ```
 
-or the older Nuget package manager:
+or the NuGet Package Manager:
 
 ```
-Install-Package Skybrud.Essentials.Umbraco -Version 10.0.0
+Install-Package Skybrud.Essentials.Umbraco -Version 13.0.0
 ```
