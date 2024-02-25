@@ -1,1 +1,5 @@
-# `PublishedElementExtensions` extension mehtods
+---
+title: IPublishedElement
+---
+
+# `IPublishedElement` extension mehtods

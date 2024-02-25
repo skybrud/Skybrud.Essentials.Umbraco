@@ -1,4 +1,8 @@
-# `UmbracoContextAccessorExtensions` extension methods
+---
+title: IUmbracoContextAccessor
+---
+
+# `IUmbracoContextAccessor` extension methods
 
 In ASP.NET Core versions of Umbraco, the <code type="Umbraco.Cms.Core.Web.IUmbracoContextAccessor">IUmbracoContextAccessor</code> interface represents an injectable service that allows getting the current <code type="Umbraco.Cms.Core.Web.IUmbracoContext">IUmbracoContext</code> instance - if one is available.
 
