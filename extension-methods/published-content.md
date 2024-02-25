@@ -1,0 +1,1 @@
+# `IPublishedContent` extension methods

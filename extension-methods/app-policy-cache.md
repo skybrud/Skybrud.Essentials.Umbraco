@@ -1,0 +1,1 @@
+# `IAppPolicyCache` extension methods

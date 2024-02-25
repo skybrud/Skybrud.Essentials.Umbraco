@@ -1,0 +1,1 @@
+# `IPublishedContentCache` extension methods
