@@ -4,9 +4,7 @@ title: IUmbracoContextAccessor
 
 # `IUmbracoContextAccessor` extension methods
 
-In ASP.NET Core versions of Umbraco, the <code type="Umbraco.Cms.Core.Web.IUmbracoContextAccessor">IUmbracoContextAccessor</code> interface represents an injectable service that allows getting the current <code type="Umbraco.Cms.Core.Web.IUmbracoContext">IUmbracoContext</code> instance - if one is available.
-
-The <code type="Umbraco.Cms.Core.Web.IUmbracoContextAccessor">IUmbracoContextAccessor</code> describes a `TryGetUmbracoContext` method as well as a `GetRequiredUmbracoContext` extension method.
+In ASP.NET Core versions of Umbraco, the <code type="Umbraco.Cms.Core.Web.IUmbracoContextAccessor">IUmbracoContextAccessor</code> interface represents an injectable service that allows getting the current <code type="Umbraco.Cms.Core.Web.IUmbracoContext">IUmbracoContext</code> instance - if one is available. The <code type="Umbraco.Cms.Core.Web.IUmbracoContextAccessor">IUmbracoContextAccessor</code> describes a `TryGetUmbracoContext` method as well as a `GetRequiredUmbracoContext` extension method.
 
 The `TryGetUmbracoContext` generally works well when you need to check whether an <code type="Umbraco.Cms.Core.Web.IUmbracoContext">IUmbracoContext</code> is currently available, and the `GetRequiredUmbracoContext` extension method will get the current <code type="Umbraco.Cms.Core.Web.IUmbracoContext">IUmbracoContext</code> - or throw an exception if not available.
 
@@ -32,7 +30,6 @@ public class MyService {
             .GetUmbracoContext()?.Content?
             .GetById(siteId)?
             .FirstChildOfType("newsList");
-
     }
 
 }
