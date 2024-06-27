@@ -106,7 +106,7 @@ public class TaskHelper {
         if (now < scheduled) return false;
 
         // Return "false" if the task is not supposed to run the current day
-        if (weekdays != null && weekdays.Length > 0 && !weekdays.Contains(now.DayOfWeek)) return false;
+        if (weekdays is { Length: > 0 } && !weekdays.Contains(now.DayOfWeek)) return false;
 
         // Get the last run time of the task
         DateTime lastRunTime = GetLastRunTime(GetTaskName(task));

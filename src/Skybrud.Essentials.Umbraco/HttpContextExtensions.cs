@@ -32,7 +32,7 @@ public static class HttpContextExtensions {
     /// <returns><see langword="false"/> if the user is logged in to the backoffice; otherwise, <see langword="false"/>.</returns>
     public static bool IsBackOfficeAuthenticated(this HttpContext? context, [NotNullWhen(true)] out ClaimsIdentity? identity) {
 
-        // Check whether a backoffice identity is already available at this point - eg. for a backoffice request
+        // Check whether a backoffice identity is already available at this point - e.g. for a backoffice request
         if (TryGetBackOfficeIdentity(context, out identity)) return true;
 
         // Try to authenticate the user
