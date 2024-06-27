@@ -11,6 +11,7 @@ public class EssentialsComposer : IComposer {
 
     public void Compose(IUmbracoBuilder builder) {
         builder.Services.AddTransient<TaskHelper>();
+        builder.ManifestFilters().Append<EssentialsManifestFilter>();
     }
 
 }
