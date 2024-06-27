@@ -43,7 +43,7 @@
     <None Include="..\..\NUGET.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
-  <!-- Include internal files from the NuGet package -->
+  <!-- Exclude internal files from the NuGet package -->
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
     <None Include="compilerconfig.json" />
