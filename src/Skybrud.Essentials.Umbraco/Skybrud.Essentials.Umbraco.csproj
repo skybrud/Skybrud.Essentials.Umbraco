@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <VersionPrefix>13.0.0</VersionPrefix>
+    <VersionPrefix>13.0.1</VersionPrefix>
     <VersionSuffix Condition="'$(Configuration)'=='Debug'">build$([System.DateTime]::UtcNow.ToString(`yyyyMMddHHmm`))</VersionSuffix>
     <Authors>Anders Bjerner</Authors>
     <Company>Limbo</Company>
@@ -22,12 +22,20 @@
     <PackageId>Skybrud.Essentials.Umbraco</PackageId>
     <PackageTags>Skybrud, Limbo, Essentials, Umbraco, Extensions, Umbraco-Marketplace</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://packages.skybrud.dk/skybrud.essentials.umbraco/</PackageProjectUrl>
+    <PackageProjectUrl>https://packages.limbo.works/skybrud.essentials.umbraco/</PackageProjectUrl>
     <PackageIcon>Limbo.png</PackageIcon>
     <PackageReadmeFile>NUGET.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/skybrud/Skybrud.Essentials.Umbraco</RepositoryUrl>
   </PropertyGroup>
+
+  <!-- Include additional metadata in the assembly -->
+  <ItemGroup>
+    <AssemblyMetadata Include="PackageProjectUrl" Value="https://packages.limbo.works/skybrud.essentials.umbraco/" />
+    <AssemblyMetadata Include="DocumentationUrl" Value="https://packages.limbo.works/skybrud.essentials.umbraco/docs/v13/" />
+    <AssemblyMetadata Include="NuGetUrl" Value="https://www.nuget.org/packages/Skybrud.Essentials.Umbraco" />
+    <AssemblyMetadata Include="UmbracoMarketplaceUrl" Value="https://marketplace.umbraco.com/package/skybrud.essentials.umbraco" />
+  </ItemGroup>
 
   <!-- Include NuGet dependencies -->
   <ItemGroup>
@@ -43,7 +51,7 @@
     <None Include="..\..\NUGET.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
-  <!-- Include internal files from the NuGet package -->
+  <!-- Exclude internal files from the NuGet package -->
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
     <None Include="compilerconfig.json" />
