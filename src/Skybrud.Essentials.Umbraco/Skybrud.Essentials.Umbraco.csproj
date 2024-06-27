@@ -37,10 +37,16 @@
     <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[13.0.0,13.999)" />
   </ItemGroup>
 
-  <!-- Include package icon for NuGet -->
+  <!-- Include package icon for NuGet package -->
   <ItemGroup>
     <Content Include="../build/Limbo.png" Pack="true" PackagePath="\" />
     <None Include="..\..\NUGET.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <!-- Include internal files from the NuGet package -->
+  <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+    <None Include="compilerconfig.json" />
   </ItemGroup>
 
   <!-- Generate XML documentation -->
