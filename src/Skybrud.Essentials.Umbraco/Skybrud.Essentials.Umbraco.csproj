@@ -42,7 +42,7 @@
     <PackageReference Include="Skybrud.Essentials" Version="1.1.57" />
     <PackageReference Include="Umbraco.Cms.Core" Version="[10.0.0,12.999)" />
     <PackageReference Include="Umbraco.Cms.Web.Website" Version="[10.0.0,12.999)" />
-    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[10.0.0,12.999)" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[10.0.0,12.999)" NoWarn="NU1902,NU1903" />
   </ItemGroup>
 
   <!-- Include package icon for NuGet package -->
