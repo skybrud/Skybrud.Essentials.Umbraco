@@ -1,8 +1,9 @@
 # Skybrud.Essentials.Umbraco
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/skybrud/Skybrud.Essentials.Umbraco/blob/v10/main/LICENSE.md)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/skybrud/Skybrud.Essentials.Umbraco/blob/v13/main/LICENSE.md)
 [![NuGet](https://img.shields.io/nuget/vpre/Skybrud.Essentials.Umbraco.svg)](https://www.nuget.org/packages/Skybrud.Essentials.Umbraco)
 [![NuGet](https://img.shields.io/nuget/dt/Skybrud.Essentials.Umbraco.svg)](https://www.nuget.org/packages/Skybrud.Essentials.Umbraco)
+[![Skybrud.Essentials.Umbraco at packages.limbo.works](https://img.shields.io/badge/limbo-packages-blue)](https://packages.limbo.works/skybrud.essentials.umbraco/)
 
 **Skybrud.Essentials.Umbraco** is an add-on that builds on top of our [Skybrud.Essentials](https://github.com/skybrud/Skybrud.Essentials) package, and it provides various logic that makes it easier to work with different parts of Umbraco.
 
@@ -29,16 +30,21 @@
 <br /><br />
 ## Installation
 
-### NuGet
+### Umbraco 13
 
 To install the package via [**NuGet**](https://www.nuget.org/packages/Skybrud.Essentials.Umbraco), you can use either .NET CLI:
 
 ```
-dotnet add package Skybrud.Essentials.Umbraco --version 13.0.0
+dotnet add package Skybrud.Essentials.Umbraco --version 13.0.2
 ```
 
 or the NuGet Package Manager:
 
 ```
-Install-Package Skybrud.Essentials.Umbraco -Version 13.0.0
+Install-Package Skybrud.Essentials.Umbraco -Version 13.0.2
 ```
+
+### Other versions of Umbraco
+
+- [**`v10/main`**](https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v10/main) Umbraco 10
+- ~~[**`v1/main`**](https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v1/main) Umbraco 9~~ <sub title="Umbraco 9 has reached end-of-life"><sup>(EOL)</sup></sub>
