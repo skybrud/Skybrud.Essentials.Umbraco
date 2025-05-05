@@ -13,7 +13,7 @@
     <Authors>Anders Bjerner</Authors>
     <Company>Limbo</Company>
     <Product>Skybrud.Essentials</Product>
-    <Description>Skybrud.Essentials addon for working with Umbraco 10+.</Description>
+    <Description>Skybrud.Essentials addon for working with Umbraco 10.</Description>
     <Copyright>Copyright © $([System.DateTime]::UtcNow.ToString(`yyyy`))</Copyright>
   </PropertyGroup>
 
@@ -28,6 +28,14 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/skybrud/Skybrud.Essentials.Umbraco</RepositoryUrl>
   </PropertyGroup>
+
+  <!-- Include additional metadata in the assembly -->
+  <ItemGroup>
+    <AssemblyMetadata Include="PackageProjectUrl" Value="https://packages.limbo.works/skybrud.essentials.umbraco/" />
+    <AssemblyMetadata Include="DocumentationUrl" Value="https://packages.limbo.works/skybrud.essentials.umbraco/docs/" />
+    <AssemblyMetadata Include="NuGetUrl" Value="https://www.nuget.org/packages/Skybrud.Essentials.Umbraco" />
+    <AssemblyMetadata Include="UmbracoMarketplaceUrl" Value="https://marketplace.umbraco.com/package/skybrud.essentials.umbraco" />
+  </ItemGroup>
 
   <!-- Include NuGet dependencies -->
   <ItemGroup>
