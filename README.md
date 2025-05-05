@@ -29,16 +29,21 @@
 <br /><br />
 ## Installation
 
-### NuGet
+### Umbraco 10
 
 To install the package via [NuGet](https://www.nuget.org/packages/Skybrud.Essentials.Umbraco), you can use either .NET CLI:
 
 ```
-dotnet add package Skybrud.Essentials.Umbraco --version 10.0.0
+dotnet add package Skybrud.Essentials.Umbraco --version 10.0.2
 ```
 
-or the older Nuget package manager:
+or the NuGet package manager:
 
 ```
-Install-Package Skybrud.Essentials.Umbraco -Version 10.0.0
+Install-Package Skybrud.Essentials.Umbraco -Version 10.0.2
 ```
+
+### Other versions of Umbraco
+
+- [**`v13/main`**](https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v13/main) Umbraco 13
+- ~~[**`v1/main`**](https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v1/main) Umbraco 9~~ <sub title="Umbraco 9 has reached end-of-life"><sup>(EOL)</sup></sub>
