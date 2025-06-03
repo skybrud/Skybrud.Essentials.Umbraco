@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Skybrud.Essentials.Strings;
 using Skybrud.Essentials.Strings.Extensions;
@@ -26,6 +27,26 @@ public static class PublishedElementExtensions {
             int number => number == 1,
             string str => StringUtils.ParseBoolean(str),
             _ => false
+        };
+    }
+
+    /// <summary>
+    /// Returns the boolean value of the property with the specified <paramref name="propertyAlias"/>, or the specified <paramref name="fallback"/> value if a matching property could not be found, or it's value converted to a <see cref="bool"/> instance.
+    /// </summary>
+    /// <param name="element">The element holding the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <param name="fallback">The fallback value.</param>
+    /// <returns>An instance of <see cref="bool"/> if successful; otherwise, <paramref name="fallback"/>.</returns>
+    public static bool GetBoolean(this IPublishedElement element, string propertyAlias, bool fallback) {
+        return element.Value(propertyAlias) switch {
+            bool boolean => boolean,
+            int number => number switch {
+                0 => false,
+                1 => true,
+                _ => fallback
+            },
+            string str => StringUtils.ParseBoolean(str, fallback),
+            _ => fallback
         };
     }
 
@@ -460,6 +481,33 @@ public static class PublishedElementExtensions {
 
         result = null;
         return false;
+
+    }
+
+    /// <summary>
+    /// Returns the string value if the property with the specified <paramref name="propertyAlias"/> exists and has a non-empty value; otherwise, <see langword="null"/> is returned.
+    /// </summary>
+    /// <param name="element">The element holding the property.</param>
+    /// <param name="propertyAlias">The property aliases to check.</param>
+    /// <returns>A string value if successful; otherwise, <see langword="null"/>.</returns>
+    public static string? GetStringOrNull(this IPublishedElement element, string propertyAlias) {
+        return element.GetString(propertyAlias).NullIfWhiteSpace();
+    }
+
+    /// <summary>
+    /// Returns the first string value of the properties matching the specified <paramref name="propertyAliases"/>. If
+    /// a non-empty string value isn't found, <see langword="null"/> is returned instead.
+    /// </summary>
+    /// <param name="content"></param>
+    /// <param name="propertyAliases">The property aliases to check.</param>
+    /// <returns>The string value if successful; otherwise, <see langword="null"/>.</returns>
+    internal static string? GetStringOrNull(this IPublishedElement content, IEnumerable<string> propertyAliases) {
+
+        foreach (string propertyAlias in propertyAliases) {
+            if (content.TryGetString(propertyAlias, out string? result)) return result;
+        }
+
+        return null;
 
     }
 

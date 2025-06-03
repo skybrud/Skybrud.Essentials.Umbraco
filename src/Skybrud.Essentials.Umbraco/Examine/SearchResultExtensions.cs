@@ -1,0 +1,231 @@
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using Examine;
+using Skybrud.Essentials.Strings;
+
+namespace Skybrud.Essentials.Umbraco.Examine;
+
+/// <summary>
+/// Static class with various extension methods for working with Examine.
+/// </summary>
+public static class SearchResultExtensions {
+
+    #region Boolean
+
+    /// <summary>
+    /// Returns the <see cref="bool"/> value of the field with the specified <paramref name="key"/>, or <see langword="false"/> if the field doesn't exist or the value cannot be converted to a <see cref="bool"/>.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>An instance of <see cref="bool"/> if successful; otherwise, <see langword="false"/>.</returns>
+    public static bool GetBoolean(this ISearchResult result, string key) {
+        return result.TryGetBoolean(key, out bool value) && value;
+    }
+
+    /// <summary>
+    /// Returns the <see cref="bool"/> value of the field with the specified <paramref name="key"/>, or <see langword="null"/> if the field doesn't exist or the value cannot be converted to a <see cref="bool"/>.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>An instance of <see cref="bool"/> if successful; otherwise, <see langword="null"/>.</returns>
+    public static bool? GetBooleanOrNull(this ISearchResult result, string key) {
+        return result.TryGetBoolean(key, out bool value) ? value : null;
+    }
+
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="bool"/>.
+    /// </summary>
+    /// <param name="searchResult">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="result">When this method returns, contains the value associated with the specified key, if the key is found, and if the value can be converted to a <see cref="int"/>; otherwise, <see langword="false"/>. This parameter is passed uninitialized.</param>
+    /// <returns><see langword="true"/> if the value set contains a field with the specified key and the value can be converted to a <see cref="bool"/>; otherwise, <see langword="false"/>.</returns>
+    public static bool TryGetBoolean(this ISearchResult searchResult, string key, out bool result) {
+        result = false;
+        return searchResult.Values.TryGetValue(key, out string? str) && StringUtils.TryParseBoolean(str, out result);
+    }
+
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="bool"/>.
+    /// </summary>
+    /// <param name="searchResult">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="result">When this method returns, contains the value associated with the specified key, if the key is found, and if the value can be converted to a <see cref="int"/>; otherwise, <see langword="null"/>. This parameter is passed uninitialized.</param>
+    /// <returns><see langword="true"/> if the value set contains a field with the specified key and the value can be converted to a <see cref="bool"/>; otherwise, <see langword="false"/>.</returns>
+    public static bool TryGetBoolean(this ISearchResult searchResult, string key, [NotNullWhen(true)] out bool? result) {
+        result = null;
+        return searchResult.Values.TryGetValue(key, out string? str) && StringUtils.TryParseBoolean(str, out result);
+    }
+
+    #endregion
+
+    #region Guid
+
+    /// <summary>
+    /// Returns the <see cref="Guid"/> value of the field with the specified <paramref name="key"/>, or <see cref="Guid.Empty"/> if the field doesn't exist or the value cannot be converted to a <see cref="Guid"/>.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>An instance of <see cref="Guid"/> if successful; otherwise, <see cref="Guid.Empty"/>.</returns>
+    public static Guid GetGuid(this ISearchResult result, string key) {
+        return result.TryGetGuid(key, out Guid value) ? value : Guid.Empty;
+    }
+
+    /// <summary>
+    /// Returns the <see cref="Guid"/> value of the field with the specified <paramref name="key"/>, or <see langword="null"/> if the field doesn't exist or the value cannot be converted to a <see cref="Guid"/>.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>An instance of <see cref="Guid"/> if successful; otherwise, <see langword="null"/>.</returns>
+    public static Guid? GetGuidOrNull(this ISearchResult result, string key) {
+        return result.TryGetGuid(key, out Guid value) ? value : null;
+    }
+
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="Guid"/>.
+    /// </summary>
+    /// <param name="searchResult">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="result">When this method returns, contains the value associated with the specified key, if the key is found; otherwise, <see cref="Guid.Empty"/>. This parameter is passed uninitialized.</param>
+    /// <returns><see langword="true"/> if the value set contains a field with the specified key and the value can be converted to a <see cref="Guid"/>; otherwise, <see langword="false"/>.</returns>
+    public static bool TryGetGuid(this ISearchResult searchResult, string key, out Guid result) {
+
+        if (searchResult.Values.TryGetValue(key, out string? str)) {
+            return Guid.TryParse(str, out result);
+        }
+
+        result = Guid.Empty;
+        return false;
+
+    }
+
+    #endregion
+
+    #region Int32
+
+    /// <summary>
+    /// Returns the <see cref="int"/> value of the field with the specified <paramref name="key"/>, or <c>0</c> if the field doesn't exist or the value cannot be converted to a <see cref="int"/>.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>An instance of <see cref="int"/> if successful; otherwise, <c>0</c>.</returns>
+    public static int GetInt32(this ISearchResult result, string key) {
+        return result.TryGetInt32(key, out int value) ? value : 0;
+    }
+
+    /// <summary>
+    /// Returns the <see cref="int"/> value of the field with the specified <paramref name="key"/>, or <see langword="null"/> if the field doesn't exist or the value cannot be converted to a <see cref="int"/>.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>An instance of <see cref="int"/> if successful; otherwise, <see langword="null"/>.</returns>
+    public static int? GetInt32OrNull(this ISearchResult result, string key) {
+        return result.TryGetInt32(key, out int value) ? value : null;
+    }
+
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="int"/>.
+    /// </summary>
+    /// <param name="searchResult">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="result">When this method returns, contains the value associated with the specified key, if the key is found, and if the value can be converted to a <see cref="int"/>; otherwise, <c>0</c>. This parameter is passed uninitialized.</param>
+    /// <returns><see langword="true"/> if the value set contains a field with the specified key and the value can be converted to a <see cref="int"/>; otherwise, <see langword="false"/>.</returns>
+    public static bool TryGetInt32(this ISearchResult searchResult, string key, out int result) {
+        result = 0;
+        return searchResult.Values.TryGetValue(key, out string? str) && StringUtils.TryParseInt32(str, out result);
+    }
+
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="int"/>.
+    /// </summary>
+    /// <param name="searchResult">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="result">When this method returns, contains the value associated with the specified key, if the key is found, and if the value can be converted to a <see cref="int"/>; otherwise, <see langword="null"/>. This parameter is passed uninitialized.</param>
+    /// <returns><see langword="true"/> if the value set contains a field with the specified key and the value can be converted to a <see cref="int"/>; otherwise, <see langword="false"/>.</returns>
+    public static bool TryGetInt32(this ISearchResult searchResult, string key, [NotNullWhen(true)] out int? result) {
+        result = null;
+        return searchResult.Values.TryGetValue(key, out string? str) && StringUtils.TryParseInt32(str, out result);
+    }
+
+    #endregion
+
+    #region Int64
+
+    /// <summary>
+    /// Returns the <see cref="long"/> value of the field with the specified <paramref name="key"/>, or <c>0</c> if the field doesn't exist or the value cannot be converted to a <see cref="long"/>.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>An instance of <see cref="long"/> if successful; otherwise, <c>0</c>.</returns>
+    public static long GetInt64(this ISearchResult result, string key) {
+        return result.TryGetInt64(key, out long value) ? value : 0;
+    }
+
+    /// <summary>
+    /// Returns the <see cref="long"/> value of the field with the specified <paramref name="key"/>, or <see langword="null"/> if the field doesn't exist or the value cannot be converted to a <see cref="long"/>.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>An instance of <see cref="long"/> if successful; otherwise, <see langword="null"/>.</returns>
+    public static long? GetInt64OrNull(this ISearchResult result, string key) {
+        return result.TryGetInt64(key, out long value) ? value : null;
+    }
+
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="long"/>.
+    /// </summary>
+    /// <param name="searchResult">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="result">When this method returns, contains the value associated with the specified key, if the key is found, and if the value can be converted to a <see cref="int"/>; otherwise, <c>0</c>. This parameter is passed uninitialized.</param>
+    /// <returns><see langword="true"/> if the value set contains a field with the specified key and the value can be converted to a <see cref="long"/>; otherwise, <see langword="false"/>.</returns>
+    public static bool TryGetInt64(this ISearchResult searchResult, string key, out long result) {
+        result = 0;
+        return searchResult.Values.TryGetValue(key, out string? str) && StringUtils.TryParseInt64(str, out result);
+    }
+
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="long"/>.
+    /// </summary>
+    /// <param name="searchResult">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="result">When this method returns, contains the value associated with the specified key, if the key is found, and if the value can be converted to a <see cref="int"/>; otherwise, <see langword="null"/>. This parameter is passed uninitialized.</param>
+    /// <returns><see langword="true"/> if the value set contains a field with the specified key and the value can be converted to a <see cref="long"/>; otherwise, <see langword="false"/>.</returns>
+    public static bool TryGetInt64(this ISearchResult searchResult, string key, [NotNullWhen(true)] out long? result) {
+        result = null;
+        return searchResult.Values.TryGetValue(key, out string? str) && StringUtils.TryParseInt64(str, out result);
+    }
+
+    #endregion
+
+    #region String
+
+    /// <summary>
+    /// Returns the string value of the field with the specified <paramref name="key"/>.
+    /// </summary>
+    /// <param name="searchResult">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>An instance if <see cref="string"/> holding the field value if successful; otherwise, <see langword="null"/>.</returns>
+    public static string? GetString(this ISearchResult searchResult, string key) {
+        return searchResult.Values.TryGetValue(key, out string? result) ? result : null;
+    }
+
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/>.
+    /// </summary>
+    /// <param name="searchResult">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="result">When this method returns, contains the value associated with the specified key, if the key is found; otherwise, <see langword="null"/>. This parameter is passed uninitialized.</param>
+    /// <returns><see langword="true"/> if the result contains a field with the specified key; otherwise, <see langword="null"/>.</returns>
+    public static bool TryGetString(this ISearchResult searchResult, string key, [NotNullWhen(true)] out string? result) {
+
+        if (searchResult.Values.TryGetValue(key, out result)) {
+            return true;
+        }
+
+        result = null;
+        return false;
+
+    }
+
+    #endregion
+
+}
