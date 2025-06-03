@@ -13,9 +13,9 @@ using Umbraco.Extensions;
 namespace Skybrud.Essentials.Umbraco.Media;
 
 /// <summary>
-/// Default implementation of the <see cref="IMediaHelper"/> interface.
+/// Helper class for working with media in Umbraco.
 /// </summary>
-public class MediaHelper : IMediaHelper {
+public class MediaHelper {
 
     public IMediaService MediaService { get; }
 
@@ -38,7 +38,7 @@ public class MediaHelper : IMediaHelper {
     /// <param name="shortStringHelper"></param>
     /// <param name="contentTypeBaseServiceProvider"></param>
     public MediaHelper(IMediaService mediaService, MediaFileManager mediaFileManager, MediaUrlGeneratorCollection mediaUrlGeneratorCollection, IShortStringHelper shortStringHelper, IContentTypeBaseServiceProvider contentTypeBaseServiceProvider) {
-        MediaService = mediaService;;
+        MediaService = mediaService;
         MediaFileManager = mediaFileManager;
         MediaUrlGeneratorCollection = mediaUrlGeneratorCollection;
         ShortStringHelper = shortStringHelper;
@@ -54,7 +54,7 @@ public class MediaHelper : IMediaHelper {
     /// </summary>
     /// <param name="media">The parent media.</param>
     /// <param name="file">An uploaded file.</param>
-    public void SetValue(IMedia media, IFormFile file) {
+    public virtual void SetValue(IMedia media, IFormFile file) {
         SetValue(media, file, file.FileName);
     }
 
@@ -64,7 +64,7 @@ public class MediaHelper : IMediaHelper {
     /// <param name="media">The parent media.</param>
     /// <param name="file">An uploaded file.</param>
     /// <param name="fileName">The name of the media file. If not specified, the name of <paramref name="file"/> will be used instead.</param>
-    public void SetValue(IMedia media, IFormFile file, string? fileName) {
+    public virtual void SetValue(IMedia media, IFormFile file, string? fileName) {
         media.SetValue(MediaFileManager, MediaUrlGeneratorCollection, ShortStringHelper, ContentTypeBaseServiceProvider, Constants.Conventions.Media.File, fileName ?? file.FileName, file.OpenReadStream());
     }
 
@@ -74,7 +74,7 @@ public class MediaHelper : IMediaHelper {
     /// <param name="media">The parent media.</param>
     /// <param name="stream">The stream.</param>
     /// <param name="fileName">The name of the media file.</param>
-    public void SetValue(IMedia media, Stream stream, string fileName) {
+    public virtual void SetValue(IMedia media, Stream stream, string fileName) {
         media.SetValue(MediaFileManager, MediaUrlGeneratorCollection, ShortStringHelper, ContentTypeBaseServiceProvider, Constants.Conventions.Media.File, fileName, stream);
     }
 

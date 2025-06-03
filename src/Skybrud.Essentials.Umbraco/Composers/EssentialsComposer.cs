@@ -12,7 +12,7 @@ public class EssentialsComposer : IComposer {
 
     public void Compose(IUmbracoBuilder builder) {
         builder.Services.AddTransient<TaskHelper>();
-        builder.Services.AddSingleton<IMediaHelper, MediaHelper>();
+        builder.Services.AddSingleton<MediaHelper>();
         builder.ManifestFilters().Append<EssentialsManifestFilter>();
     }
 
