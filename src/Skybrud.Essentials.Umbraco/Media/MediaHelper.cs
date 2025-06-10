@@ -50,12 +50,44 @@ public class MediaHelper {
     #region Member methods
 
     /// <summary>
+    /// Sets the property value to the specified <paramref name="file"/>.
+    /// </summary>
+    /// <param name="media">The parent media.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <param name="file">An uploaded file.</param>
+    public virtual void SetValue(IMedia media, string propertyAlias, IFormFile file) {
+        SetValue(media, propertyAlias, file, file.FileName);
+    }
+
+    /// <summary>
+    /// Sets the property value to the specified <paramref name="file"/>.
+    /// </summary>
+    /// <param name="media">The parent media.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <param name="file">An uploaded file.</param>
+    /// <param name="fileName">The name of the media file. If not specified, the name of <paramref name="file"/> will be used instead.</param>
+    public virtual void SetValue(IMedia media, string propertyAlias, IFormFile file, string? fileName) {
+        SetValue(media, propertyAlias, file.OpenReadStream(), fileName ?? file.FileName);
+    }
+
+    /// <summary>
+    /// Sets the property value to the file in specified <paramref name="stream"/>.
+    /// </summary>
+    /// <param name="media">The parent media.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <param name="stream">The stream.</param>
+    /// <param name="fileName">The name of the media file.</param>
+    public virtual void SetValue(IMedia media, string propertyAlias, Stream stream, string fileName) {
+        media.SetValue(MediaFileManager, MediaUrlGeneratorCollection, ShortStringHelper, ContentTypeBaseServiceProvider, propertyAlias, fileName, stream);
+    }
+
+    /// <summary>
     /// Sets the <c>umbracoFile</c> property value to the specified <paramref name="file"/>.
     /// </summary>
     /// <param name="media">The parent media.</param>
     /// <param name="file">An uploaded file.</param>
-    public virtual void SetValue(IMedia media, IFormFile file) {
-        SetValue(media, file, file.FileName);
+    public virtual void SetUmbracoFile(IMedia media, IFormFile file) {
+        SetUmbracoFile(media, file, file.FileName);
     }
 
     /// <summary>
@@ -64,7 +96,7 @@ public class MediaHelper {
     /// <param name="media">The parent media.</param>
     /// <param name="file">An uploaded file.</param>
     /// <param name="fileName">The name of the media file. If not specified, the name of <paramref name="file"/> will be used instead.</param>
-    public virtual void SetValue(IMedia media, IFormFile file, string? fileName) {
+    public virtual void SetUmbracoFile(IMedia media, IFormFile file, string? fileName) {
         media.SetValue(MediaFileManager, MediaUrlGeneratorCollection, ShortStringHelper, ContentTypeBaseServiceProvider, Constants.Conventions.Media.File, fileName ?? file.FileName, file.OpenReadStream());
     }
 
@@ -74,7 +106,7 @@ public class MediaHelper {
     /// <param name="media">The parent media.</param>
     /// <param name="stream">The stream.</param>
     /// <param name="fileName">The name of the media file.</param>
-    public virtual void SetValue(IMedia media, Stream stream, string fileName) {
+    public virtual void SetUmbracoFile(IMedia media, Stream stream, string fileName) {
         media.SetValue(MediaFileManager, MediaUrlGeneratorCollection, ShortStringHelper, ContentTypeBaseServiceProvider, Constants.Conventions.Media.File, fileName, stream);
     }
 
