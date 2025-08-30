@@ -11,6 +11,11 @@ public static class UmbracoMediaTypes {
     public const string Article = global::Umbraco.Cms.Core.Constants.Conventions.MediaTypes.ArticleAlias;
 
     /// <summary>
+    /// Gets the alias of the <strong>Audio</strong> media type.
+    /// </summary>
+    public const string Audio = global::Umbraco.Cms.Core.Constants.Conventions.MediaTypes.AudioAlias;
+
+    /// <summary>
     /// Gets the alias of the <strong>File</strong> media type.
     /// </summary>
     public const string File = global::Umbraco.Cms.Core.Constants.Conventions.MediaTypes.File;
