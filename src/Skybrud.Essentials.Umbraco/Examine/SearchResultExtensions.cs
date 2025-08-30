@@ -56,6 +56,18 @@ public static class SearchResultExtensions {
         return searchResult.Values.TryGetValue(key, out string? str) && StringUtils.TryParseBoolean(str, out result);
     }
 
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="bool"/>.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>The bool value if successful.</returns>
+    /// <exception cref="Exception">If the field doesn't exist or the value is can not be converted to a <see cref="bool"/>.</exception>
+    public static bool GetRequireBoolean(this ISearchResult result, string key) {
+        if (!result.TryGetBoolean(key, out bool value)) throw new Exception($"Failed getting boolean value from the '{key}' field.");
+        return value;
+    }
+
     #endregion
 
     #region Guid
@@ -96,6 +108,18 @@ public static class SearchResultExtensions {
         result = Guid.Empty;
         return false;
 
+    }
+
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="Guid"/>.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>The GUID value if successful.</returns>
+    /// <exception cref="Exception">If the field doesn't exist or the value is can not be converted to a <see cref="Guid"/>.</exception>
+    public static Guid GetRequireGuid(this ISearchResult result, string key) {
+        if (!result.TryGetGuid(key, out Guid value)) throw new Exception($"Failed getting GUID value from the '{key}' field.");
+        return value;
     }
 
     #endregion
@@ -146,6 +170,18 @@ public static class SearchResultExtensions {
         return searchResult.Values.TryGetValue(key, out string? str) && StringUtils.TryParseInt32(str, out result);
     }
 
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="int"/>.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>The int value if successful.</returns>
+    /// <exception cref="Exception">If the field doesn't exist or the value is can not be converted to a <see cref="int"/>.</exception>
+    public static int GetRequireInt32(this ISearchResult result, string key) {
+        if (!result.TryGetInt32(key, out int value)) throw new Exception($"Failed getting 32-bit integer value from the '{key}' field.");
+        return value;
+    }
+
     #endregion
 
     #region Int64
@@ -194,6 +230,18 @@ public static class SearchResultExtensions {
         return searchResult.Values.TryGetValue(key, out string? str) && StringUtils.TryParseInt64(str, out result);
     }
 
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="long"/>.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>The long value if successful.</returns>
+    /// <exception cref="Exception">If the field doesn't exist or the value is can not be converted to a <see cref="long"/>.</exception>
+    public static long GetRequireInt64(this ISearchResult result, string key) {
+        if (!result.TryGetInt64(key, out long value)) throw new Exception($"Failed getting 64-bit integer value from the '{key}' field.");
+        return value;
+    }
+
     #endregion
 
     #region String
@@ -224,6 +272,18 @@ public static class SearchResultExtensions {
         result = null;
         return false;
 
+    }
+
+    /// <summary>
+    /// Returns the string value of the field with the specified <paramref name="key"/>. If the field doesn't exist, or if the value is <see langword="null"/>, an exception is thrown.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>The string value if successful.</returns>
+    /// <exception cref="Exception">If the field doesn't exist or the value is <see langword="null"/>.</exception>
+    public static string GetRequiredString(this ISearchResult result, string key) {
+        if (!result.TryGetString(key, out string? value)) throw new Exception($"Failed getting string value from the '{key}' field.");
+        return value;
     }
 
     #endregion
