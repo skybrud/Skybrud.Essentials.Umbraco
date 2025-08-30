@@ -16,7 +16,7 @@ public static class PublishedElementExtensions {
     #region Boolean
 
     /// <summary>
-    /// Returns the boolean value of the property with the specified <paramref name="alias"/>, or <see langword="false"/> if a matching property could not be found or it's value converted to a <see cref="bool"/> instance.
+    /// Returns the boolean value of the property with the specified <paramref name="alias"/>, or <see langword="false"/> if a matching property could not be found, or it's value converted to a <see cref="bool"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
@@ -51,7 +51,7 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Returns the boolean value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found or it's value converted to a <see cref="bool"/> instance.
+    /// Returns the boolean value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="bool"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
@@ -108,7 +108,7 @@ public static class PublishedElementExtensions {
     #region Int32
 
     /// <summary>
-    /// Returns the 32-bit signed integer value of the property with the specified <paramref name="alias"/>, or <c>0</c> if a matching property could not be found or it's value converted to a <see cref="int"/> instance.
+    /// Returns the 32-bit signed integer value of the property with the specified <paramref name="alias"/>, or <c>0</c> if a matching property could not be found, or it's value converted to a <see cref="int"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
@@ -118,7 +118,7 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Returns the 32-bit signed integer value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found or it's value converted to a <see cref="int"/> instance.
+    /// Returns the 32-bit signed integer value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="int"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
@@ -175,7 +175,7 @@ public static class PublishedElementExtensions {
     #region Int64
 
     /// <summary>
-    /// Returns the 64-bit signed integer value of the property with the specified <paramref name="alias"/>, or <c>0</c> if a matching property could not be found or it's value converted to a <see cref="long"/> instance.
+    /// Returns the 64-bit signed integer value of the property with the specified <paramref name="alias"/>, or <c>0</c> if a matching property could not be found, or it's value converted to a <see cref="long"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
@@ -185,7 +185,7 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Returns the 64-bit signed integer value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found or it's value converted to a <see cref="long"/> instance.
+    /// Returns the 64-bit signed integer value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="long"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
@@ -242,7 +242,7 @@ public static class PublishedElementExtensions {
     #region Float
 
     /// <summary>
-    /// Returns the single-precision floating point value of the property with the specified <paramref name="alias"/>, or <c>0</c> if a matching property could not be found or it's value converted to a <see cref="float"/> instance.
+    /// Returns the single-precision floating point value of the property with the specified <paramref name="alias"/>, or <c>0</c> if a matching property could not be found, or it's value converted to a <see cref="float"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
@@ -252,7 +252,7 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Returns the single-precision floating point value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found or it's value converted to a <see cref="float"/> instance.
+    /// Returns the single-precision floating point value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="float"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
@@ -309,7 +309,7 @@ public static class PublishedElementExtensions {
     #region Double
 
     /// <summary>
-    /// Returns the double-precision doubleing point value of the property with the specified <paramref name="alias"/>, or <c>0</c> if a matching property could not be found or it's value converted to a <see cref="double"/> instance.
+    /// Returns the double-precision floating point value of the property with the specified <paramref name="alias"/>, or <c>0</c> if a matching property could not be found, or it's value converted to a <see cref="double"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
@@ -319,7 +319,7 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Returns the double-precision doubleing point value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found or it's value converted to a <see cref="double"/> instance.
+    /// Returns the double-precision floating point value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="double"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
@@ -334,7 +334,7 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Attempts to get a double-precision doubleing point value from the property with the specified <paramref name="alias"/>.
+    /// Attempts to get a double-precision floating point value from the property with the specified <paramref name="alias"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
@@ -353,7 +353,7 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Attempts to get a double-precision doubleing point value from the property with the specified <paramref name="alias"/>.
+    /// Attempts to get a double-precision floating point value from the property with the specified <paramref name="alias"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
@@ -376,7 +376,7 @@ public static class PublishedElementExtensions {
     #region Guid
 
     /// <summary>
-    /// Returns the GUID value of the property with the specified <paramref name="alias"/>, or <see cref="Guid.Empty"/> if a matching property could not be found or it's value converted to a <see cref="Guid"/> instance.
+    /// Returns the GUID value of the property with the specified <paramref name="alias"/>, or <see cref="Guid.Empty"/> if a matching property could not be found, or it's value converted to a <see cref="Guid"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
@@ -390,7 +390,7 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Returns the GUID value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found or it's value converted to a <see cref="Guid"/> instance.
+    /// Returns the GUID value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="Guid"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
@@ -443,7 +443,7 @@ public static class PublishedElementExtensions {
     #region String
 
     /// <summary>
-    /// Returns the string value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found or it's value converted to a <see cref="string"/> instance.
+    /// Returns the string value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="string"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
@@ -453,7 +453,7 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Returns the string value of the property with the specified <paramref name="alias"/>, or <paramref name="fallback"/> if a matching property could not be found or it's value converted to a <see cref="string"/> instance.
+    /// Returns the string value of the property with the specified <paramref name="alias"/>, or <paramref name="fallback"/> if a matching property could not be found, or it's value converted to a <see cref="string"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
