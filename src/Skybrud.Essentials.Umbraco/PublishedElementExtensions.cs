@@ -79,7 +79,7 @@ public static class PublishedElementExtensions {
             return true;
         }
 
-        result = default;
+        result = false;
         return false;
 
     }
@@ -114,7 +114,7 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="int"/>.</returns>
     public static int GetInt32(this IPublishedElement element, string alias) {
-        return GetInt32OrNull(element, alias) ?? default;
+        return GetInt32OrNull(element, alias) ?? 0;
     }
 
     /// <summary>
@@ -146,7 +146,7 @@ public static class PublishedElementExtensions {
             return true;
         }
 
-        result = default;
+        result = 0;
         return false;
 
     }
@@ -181,7 +181,7 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="long"/>.</returns>
     public static long GetInt64(this IPublishedElement element, string alias) {
-        return GetInt64OrNull(element, alias) ?? default;
+        return GetInt64OrNull(element, alias) ?? 0;
     }
 
     /// <summary>
@@ -213,7 +213,7 @@ public static class PublishedElementExtensions {
             return true;
         }
 
-        result = default;
+        result = 0;
         return false;
 
     }
@@ -248,7 +248,7 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="float"/>.</returns>
     public static float GetFloat(this IPublishedElement element, string alias) {
-        return GetFloatOrNull(element, alias) ?? default;
+        return GetFloatOrNull(element, alias) ?? 0;
     }
 
     /// <summary>
@@ -280,7 +280,7 @@ public static class PublishedElementExtensions {
             return true;
         }
 
-        result = default;
+        result = 0;
         return false;
 
     }
@@ -315,7 +315,7 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="double"/>.</returns>
     public static double GetDouble(this IPublishedElement element, string alias) {
-        return GetDoubleOrNull(element, alias) ?? default;
+        return GetDoubleOrNull(element, alias) ?? 0;
     }
 
     /// <summary>
@@ -347,7 +347,7 @@ public static class PublishedElementExtensions {
             return true;
         }
 
-        result = default;
+        result = 0;
         return false;
 
     }

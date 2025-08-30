@@ -55,7 +55,7 @@ public static class PublishedContentCacheExtensions {
     /// <returns>An instance of <typeparamref name="TResult"/> if successful; otherwise, <see langword="null"/>.</returns>
     public static TResult? GetById<TResult>(this IPublishedContentCache? contentCache, Guid key, Func<IPublishedContent, TResult> function) where TResult : class {
         IPublishedContent? content = contentCache?.GetById(key);
-        return content is null ? default : function(content);
+        return content is null ? null : function(content);
     }
 
     /// <summary>
@@ -85,7 +85,7 @@ public static class PublishedContentCacheExtensions {
             return true;
         }
 
-        result = default;
+        result = null;
         return false;
 
     }
@@ -108,7 +108,7 @@ public static class PublishedContentCacheExtensions {
             return true;
         }
 
-        result = default;
+        result = null;
         return false;
 
     }
@@ -140,7 +140,7 @@ public static class PublishedContentCacheExtensions {
             return true;
         }
 
-        result = default;
+        result = null;
         return false;
 
     }
@@ -163,7 +163,7 @@ public static class PublishedContentCacheExtensions {
             return true;
         }
 
-        result = default;
+        result = null;
         return false;
 
     }
