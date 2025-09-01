@@ -63,7 +63,7 @@ public static class SearchResultExtensions {
     /// <param name="key">The key of the field.</param>
     /// <returns>The bool value if successful.</returns>
     /// <exception cref="Exception">If the field doesn't exist or the value is can not be converted to a <see cref="bool"/>.</exception>
-    public static bool GetRequireBoolean(this ISearchResult result, string key) {
+    public static bool GetRequiredBoolean(this ISearchResult result, string key) {
         if (!result.TryGetBoolean(key, out bool value)) throw new Exception($"Failed getting boolean value from the '{key}' field.");
         return value;
     }
@@ -117,7 +117,7 @@ public static class SearchResultExtensions {
     /// <param name="key">The key of the field.</param>
     /// <returns>The GUID value if successful.</returns>
     /// <exception cref="Exception">If the field doesn't exist or the value is can not be converted to a <see cref="Guid"/>.</exception>
-    public static Guid GetRequireGuid(this ISearchResult result, string key) {
+    public static Guid GetRequiredGuid(this ISearchResult result, string key) {
         if (!result.TryGetGuid(key, out Guid value)) throw new Exception($"Failed getting GUID value from the '{key}' field.");
         return value;
     }
@@ -177,7 +177,7 @@ public static class SearchResultExtensions {
     /// <param name="key">The key of the field.</param>
     /// <returns>The int value if successful.</returns>
     /// <exception cref="Exception">If the field doesn't exist or the value is can not be converted to a <see cref="int"/>.</exception>
-    public static int GetRequireInt32(this ISearchResult result, string key) {
+    public static int GetRequiredInt32(this ISearchResult result, string key) {
         if (!result.TryGetInt32(key, out int value)) throw new Exception($"Failed getting 32-bit integer value from the '{key}' field.");
         return value;
     }
@@ -237,7 +237,7 @@ public static class SearchResultExtensions {
     /// <param name="key">The key of the field.</param>
     /// <returns>The long value if successful.</returns>
     /// <exception cref="Exception">If the field doesn't exist or the value is can not be converted to a <see cref="long"/>.</exception>
-    public static long GetRequireInt64(this ISearchResult result, string key) {
+    public static long GetRequiredInt64(this ISearchResult result, string key) {
         if (!result.TryGetInt64(key, out long value)) throw new Exception($"Failed getting 64-bit integer value from the '{key}' field.");
         return value;
     }
