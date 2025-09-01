@@ -244,6 +244,126 @@ public static class SearchResultExtensions {
 
     #endregion
 
+    #region Float
+
+    /// <summary>
+    /// Returns the <see cref="float"/> value of the field with the specified <paramref name="key"/>, or <c>0</c> if the field doesn't exist or the value cannot be converted to a <see cref="float"/>.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>An instance of <see cref="float"/> if successful; otherwise, <c>0</c>.</returns>
+    public static float GetFloat(this ISearchResult result, string key) {
+        return result.TryGetFloat(key, out float value) ? value : 0;
+    }
+
+    /// <summary>
+    /// Returns the <see cref="float"/> value of the field with the specified <paramref name="key"/>, or <see langword="null"/> if the field doesn't exist or the value cannot be converted to a <see cref="float"/>.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>An instance of <see cref="float"/> if successful; otherwise, <see langword="null"/>.</returns>
+    public static float? GetFloatOrNull(this ISearchResult result, string key) {
+        return result.TryGetFloat(key, out float value) ? value : null;
+    }
+
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="float"/>.
+    /// </summary>
+    /// <param name="searchResult">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="result">When this method returns, contains the value associated with the specified key, if the key is found, and if the value can be converted to a <see cref="float"/>; otherwise, <c>0</c>. This parameter is passed uninitialized.</param>
+    /// <returns><see langword="true"/> if the value set contains a field with the specified key and the value can be converted to a <see cref="float"/>; otherwise, <see langword="false"/>.</returns>
+    public static bool TryGetFloat(this ISearchResult searchResult, string key, out float result) {
+        result = 0;
+        return searchResult.Values.TryGetValue(key, out string? str) && StringUtils.TryParseFloat(str, out result);
+    }
+
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="int"/>.
+    /// </summary>
+    /// <param name="searchResult">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="result">When this method returns, contains the value associated with the specified key, if the key is found, and if the value can be converted to a <see cref="float"/>; otherwise, <see langword="null"/>. This parameter is passed uninitialized.</param>
+    /// <returns><see langword="true"/> if the value set contains a field with the specified key and the value can be converted to a <see cref="float"/>; otherwise, <see langword="false"/>.</returns>
+    public static bool TryGetFloat(this ISearchResult searchResult, string key, [NotNullWhen(true)] out float? result) {
+        result = null;
+        return searchResult.Values.TryGetValue(key, out string? str) && StringUtils.TryParseFloat(str, out result);
+    }
+
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="float"/>.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>The <see cref="float"/> value if successful.</returns>
+    /// <exception cref="Exception">If the field doesn't exist or the value is can not be converted to a <see cref="float"/>.</exception>
+    public static float GetRequiredFloat(this ISearchResult result, string key) {
+        if (!result.TryGetFloat(key, out float value)) throw new Exception($"Failed getting single-precision floating point number from the '{key}' field.");
+        return value;
+    }
+
+    #endregion
+
+    #region Double
+
+    /// <summary>
+    /// Returns the <see cref="double"/> value of the field with the specified <paramref name="key"/>, or <c>0</c> if the field doesn't exist or the value cannot be converted to a <see cref="double"/>.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>An instance of <see cref="double"/> if successful; otherwise, <c>0</c>.</returns>
+    public static double GetDouble(this ISearchResult result, string key) {
+        return result.TryGetDouble(key, out double value) ? value : 0;
+    }
+
+    /// <summary>
+    /// Returns the <see cref="double"/> value of the field with the specified <paramref name="key"/>, or <see langword="null"/> if the field doesn't exist or the value cannot be converted to a <see cref="double"/>.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>An instance of <see cref="double"/> if successful; otherwise, <see langword="null"/>.</returns>
+    public static double? GetDoubleOrNull(this ISearchResult result, string key) {
+        return result.TryGetDouble(key, out double value) ? value : null;
+    }
+
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="double"/>.
+    /// </summary>
+    /// <param name="searchResult">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="result">When this method returns, contains the value associated with the specified key, if the key is found, and if the value can be converted to a <see cref="double"/>; otherwise, <c>0</c>. This parameter is passed uninitialized.</param>
+    /// <returns><see langword="true"/> if the value set contains a field with the specified key and the value can be converted to a <see cref="double"/>; otherwise, <see langword="false"/>.</returns>
+    public static bool TryGetDouble(this ISearchResult searchResult, string key, out double result) {
+        result = 0;
+        return searchResult.Values.TryGetValue(key, out string? str) && StringUtils.TryParseDouble(str, out result);
+    }
+
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="int"/>.
+    /// </summary>
+    /// <param name="searchResult">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="result">When this method returns, contains the value associated with the specified key, if the key is found, and if the value can be converted to a <see cref="double"/>; otherwise, <see langword="null"/>. This parameter is passed uninitialized.</param>
+    /// <returns><see langword="true"/> if the value set contains a field with the specified key and the value can be converted to a <see cref="double"/>; otherwise, <see langword="false"/>.</returns>
+    public static bool TryGetDouble(this ISearchResult searchResult, string key, [NotNullWhen(true)] out double? result) {
+        result = null;
+        return searchResult.Values.TryGetValue(key, out string? str) && StringUtils.TryParseDouble(str, out result);
+    }
+
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="double"/>.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>The <see cref="double"/> value if successful.</returns>
+    /// <exception cref="Exception">If the field doesn't exist or the value is can not be converted to a <see cref="double"/>.</exception>
+    public static double GetRequiredDouble(this ISearchResult result, string key) {
+        if (!result.TryGetDouble(key, out double value)) throw new Exception($"Failed getting double-precision floating point number from the '{key}' field.");
+        return value;
+    }
+
+    #endregion
+
     #region String
 
     /// <summary>
