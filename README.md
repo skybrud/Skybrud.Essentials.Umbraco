@@ -10,7 +10,7 @@
 <table>
   <tr>
     <td><strong>License:</strong></td>
-    <td><a href="./LICENSE.md"><strong>MIT License</strong></a></td>
+    <td><a href="https://github.com/skybrud/Skybrud.Essentials.Umbraco/blob/v13/main/LICENSE.md"><strong>MIT License</strong></a></td>
   </tr>
   <tr>
     <td><strong>Umbraco:</strong></td>
@@ -35,16 +35,16 @@
 To install the package via [**NuGet**](https://www.nuget.org/packages/Skybrud.Essentials.Umbraco), you can use either .NET CLI:
 
 ```
-dotnet add package Skybrud.Essentials.Umbraco --version 13.0.5
+dotnet add package Skybrud.Essentials.Umbraco --version 13.0.6
 ```
 
 or the NuGet Package Manager:
 
 ```
-Install-Package Skybrud.Essentials.Umbraco -Version 13.0.5
+Install-Package Skybrud.Essentials.Umbraco -Version 13.0.6
 ```
 
 ### Other versions of Umbraco
 
-- [**`v10/main`**](https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v10/main) Umbraco 10
+- ~~[**`v10/main`**](https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v10/main) Umbraco 10~~ <sub title="Umbraco 10 has reached end-of-life"><sup>(EOL)</sup></sub>
 - ~~[**`v1/main`**](https://github.com/skybrud/Skybrud.Essentials.Umbraco/tree/v1/main) Umbraco 9~~ <sub title="Umbraco 9 has reached end-of-life"><sup>(EOL)</sup></sub>
