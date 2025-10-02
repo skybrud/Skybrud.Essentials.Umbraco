@@ -97,7 +97,7 @@ public class MediaHelper {
     /// <param name="file">An uploaded file.</param>
     /// <param name="fileName">The name of the media file. If not specified, the name of <paramref name="file"/> will be used instead.</param>
     public virtual void SetUmbracoFile(IMedia media, IFormFile file, string? fileName) {
-        media.SetValue(MediaFileManager, MediaUrlGeneratorCollection, ShortStringHelper, ContentTypeBaseServiceProvider, Constants.Conventions.Media.File, fileName ?? file.FileName, file.OpenReadStream());
+        media.SetValue(MediaFileManager, MediaUrlGeneratorCollection, ShortStringHelper, ContentTypeBaseServiceProvider, global::Umbraco.Cms.Core.Constants.Conventions.Media.File, fileName ?? file.FileName, file.OpenReadStream());
     }
 
     /// <summary>
@@ -107,7 +107,7 @@ public class MediaHelper {
     /// <param name="stream">The stream.</param>
     /// <param name="fileName">The name of the media file.</param>
     public virtual void SetUmbracoFile(IMedia media, Stream stream, string fileName) {
-        media.SetValue(MediaFileManager, MediaUrlGeneratorCollection, ShortStringHelper, ContentTypeBaseServiceProvider, Constants.Conventions.Media.File, fileName, stream);
+        media.SetValue(MediaFileManager, MediaUrlGeneratorCollection, ShortStringHelper, ContentTypeBaseServiceProvider, global::Umbraco.Cms.Core.Constants.Conventions.Media.File, fileName, stream);
     }
 
     #endregion

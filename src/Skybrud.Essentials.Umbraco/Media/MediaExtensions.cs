@@ -12,6 +12,8 @@ namespace Skybrud.Essentials.Umbraco.Media;
 /// </summary>
 public static class MediaExtensions {
 
+    internal const int SuperUserId = global::Umbraco.Cms.Core.Constants.Security.SuperUserId;
+
     /// <summary>
     /// Sets the property value to the specified <paramref name="file"/>.
     /// </summary>
@@ -97,7 +99,7 @@ public static class MediaExtensions {
     /// <param name="mediaService">A reference to the media service.</param>
     /// <param name="userId">The ID of the user saving the media.</param>
     /// <returns>The result of the save operation.</returns>
-    public static Attempt<OperationResult?> Save(this IMedia media, IMediaService mediaService, int userId = Constants.Security.SuperUserId) {
+    public static Attempt<OperationResult?> Save(this IMedia media, IMediaService mediaService, int userId = SuperUserId) {
         return mediaService.Save(media, userId: userId);
     }
 
@@ -110,7 +112,7 @@ public static class MediaExtensions {
     /// <param name="mediaTypeAlias">The alias of the media type.</param>
     /// <param name="userId">The ID of the user creating the media.</param>
     /// <returns>An instance of <see cref="IMedia"/> representing the created media.</returns>
-    public static IMedia CreateMedia(this IMediaService mediaService, string name, int? parentId, string mediaTypeAlias, int userId = Constants.Security.SuperUserId) {
+    public static IMedia CreateMedia(this IMediaService mediaService, string name, int? parentId, string mediaTypeAlias, int userId = SuperUserId) {
         return mediaService.CreateMedia(name, parentId ?? -1, mediaTypeAlias, userId);
     }
 
@@ -123,7 +125,7 @@ public static class MediaExtensions {
     /// <param name="mediaTypeAlias">The alias of the media type.</param>
     /// <param name="userId">The ID of the user creating the media.</param>
     /// <returns>An instance of <see cref="IMedia"/> representing the created media.</returns>
-    public static IMedia CreateMedia(this IMediaService mediaService, string name, Guid? parentKey, string mediaTypeAlias, int userId = Constants.Security.SuperUserId) {
+    public static IMedia CreateMedia(this IMediaService mediaService, string name, Guid? parentKey, string mediaTypeAlias, int userId = SuperUserId) {
         return parentKey is null ? mediaService.CreateMedia(name, -1, mediaTypeAlias, userId) : mediaService.CreateMedia(name, parentKey.Value, mediaTypeAlias, userId);
     }
 
@@ -137,7 +139,7 @@ public static class MediaExtensions {
     /// <param name="mediaTypeAlias">The alias of the media type.</param>
     /// <param name="userId">The ID of the user creating the media.</param>
     /// <returns>An instance of <see cref="IMedia"/> representing the created media.</returns>
-    public static IMedia CreateMedia(this IMediaService mediaService, Guid key, string name, int parentId, string mediaTypeAlias, int userId = Constants.Security.SuperUserId) {
+    public static IMedia CreateMedia(this IMediaService mediaService, Guid key, string name, int parentId, string mediaTypeAlias, int userId = SuperUserId) {
         return mediaService.CreateMedia(name, parentId, mediaTypeAlias, userId).SetKey(key);
     }
 
@@ -151,7 +153,7 @@ public static class MediaExtensions {
     /// <param name="mediaTypeAlias">The alias of the media type.</param>
     /// <param name="userId">The ID of the user creating the media.</param>
     /// <returns>An instance of <see cref="IMedia"/> representing the created media.</returns>
-    public static IMedia CreateMedia(this IMediaService mediaService, Guid key, string name, int? parentId, string mediaTypeAlias, int userId = Constants.Security.SuperUserId) {
+    public static IMedia CreateMedia(this IMediaService mediaService, Guid key, string name, int? parentId, string mediaTypeAlias, int userId = SuperUserId) {
         return CreateMedia(mediaService, key, name, parentId ?? -1, mediaTypeAlias, userId);
     }
 
@@ -165,7 +167,7 @@ public static class MediaExtensions {
     /// <param name="mediaTypeAlias">The alias of the media type.</param>
     /// <param name="userId">The ID of the user creating the media.</param>
     /// <returns>An instance of <see cref="IMedia"/> representing the created media.</returns>
-    public static IMedia CreateMedia(this IMediaService mediaService, Guid key, string name, Guid parentKey, string mediaTypeAlias, int userId = Constants.Security.SuperUserId) {
+    public static IMedia CreateMedia(this IMediaService mediaService, Guid key, string name, Guid parentKey, string mediaTypeAlias, int userId = SuperUserId) {
         return mediaService.CreateMedia(name, parentKey, mediaTypeAlias, userId).SetKey(key);
     }
 
@@ -179,7 +181,7 @@ public static class MediaExtensions {
     /// <param name="mediaTypeAlias">The alias of the media type.</param>
     /// <param name="userId">The ID of the user creating the media.</param>
     /// <returns>An instance of <see cref="IMedia"/> representing the created media.</returns>
-    public static IMedia CreateMedia(this IMediaService mediaService, Guid key, string name, Guid? parentKey, string mediaTypeAlias, int userId = Constants.Security.SuperUserId) {
+    public static IMedia CreateMedia(this IMediaService mediaService, Guid key, string name, Guid? parentKey, string mediaTypeAlias, int userId = SuperUserId) {
         return CreateMedia(mediaService, name, parentKey, mediaTypeAlias, userId).SetKey(key);
     }
 
@@ -193,7 +195,7 @@ public static class MediaExtensions {
     /// <param name="mediaTypeAlias">The alias of the media type.</param>
     /// <param name="userId">The ID of the user creating the media.</param>
     /// <returns>An instance of <see cref="IMedia"/> representing the created media.</returns>
-    public static IMedia CreateMedia(this IMediaService mediaService, Guid key, string name, IMedia? parent, string mediaTypeAlias, int userId = Constants.Security.SuperUserId) {
+    public static IMedia CreateMedia(this IMediaService mediaService, Guid key, string name, IMedia? parent, string mediaTypeAlias, int userId = SuperUserId) {
         return mediaService.CreateMedia(name, parent?.Id ?? -1, mediaTypeAlias, userId).SetKey(key);
     }
 
@@ -205,8 +207,8 @@ public static class MediaExtensions {
     /// <param name="parentId">The numeric ID of the parent media, if any.</param>
     /// <param name="userId">The ID of the user creating the media.</param>
     /// <returns>An instance of <see cref="IMedia"/> representing the created folder.</returns>
-    public static IMedia CreateFolder(this IMediaService mediaService, string name, int? parentId, int userId = Constants.Security.SuperUserId) {
-        return mediaService.CreateMedia(name, parentId, Constants.Conventions.MediaTypes.Folder, userId);
+    public static IMedia CreateFolder(this IMediaService mediaService, string name, int? parentId, int userId = SuperUserId) {
+        return mediaService.CreateMedia(name, parentId, UmbracoMediaTypes.Folder, userId);
     }
 
     /// <summary>
@@ -217,8 +219,8 @@ public static class MediaExtensions {
     /// <param name="parentKey">The GUID key of the parent media, if any.</param>
     /// <param name="userId">The ID of the user creating the media.</param>
     /// <returns>An instance of <see cref="IMedia"/> representing the created folder.</returns>
-    public static IMedia CreateFolder(this IMediaService mediaService, string name, Guid? parentKey, int userId = Constants.Security.SuperUserId) {
-        return CreateMedia(mediaService, name, parentKey, Constants.Conventions.MediaTypes.Folder, userId);
+    public static IMedia CreateFolder(this IMediaService mediaService, string name, Guid? parentKey, int userId = SuperUserId) {
+        return CreateMedia(mediaService, name, parentKey, UmbracoMediaTypes.Folder, userId);
     }
 
     /// <summary>
@@ -229,8 +231,8 @@ public static class MediaExtensions {
     /// <param name="parent">The parent media, if any.</param>
     /// <param name="userId">The ID of the user creating the media.</param>
     /// <returns>An instance of <see cref="IMedia"/> representing the created folder.</returns>
-    public static IMedia CreateFolder(this IMediaService mediaService, string name, IMedia? parent, int userId = Constants.Security.SuperUserId) {
-        return mediaService.CreateMedia(name, parent?.Id ?? -1, Constants.Conventions.MediaTypes.Folder, userId);
+    public static IMedia CreateFolder(this IMediaService mediaService, string name, IMedia? parent, int userId = SuperUserId) {
+        return mediaService.CreateMedia(name, parent?.Id ?? -1, UmbracoMediaTypes.Folder, userId);
     }
 
     /// <summary>
@@ -242,7 +244,7 @@ public static class MediaExtensions {
     /// <param name="parentId">The numeric ID of the parent media, if any.</param>
     /// <param name="userId">The ID of the user creating the media.</param>
     /// <returns>An instance of <see cref="IMedia"/> representing the created folder.</returns>
-    public static IMedia CreateFolder(this IMediaService mediaService, Guid key, string name, int? parentId, int userId = Constants.Security.SuperUserId) {
+    public static IMedia CreateFolder(this IMediaService mediaService, Guid key, string name, int? parentId, int userId = SuperUserId) {
         return CreateFolder(mediaService, name, parentId, userId).SetKey(key);
     }
 
@@ -255,7 +257,7 @@ public static class MediaExtensions {
     /// <param name="parentKey">The GUID key of the parent media, if any.</param>
     /// <param name="userId">The ID of the user creating the media.</param>
     /// <returns>An instance of <see cref="IMedia"/> representing the created folder.</returns>
-    public static IMedia CreateFolder(this IMediaService mediaService, Guid key, string name, Guid? parentKey, int userId = Constants.Security.SuperUserId) {
+    public static IMedia CreateFolder(this IMediaService mediaService, Guid key, string name, Guid? parentKey, int userId = SuperUserId) {
         return CreateFolder(mediaService, name, parentKey, userId).SetKey(key);
     }
 
@@ -268,7 +270,7 @@ public static class MediaExtensions {
     /// <param name="parent">The parent media, if any.</param>
     /// <param name="userId">The ID of the user creating the media.</param>
     /// <returns>An instance of <see cref="IMedia"/> representing the created folder.</returns>
-    public static IMedia CreateFolder(this IMediaService mediaService, Guid key, string name, IMedia? parent, int userId = Constants.Security.SuperUserId) {
+    public static IMedia CreateFolder(this IMediaService mediaService, Guid key, string name, IMedia? parent, int userId = SuperUserId) {
         return CreateFolder(mediaService, name, parent, userId).SetKey(key);
     }
 

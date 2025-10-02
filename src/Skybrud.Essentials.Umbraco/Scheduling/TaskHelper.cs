@@ -208,7 +208,7 @@ public class TaskHelper {
     /// <returns>The directory path for the task.</returns>
     protected virtual string GetTaskDirectoryPath(string taskName) {
         string directory = taskName.IndexOf("Limbo.", StringComparison.Ordinal) == 0 ? "Limbo" : "Skybrud";
-        string path = Path.Combine(Constants.SystemDirectories.Data, directory, "Tasks", taskName);
+        string path = Path.Combine(global::Umbraco.Cms.Core.Constants.SystemDirectories.Data, directory, "Tasks", taskName);
         return _webHostEnvironment.MapPathContentRoot(path);
     }
 
