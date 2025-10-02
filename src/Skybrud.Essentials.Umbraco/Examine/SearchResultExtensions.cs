@@ -137,6 +137,18 @@ public static class SearchResultExtensions {
     }
 
     /// <summary>
+    /// Returns the value of the field with the specified <paramref name="key"/> converted using the specified <paramref name="func"/>.
+    /// </summary>
+    /// <typeparam name="TResult">The type to which the <see cref="int"/> value will be converted.</typeparam>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="func">A callback function for converting the <see cref="int"/> value into an instance of <typeparamref name="TResult"/>.</param>
+    /// <returns>An instance of <typeparamref name="TResult"/> holding the converted field value if successful; otherwise, the default value of <typeparamref name="TResult"/>.</returns>
+    public static TResult? GetInt32<TResult>(this ISearchResult result, string key, Func<int, TResult> func) {
+        return result.TryGetInt32(key, out int value) ? func(value) : default;
+    }
+
+    /// <summary>
     /// Returns the <see cref="int"/> value of the field with the specified <paramref name="key"/>, or <see langword="null"/> if the field doesn't exist or the value cannot be converted to a <see cref="int"/>.
     /// </summary>
     /// <param name="result">The search result.</param>
@@ -182,6 +194,21 @@ public static class SearchResultExtensions {
         return value;
     }
 
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="int"/>.
+    /// If successful, the value is converted using the specified <paramref name="func"/> and returned.
+    /// If the field doesn't exist or the value cannot be converted to a <see cref="int"/>, an exception is thrown.
+    /// </summary>
+    /// <typeparam name="TResult">The type to which the <see cref="int"/> value will be converted.</typeparam>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="func">A callback function for converting the <see cref="int"/> value into an instance of <typeparamref name="TResult"/>.</param>
+    /// <returns>The converted value if successful.</returns>
+    /// <exception cref="Exception">If the field doesn't exist or the value cannot be converted to a <see cref="int"/>.</exception>
+    public static TResult GetRequiredInt32<TResult>(this ISearchResult result, string key, Func<int, TResult> func) {
+        return func(GetRequiredInt32(result, key));
+    }
+
     #endregion
 
     #region Int64
@@ -194,6 +221,18 @@ public static class SearchResultExtensions {
     /// <returns>An instance of <see cref="long"/> if successful; otherwise, <c>0</c>.</returns>
     public static long GetInt64(this ISearchResult result, string key) {
         return result.TryGetInt64(key, out long value) ? value : 0;
+    }
+
+    /// <summary>
+    /// Returns the value of the field with the specified <paramref name="key"/> converted using the specified <paramref name="func"/>.
+    /// </summary>
+    /// <typeparam name="TResult">The type to which the <see cref="long"/> value will be converted.</typeparam>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="func">A callback function for converting the <see cref="long"/> value into an instance of <typeparamref name="TResult"/>.</param>
+    /// <returns>An instance of <typeparamref name="TResult"/> holding the converted field value if successful; otherwise, the default value of <typeparamref name="TResult"/>.</returns>
+    public static TResult? GetInt64<TResult>(this ISearchResult result, string key, Func<long, TResult> func) {
+        return result.TryGetInt64(key, out long value) ? func(value) : default;
     }
 
     /// <summary>
@@ -242,6 +281,21 @@ public static class SearchResultExtensions {
         return value;
     }
 
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="long"/>.
+    /// If successful, the value is converted using the specified <paramref name="func"/> and returned.
+    /// If the field doesn't exist or the value cannot be converted to a <see cref="long"/>, an exception is thrown.
+    /// </summary>
+    /// <typeparam name="TResult">The type to which the <see cref="long"/> value will be converted.</typeparam>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="func">A callback function for converting the <see cref="long"/> value into an instance of <typeparamref name="TResult"/>.</param>
+    /// <returns>The converted value if successful.</returns>
+    /// <exception cref="Exception">If the field doesn't exist or the value cannot be converted to a <see cref="long"/>.</exception>
+    public static TResult GetRequiredInt64<TResult>(this ISearchResult result, string key, Func<long, TResult> func) {
+        return func(GetRequiredInt64(result, key));
+    }
+
     #endregion
 
     #region Float
@@ -254,6 +308,18 @@ public static class SearchResultExtensions {
     /// <returns>An instance of <see cref="float"/> if successful; otherwise, <c>0</c>.</returns>
     public static float GetFloat(this ISearchResult result, string key) {
         return result.TryGetFloat(key, out float value) ? value : 0;
+    }
+
+    /// <summary>
+    /// Returns the value of the field with the specified <paramref name="key"/> converted using the specified <paramref name="func"/>.
+    /// </summary>
+    /// <typeparam name="TResult">The type to which the <see cref="float"/> value will be converted.</typeparam>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="func">A callback function for converting the <see cref="float"/> value into an instance of <typeparamref name="TResult"/>.</param>
+    /// <returns>An instance of <typeparamref name="TResult"/> holding the converted field value if successful; otherwise, the default value of <typeparamref name="TResult"/>.</returns>
+    public static TResult? GetFloat<TResult>(this ISearchResult result, string key, Func<float, TResult> func) {
+        return result.TryGetFloat(key, out float value) ? func(value) : default;
     }
 
     /// <summary>
@@ -302,6 +368,21 @@ public static class SearchResultExtensions {
         return value;
     }
 
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="float"/>.
+    /// If successful, the value is converted using the specified <paramref name="func"/> and returned.
+    /// If the field doesn't exist or the value cannot be converted to a <see cref="float"/>, an exception is thrown.
+    /// </summary>
+    /// <typeparam name="TResult">The type to which the <see cref="float"/> value will be converted.</typeparam>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="func">A callback function for converting the <see cref="float"/> value into an instance of <typeparamref name="TResult"/>.</param>
+    /// <returns>The converted value if successful.</returns>
+    /// <exception cref="Exception">If the field doesn't exist or the value cannot be converted to a <see cref="float"/>.</exception>
+    public static TResult GetRequiredFloat<TResult>(this ISearchResult result, string key, Func<float, TResult> func) {
+        return func(GetRequiredFloat(result, key));
+    }
+
     #endregion
 
     #region Double
@@ -314,6 +395,18 @@ public static class SearchResultExtensions {
     /// <returns>An instance of <see cref="double"/> if successful; otherwise, <c>0</c>.</returns>
     public static double GetDouble(this ISearchResult result, string key) {
         return result.TryGetDouble(key, out double value) ? value : 0;
+    }
+
+    /// <summary>
+    /// Returns the value of the field with the specified <paramref name="key"/> converted using the specified <paramref name="func"/>.
+    /// </summary>
+    /// <typeparam name="TResult">The type to which the <see cref="double"/> value will be converted.</typeparam>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="func">A callback function for converting the <see cref="double"/> value into an instance of <typeparamref name="TResult"/>.</param>
+    /// <returns>An instance of <typeparamref name="TResult"/> holding the converted field value if successful; otherwise, the default value of <typeparamref name="TResult"/>.</returns>
+    public static TResult? GetDouble<TResult>(this ISearchResult result, string key, Func<double, TResult> func) {
+        return result.TryGetDouble(key, out double value) ? func(value) : default;
     }
 
     /// <summary>
@@ -362,6 +455,21 @@ public static class SearchResultExtensions {
         return value;
     }
 
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="double"/>.
+    /// If successful, the value is converted using the specified <paramref name="func"/> and returned.
+    /// If the field doesn't exist or the value cannot be converted to a <see cref="double"/>, an exception is thrown.
+    /// </summary>
+    /// <typeparam name="TResult">The type to which the <see cref="double"/> value will be converted.</typeparam>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="func">A callback function for converting the <see cref="double"/> value into an instance of <typeparamref name="TResult"/>.</param>
+    /// <returns>The converted value if successful.</returns>
+    /// <exception cref="Exception">If the field doesn't exist or the value cannot be converted to a <see cref="double"/>.</exception>
+    public static TResult GetRequiredDouble<TResult>(this ISearchResult result, string key, Func<double, TResult> func) {
+        return func(GetRequiredDouble(result, key));
+    }
+
     #endregion
 
     #region String
@@ -374,6 +482,18 @@ public static class SearchResultExtensions {
     /// <returns>An instance if <see cref="string"/> holding the field value if successful; otherwise, <see langword="null"/>.</returns>
     public static string? GetString(this ISearchResult searchResult, string key) {
         return searchResult.Values.TryGetValue(key, out string? result) ? result : null;
+    }
+
+    /// <summary>
+    /// Returns the value of the field with the specified <paramref name="key"/> converted using the specified <paramref name="func"/>.
+    /// </summary>
+    /// <typeparam name="TResult">The type to which the string value will be converted.</typeparam>
+    /// <param name="searchResult">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="func">A callback function for converting the string value into an instance of <typeparamref name="TResult"/>.</param>
+    /// <returns>An instance if <typeparamref name="TResult"/> holding the field value if successful; otherwise, the default value of <typeparamref name="TResult"/>.</returns>
+    public static TResult? GetString<TResult>(this ISearchResult searchResult, string key, Func<string, TResult> func) {
+        return searchResult.Values.TryGetValue(key, out string? result) ? func(result) : default;
     }
 
     /// <summary>
@@ -404,6 +524,20 @@ public static class SearchResultExtensions {
     public static string GetRequiredString(this ISearchResult result, string key) {
         if (!result.TryGetString(key, out string? value)) throw new Exception($"Failed getting string value from the '{key}' field.");
         return value;
+    }
+
+    /// <summary>
+    /// Returns the value of the field with the specified <paramref name="key"/> converted using the specified <paramref name="func"/>. If the field doesn't exist, or if the value is <see langword="null"/>, an exception is thrown.
+    /// </summary>
+    /// <typeparam name="TResult">The type to which the string value will be converted.</typeparam>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="func">A callback function for converting the string value into an instance of <typeparamref name="TResult"/>.</param>
+    /// <returns>The converted value if successful.</returns>
+    /// <exception cref="Exception">If the field doesn't exist or the value is <see langword="null"/>.</exception>
+    public static TResult GetRequiredString<TResult>(this ISearchResult result, string key, Func<string, TResult> func) {
+        if (!result.TryGetString(key, out string? value)) throw new Exception($"Failed getting string value from the '{key}' field.");
+        return func(value);
     }
 
     #endregion
