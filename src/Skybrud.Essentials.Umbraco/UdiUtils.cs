@@ -130,7 +130,7 @@ public static class UdiUtils {
     /// <param name="result">When this method returns, holds the parsed <see cref="Udi"/> instance if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if the parsing was successful; otherwise, <see langword="false"/>.</returns>
     public static bool TryParse(string? input, [NotNullWhen(true)] out Udi? result) {
-        return UdiParser.TryParse(input, out result);
+        return UdiParser.TryParse(input ?? string.Empty, out result);
     }
 
     /// <summary>
