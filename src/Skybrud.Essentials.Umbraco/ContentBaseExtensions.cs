@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Models;
 
 namespace Skybrud.Essentials.Umbraco;
@@ -54,6 +56,26 @@ public static class ContentBaseExtensions {
     public static bool TryGetProperty(this IContentBase content, Func<IProperty, bool> predicate, [NotNullWhen(true)] out IProperty? result) {
         result = content.Properties.FirstOrDefault(predicate);
         return result != null;
+    }
+
+    /// <summary>
+    /// Returns the value of the property with the alias <paramref name="propertyAlias"/> as an instance of <see cref="Udi"/>.
+    /// </summary>
+    /// <param name="content">An instance of <see cref="IContentBase"/> - e.g. <see cref="IContent"/> or <see cref="IMedia"/>.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <returns>The <see cref="Udi"/> instance if found; otherwise, <see langword="null"/>.</returns>
+    public static Udi? GetUdi(this IContentBase content, string propertyAlias) {
+        return UdiUtils.TryParse(content.GetValue<string>(propertyAlias), out var result) ? result : null;
+    }
+
+    /// <summary>
+    /// Returns the value of the property with the alias <paramref name="propertyAlias"/> as a collection of <see cref="Udi"/> instances.
+    /// </summary>
+    /// <param name="content">An instance of <see cref="IContentBase"/> - e.g. <see cref="IContent"/> or <see cref="IMedia"/>.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <returns>A collection of <see cref="Udi"/> instances.</returns>
+    public static IEnumerable<Udi> GetUdis(this IContentBase content, string propertyAlias) {
+        return UdiUtils.ParseUdis(content.GetValue<string>(propertyAlias));
     }
 
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Skybrud.Essentials.Strings;
 using Skybrud.Essentials.Strings.Extensions;
+using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Extensions;
 
@@ -466,6 +468,17 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
+    /// Returns the first string value of the properties matching the specified <paramref name="aliases"/>. If a matching property or a non-empty string value isn't found, <see langword="null"/> is returned instead.
+    /// </summary>
+    /// <param name="element">The element holding the property.</param>
+    /// <param name="aliases">A collection of property aliases to look for.</param>
+    /// <returns></returns>
+    public static string? GetString(this IPublishedElement? element, IEnumerable<string> aliases) {
+        foreach (string alias in aliases) if (TryGetString(element, alias, out string? result)) return result;
+        return null;
+    }
+
+    /// <summary>
     /// Attempts to get a string value from the property with the specified <paramref name="alias"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
@@ -482,6 +495,17 @@ public static class PublishedElementExtensions {
         result = null;
         return false;
 
+    }
+
+    /// <summary>
+    /// Attempts to get the first string value of the properties matching the specified <paramref name="aliases"/>. If a matching property or a non-empty string value isn't found, <see langword="null"/> is returned instead.
+    /// </summary>
+    /// <param name="element">The element holding the property.</param>
+    /// <param name="aliases">The aliases of the properties.</param>
+    /// <param name="result">When this method returns, holds the string value if successful; otherwise, <see langword="null"/>.</param>
+    /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+    public static bool TryGetString(this IPublishedElement element, IEnumerable<string> aliases, [NotNullWhen(true)] out string? result) {
+        return (result = GetStringOrNull(element, aliases)) is not null;
     }
 
     /// <summary>
@@ -596,6 +620,54 @@ public static class PublishedElementExtensions {
 
     #endregion
 
+    #region Udi
+
+    /// <summary>
+    /// Returns the UDI value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="Udi"/> instance.
+    /// </summary>
+    /// <param name="element">The <see cref="IPublishedElement"/> holding the property.</param>
+    /// <param name="alias">The alias of the property.</param>
+    /// <returns>An instance of <see cref="Udi"/> if successful; otherwise, <see langword="null"/>.</returns>
+    public static Udi? GetUdi(this IPublishedElement element, string alias) {
+        object? value = element.Value(alias);
+        return value switch {
+            Udi udi => udi,
+            IEnumerable<Udi> udis => udis.FirstOrDefault(),
+            string str when UdiParser.TryParse(str, out Udi? udi) => udi,
+            _ => null
+        };
+    }
+
+    /// <summary>
+    /// Returns a collection of UDI values of the property with the specified <paramref name="alias"/>, or an empty collection if a matching property could not be found, or it's value converted to a collection of <see cref="Udi"/> instances.
+    /// </summary>
+    /// <param name="element">The <see cref="IPublishedElement"/> holding the property.</param>
+    /// <param name="alias">The alias of the property.</param>
+    /// <returns>A collection of <see cref="Udi"/> instances.</returns>
+    public static IEnumerable<Udi> GetUdis(this IPublishedElement element, string alias) {
+        object? value = element.Value(alias);
+        return value switch {
+            Udi udi => [udi],
+            IEnumerable<Udi> udis => udis,
+            string str => UdiUtils.ParseUdis(str),
+            _ => []
+        };
+    }
+
+    /// <summary>
+    /// Attempts to get a UDI value from the property with the specified <paramref name="alias"/>.
+    /// </summary>
+    /// <param name="element">The <see cref="IPublishedElement"/> holding the property.</param>
+    /// <param name="alias">The alias of the property.</param>
+    /// <param name="result">When this method returns, holds the <see cref="Udi"/> value if successful; otherwise, <see langword="null"/>.</param>
+    /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+    public static bool TryGetUdi(this IPublishedElement element, string alias, [NotNullWhen(true)] out Udi? result) {
+        result = GetUdi(element, alias);
+        return result is not null;
+    }
+
+    #endregion
+
     /// <summary>
     /// Attempts to get the value of type <typeparamref name="T"/> from the property with the specified <paramref name="propertyAlias"/>.
     /// </summary>
@@ -614,6 +686,19 @@ public static class PublishedElementExtensions {
         result = element.Value<T>(propertyAlias);
         return result != null;
 
+    }
+
+    /// <summary>
+    /// Returns a read-only list of type <typeparamref name="T"/> from the property with the specified
+    /// <paramref name="propertyAlias"/>. If a matching property could not be found, or it's value converted to a list
+    /// of type <typeparamref name="T"/>, an empty list is returned instead.
+    /// </summary>
+    /// <typeparam name="T">The type of the items in the list.</typeparam>
+    /// <param name="element">The <see cref="IPublishedElement"/> holding the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <returns>A list of <typeparamref name="T"/>.</returns>
+    public static IReadOnlyList<T> GetReadOnlyList<T>(this IPublishedElement element, string propertyAlias) {
+        return element.Value<IReadOnlyList<T>>(propertyAlias) ?? [];
     }
 
 }
