@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Examine;
 using Skybrud.Essentials.Strings;
+using Umbraco.Cms.Core;
 
 namespace Skybrud.Essentials.Umbraco.Examine;
 
@@ -9,6 +11,8 @@ namespace Skybrud.Essentials.Umbraco.Examine;
 /// Static class with various extension methods for working with Examine.
 /// </summary>
 public static class SearchResultExtensions {
+
+    private static readonly char[] _udiSeparator = [',', ' '];
 
     #region Boolean
 
@@ -538,6 +542,69 @@ public static class SearchResultExtensions {
     public static TResult GetRequiredString<TResult>(this ISearchResult result, string key, Func<string, TResult> func) {
         if (!result.TryGetString(key, out string? value)) throw new Exception($"Failed getting string value from the '{key}' field.");
         return func(value);
+    }
+
+    #endregion
+
+    #region Udi
+
+    /// <summary>
+    /// Returns the <see cref="Udi"/> value of the field with the specified <paramref name="key"/>, or <see langword="null"/> if the field doesn't exist or the value cannot be converted to a <see cref="Udi"/>. If the field value contains multiple UDI strings separated by commas or spaces, only the first value will be returned.
+    /// </summary>
+    /// <param name="result"></param>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public static Udi? GetUdi(this ISearchResult result, string key) {
+        if (!result.TryGetString(key, out string? value)) return null;
+        string first = value.Split(_udiSeparator, StringSplitOptions.RemoveEmptyEntries)[0];
+        return UdiParser.TryParse(first, out Udi? udi) ? udi : null;
+    }
+
+    /// <summary>
+    /// Returns a list of <see cref="Udi"/> values from the field with the specified <paramref name="key"/>. The field value is expected to be a list of UDI strings separated by either commas or spaces.
+    /// </summary>
+    /// <param name="result">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <returns>A list of <see cref="Udi"/> values.</returns>
+    public static IReadOnlyList<Udi> GetUdiList(this ISearchResult result, string key) {
+
+        if (!result.AllValues.TryGetValue(key, out IReadOnlyList<string>? values)) return [];
+
+        List<Udi> temp = [];
+
+        foreach (string value in values) {
+            foreach (string str in value.Split(_udiSeparator, StringSplitOptions.RemoveEmptyEntries)) {
+                if (UdiParser.TryParse(str, out Udi? udi)) temp.Add(udi);
+            }
+        }
+
+        return temp;
+
+    }
+
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <see cref="Udi"/>.
+    /// </summary>
+    /// <param name="searchResult">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="result">When this method returns, holds the <see cref="Udi"/> value if found; otherwise, <see langword="null"/>.</param>
+    /// <returns><see langword="true"/> if the value was found and converted successfully; otherwise, <see langword="false"/>.</returns>
+    public static bool TryGetUdi(this ISearchResult searchResult, string key, out Udi? result) {
+        result = GetUdi(searchResult, key);
+        return result is not null;
+    }
+
+    /// <summary>
+    /// Attempts to get the value of the field with the specified <paramref name="key"/> and convert it to a <typeparamref name="TResult"/>.
+    /// </summary>
+    /// <typeparam name="TResult">The type of the UDI.</typeparam>
+    /// <param name="searchResult">The search result.</param>
+    /// <param name="key">The key of the field.</param>
+    /// <param name="result">When this method returns, holds the <typeparamref name="TResult"/> value if found; otherwise, <see langword="null"/>.</param>
+    /// <returns><see langword="true"/> if the value was found and converted successfully; otherwise, <see langword="false"/>.</returns>
+    public static bool TryGetUdi<TResult>(this ISearchResult searchResult, string key, out TResult? result) where TResult : Udi {
+        result = GetUdi(searchResult, key) as TResult;
+        return result is not null;
     }
 
     #endregion
