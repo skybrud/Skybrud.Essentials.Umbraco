@@ -13,6 +13,38 @@ namespace Skybrud.Essentials.Umbraco;
 public static class ContentBaseExtensions {
 
     /// <summary>
+    /// Attempts to set the value of a property on the specified content item.
+    /// </summary>
+    /// <remarks>This method checks whether the specified property exists on the content item before
+    /// attempting to set its value. If the property does not exist, the method returns <see langword="false"/> without
+    /// making any changes.</remarks>
+    /// <param name="content">The content item on which the property value will be set.</param>
+    /// <param name="propertyAlias">The alias of the property to set.</param>
+    /// <param name="value">The value to assign to the property. Can be <see langword="null"/>.</param>
+    /// <returns><see langword="true"/> if the property exists and the value was successfully set; otherwise, <see langword="false"/>.</returns>
+    public static bool TrySetValue(this IContentBase content, string propertyAlias, string? value) {
+        if (!content.HasProperty(propertyAlias)) return false;
+        content.SetValue(propertyAlias, value);
+        return true;
+    }
+
+    /// <summary>
+    /// Attempts to set the value of a property on the specified content item.
+    /// </summary>
+    /// <remarks>This method checks whether the specified property exists on the content item before
+    /// attempting to set its value. If the property does not exist, the method returns <see langword="false"/> without
+    /// making any changes.</remarks>
+    /// <param name="content">The content item on which the property value will be set.</param>
+    /// <param name="propertyAlias">The alias of the property to set.</param>
+    /// <param name="value">The value to assign to the property. Can be <see langword="null"/>.</param>
+    /// <returns><see langword="true"/> if the property exists and the value was successfully set; otherwise, <see langword="false"/>.</returns>
+    public static bool TrySetValue(this IContentBase content, string propertyAlias, object? value) {
+        if (!content.HasProperty(propertyAlias)) return false;
+        content.SetValue(propertyAlias, value);
+        return true;
+    }
+
+    /// <summary>
     /// Returns whether a property with the alias <paramref name="propertyAlias"/> exists on <paramref name="content"/>.
     /// </summary>
     /// <param name="content">An instance of <see cref="IContentBase"/> - e.g. <see cref="IContent"/> or <see cref="IMedia"/>.</param>
