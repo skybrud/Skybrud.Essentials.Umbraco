@@ -525,7 +525,7 @@ public static class PublishedElementExtensions {
     /// <param name="content"></param>
     /// <param name="propertyAliases">The property aliases to check.</param>
     /// <returns>The string value if successful; otherwise, <see langword="null"/>.</returns>
-    internal static string? GetStringOrNull(this IPublishedElement content, IEnumerable<string> propertyAliases) {
+    public static string? GetStringOrNull(this IPublishedElement content, IEnumerable<string> propertyAliases) {
 
         foreach (string propertyAlias in propertyAliases) {
             if (content.TryGetString(propertyAlias, out string? result)) return result;
