@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Cms.Core.Routing;
+using Umbraco.Cms.Core.Services.Navigation;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Extensions;
 
@@ -46,7 +48,7 @@ public static class PublishedContentExtensions {
         string? code = content.GetCultureFromDomains(uri);
 
         // If no culture code was found, try the parent node - otherwise return the matching CultureInfo
-        return string.IsNullOrWhiteSpace(code) ? GetCultureInfo(content.Parent, uri) : CultureInfo.GetCultureInfo(code);
+        return string.IsNullOrWhiteSpace(code) ? GetCultureInfo(content.Parent(), uri) : CultureInfo.GetCultureInfo(code);
 
     }
 
@@ -56,7 +58,10 @@ public static class PublishedContentExtensions {
     /// <param name="content">The content item to get the culture item for.</param>
     /// <param name="umbracoContextAccessor"></param>
     /// <param name="siteDomainMapper"></param>
+    /// <param name="publishedStatusFilteringService"></param>
     /// <param name="uri">The URI of the request.</param>
+    /// <param name="domainCache"></param>
+    /// <param name="navigationQueryService"></param>
     /// <returns>An instance of <see cref="CultureInfo"/>.</returns>
     /// <see>
     ///     <cref>https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.getcultureinfo</cref>
@@ -77,7 +82,7 @@ public static class PublishedContentExtensions {
     /// has been found or the top of the tree has been reached. If none of the content items along the path specify
     /// a culture, the default culture configured in Umbraco (typically <c>en-US</c>) will be used as fallback.</para>
     /// </remarks>
-    public static CultureInfo? GetCultureInfo(this IPublishedContent? content, IUmbracoContextAccessor umbracoContextAccessor, ISiteDomainMapper siteDomainMapper, Uri? uri = null) {
+    public static CultureInfo? GetCultureInfo(this IPublishedContent? content, IUmbracoContextAccessor umbracoContextAccessor, ISiteDomainMapper siteDomainMapper, IDomainCache domainCache, INavigationQueryService navigationQueryService, IPublishedStatusFilteringService publishedStatusFilteringService, Uri? uri = null) {
 
         // If no content item is specified, we return the default culture
         if (content == null) {
@@ -86,10 +91,10 @@ public static class PublishedContentExtensions {
         }
 
         // Get culture code via Umbraco's extension method
-        string? code = content.GetCultureFromDomains(umbracoContextAccessor, siteDomainMapper, uri);
+        string? code = content.GetCultureFromDomains(umbracoContextAccessor, siteDomainMapper, domainCache, navigationQueryService, publishedStatusFilteringService, uri);
 
         // If no culture code was found, try the parent node - otherwise return the matching CultureInfo
-        return string.IsNullOrWhiteSpace(code) ? GetCultureInfo(content.Parent, umbracoContextAccessor, siteDomainMapper, uri) : CultureInfo.GetCultureInfo(code);
+        return string.IsNullOrWhiteSpace(code) ? GetCultureInfo(content.Parent(), umbracoContextAccessor, siteDomainMapper, domainCache, navigationQueryService, publishedStatusFilteringService, uri) : CultureInfo.GetCultureInfo(code);
 
     }
 

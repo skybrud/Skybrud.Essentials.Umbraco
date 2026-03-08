@@ -28,10 +28,9 @@ public static class AppPolicyCacheExtensions {
     /// <param name="factory">A factory function that can create the item.</param>
     /// <param name="timeout">An optional cache timeout.</param>
     /// <param name="isSliding">An optional value indicating whether the cache timeout is sliding (default is <see langword="false"/>).</param>
-    /// <param name="dependentFiles">Files the cache entry depends on.</param>
     /// <returns>An instance of <typeparamref name="T"/> if successful; otherwise, <see langword="default"/>.</returns>
-    public static T? Get<T>(this IAppPolicyCache cache, string key, Func<object?> factory, TimeSpan? timeout = null, bool isSliding = false, string[]? dependentFiles = null) {
-        return cache.Get(key, factory, timeout, isSliding, dependentFiles) is T value ? value : default;
+    public static T? Get<T>(this IAppPolicyCache cache, string key, Func<object?> factory, TimeSpan? timeout = null, bool isSliding = false) {
+        return cache.Get(key, factory, timeout, isSliding) is T value ? value : default;
     }
 
 }

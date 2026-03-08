@@ -669,6 +669,29 @@ public static class PublishedElementExtensions {
     #endregion
 
     /// <summary>
+    /// Returns the enum value of the property with the specified <paramref name="propertyAlias"/>, or the default value of <typeparamref name="TEnum"/> if a matching property could not be found, or it's value converted to a <typeparamref name="TEnum"/> instance.
+    /// </summary>
+    /// <typeparam name="TEnum">The type of the enum.</typeparam>
+    /// <param name="element">The <see cref="IPublishedElement"/> holding the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <returns>An instance of <typeparamref name="TEnum"/>, or the default value if not found.</returns>
+    public static TEnum GetEnum<TEnum>(this IPublishedElement element, string propertyAlias) where TEnum : struct, Enum {
+        return element.Value<TEnum>(propertyAlias);
+    }
+
+    /// <summary>
+    /// Returns the enum value of the property with the specified <paramref name="propertyAlias"/>, or <paramref name="fallback"/> if a matching property could not be found, or it's value converted to a <typeparamref name="TEnum"/> instance.
+    /// </summary>
+    /// <typeparam name="TEnum">The type of the enum.</typeparam>
+    /// <param name="element">The <see cref="IPublishedElement"/> holding the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <param name="fallback">The fallback value to return if the property is not found.</param>
+    /// <returns>An instance of <typeparamref name="TEnum"/>, or the fallback value if not found.</returns>
+    public static TEnum GetEnum<TEnum>(this IPublishedElement element, string propertyAlias, TEnum fallback) where TEnum : struct, Enum {
+        return element.Value(propertyAlias) is TEnum value ? value : fallback;
+    }
+
+    /// <summary>
     /// Attempts to get the value of type <typeparamref name="T"/> from the property with the specified <paramref name="propertyAlias"/>.
     /// </summary>
     /// <typeparam name="T">The type of the value.</typeparam>

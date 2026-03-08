@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Skybrud.Essentials.Umbraco.Media;
-using Skybrud.Essentials.Umbraco.Scheduling;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 
@@ -11,9 +10,8 @@ namespace Skybrud.Essentials.Umbraco.Composers;
 public class EssentialsComposer : IComposer {
 
     public void Compose(IUmbracoBuilder builder) {
-        builder.Services.AddTransient<TaskHelper>();
         builder.Services.AddSingleton<MediaHelper>();
-        builder.ManifestFilters().Append<EssentialsManifestFilter>();
+        //builder.ManifestFilters().Append<EssentialsManifestFilter>();
     }
 
 }

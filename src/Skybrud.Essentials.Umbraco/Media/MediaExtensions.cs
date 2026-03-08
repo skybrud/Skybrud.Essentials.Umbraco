@@ -5,6 +5,8 @@ using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Services;
 
+#pragma warning disable CS0618
+
 namespace Skybrud.Essentials.Umbraco.Media;
 
 /// <summary>

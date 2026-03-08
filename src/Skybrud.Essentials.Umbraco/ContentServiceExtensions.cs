@@ -4,6 +4,8 @@ using System.Linq;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Services;
 
+#pragma warning disable CS0618 // Type or member is obsolete
+
 namespace Skybrud.Essentials.Umbraco;
 
 /// <summary>
