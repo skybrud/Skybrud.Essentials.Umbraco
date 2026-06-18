@@ -4,6 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <StaticWebAssetBasePath>/</StaticWebAssetBasePath>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -38,9 +39,27 @@
 
   <!-- Include NuGet dependencies -->
   <ItemGroup>
-    <PackageReference Include="Skybrud.Essentials" Version="1.1.66" />
+    <PackageReference Include="Skybrud.Essentials" Version="1.1.67" />
     <PackageReference Include="Umbraco.Cms.Core" Version="[17.1.0,17.999)" NoWarn="NU1902,NU1903" />
     <PackageReference Include="Umbraco.Cms.Web.Website" Version="[17.1.0,17.999)" NoWarn="NU1902,NU1903" />
+  </ItemGroup>
+
+  <!-- Ignore vulnerabilities from transient dependencies -->
+  <ItemGroup>
+
+    <!-- Package 'MessagePack' 3.1.4 has a known moderate severity vulnerability -->
+    <NuGetAuditSuppress Include="https://github.com/advisories/GHSA-hv8m-jj95-wg3x" />
+
+    <!-- Package 'MimeKit' 4.14.0 has a known moderate severity vulnerability -->
+    <NuGetAuditSuppress Include="https://github.com/advisories/GHSA-g7hc-96xr-gvvx" />
+
+    <!-- Package 'MailKit' 4.14.0 has a known moderate severity vulnerability -->
+    <NuGetAuditSuppress Include="https://github.com/advisories/GHSA-9j88-vvj5-vhgr" />
+
+    <!-- Package 'System.Security.Cryptography.Xml' 8.0.0 has a known high severity vulnerability -->
+    <NuGetAuditSuppress Include="https://github.com/advisories/GHSA-37gx-xxp4-5rgx" />
+    <NuGetAuditSuppress Include="https://github.com/advisories/GHSA-w3x6-4m5h-cxqf" />
+
   </ItemGroup>
 
   <!-- Include package icon for NuGet package -->

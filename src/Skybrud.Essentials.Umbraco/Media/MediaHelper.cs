@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Http;
-using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.IO;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.PropertyEditors;
