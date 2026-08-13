@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <VersionPrefix>17.0.0-alpha003</VersionPrefix>
+    <VersionPrefix>17.0.0-alpha004</VersionPrefix>
     <VersionSuffix Condition="'$(Configuration)'=='Debug'">build$([System.DateTime]::UtcNow.ToString(`yyyyMMddHHmm`))</VersionSuffix>
     <Authors>Anders Bjerner</Authors>
     <Company>Limbo</Company>
@@ -32,7 +32,7 @@
   <!-- Include additional metadata in the assembly -->
   <ItemGroup>
     <AssemblyMetadata Include="PackageProjectUrl" Value="https://packages.limbo.works/skybrud.essentials.umbraco/" />
-    <AssemblyMetadata Include="DocumentationUrl" Value="https://packages.limbo.works/skybrud.essentials.umbraco/docs/v13/" />
+    <AssemblyMetadata Include="DocumentationUrl" Value="https://packages.limbo.works/skybrud.essentials.umbraco/docs/v17/" />
     <AssemblyMetadata Include="NuGetUrl" Value="https://www.nuget.org/packages/Skybrud.Essentials.Umbraco" />
     <AssemblyMetadata Include="UmbracoMarketplaceUrl" Value="https://marketplace.umbraco.com/package/skybrud.essentials.umbraco" />
   </ItemGroup>
