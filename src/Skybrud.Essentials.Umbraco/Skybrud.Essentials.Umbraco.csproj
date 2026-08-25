@@ -31,6 +31,7 @@
 
   <!-- Include additional metadata in the assembly -->
   <ItemGroup>
+    <AssemblyMetadata Include="Authors" Value="$(Authors)" />
     <AssemblyMetadata Include="PackageProjectUrl" Value="https://packages.limbo.works/skybrud.essentials.umbraco/" />
     <AssemblyMetadata Include="DocumentationUrl" Value="https://packages.limbo.works/skybrud.essentials.umbraco/docs/v17/" />
     <AssemblyMetadata Include="NuGetUrl" Value="https://www.nuget.org/packages/Skybrud.Essentials.Umbraco" />
