@@ -3,9 +3,11 @@ using Skybrud.Essentials.Umbraco.Manifests.Conditions;
 
 namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.Workspaces;
 
-public class WorkspaceViewExtension {
+public class WorkspaceViewExtension : IExtension {
 
     public string Type => "workspaceView";
+
+    public string? Kind { get; set; }
 
     public required string Alias { get; set; }
 
