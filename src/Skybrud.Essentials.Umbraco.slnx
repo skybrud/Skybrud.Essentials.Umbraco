@@ -5,6 +5,8 @@
     <File Path="../NUGET.md" />
     <File Path="../README.md" />
     <File Path="../release.bat" />
+    <File Path=".editorconfig" />
+    <File Path="Skybrud.Essentials.Umbraco.sln.DotSettings" />
   </Folder>
   <Project Path="Skybrud.Essentials.Umbraco/Skybrud.Essentials.Umbraco.csproj" />
 </Solution>
