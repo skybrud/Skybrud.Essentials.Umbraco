@@ -1,6 +1,6 @@
 ﻿namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.EntryPoints;
 
-public class BackofficeEntryPointExtension {
+public class BackofficeEntryPointExtension : IExtension {
 
     public string Type => "backofficeEntryPoint";
 

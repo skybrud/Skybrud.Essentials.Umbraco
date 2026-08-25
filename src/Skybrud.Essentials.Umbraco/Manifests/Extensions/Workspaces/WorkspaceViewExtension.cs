@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Skybrud.Essentials.Umbraco.Manifests.Conditions;
 
 namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.Workspaces;
 
@@ -20,6 +21,6 @@ public class WorkspaceViewExtension {
 
     public required WorkspaceViewExtensionMeta Meta { get; set; }
 
-    public List<object> Conditions { get; set; } = [];
+    public List<ICondition> Conditions { get; set; } = [];
 
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Skybrud.Essentials.Umbraco.Manifests.Extensions;
+namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.Users;
 
 public class EntityUserPermissionExtensionMeta {
 

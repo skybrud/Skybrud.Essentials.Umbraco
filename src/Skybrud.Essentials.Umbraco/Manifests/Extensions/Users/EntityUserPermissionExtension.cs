@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Skybrud.Essentials.Umbraco.Manifests.Extensions;
+namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.Users;
 
-public class EntityUserPermissionExtension {
+public class EntityUserPermissionExtension : IExtension {
 
     public string Type => "entityUserPermission";
 

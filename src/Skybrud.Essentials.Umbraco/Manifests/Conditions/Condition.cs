@@ -1,6 +1,6 @@
 ﻿namespace Skybrud.Essentials.Umbraco.Manifests.Conditions;
 
-public abstract class Condition {
+public abstract class Condition : ICondition {
 
     public string Alias { get; }
 
