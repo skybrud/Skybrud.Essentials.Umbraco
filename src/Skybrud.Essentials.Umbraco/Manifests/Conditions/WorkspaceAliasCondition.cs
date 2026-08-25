@@ -14,6 +14,8 @@ public class WorkspaceAliasCondition : Condition {
 
     public static WorkspaceAliasCondition DataType { get; } = new("Umb.Workspace.DataType");
 
+    public static WorkspaceAliasCondition Media { get; } = new("Umb.Workspace.Media");
+
     public static WorkspaceAliasCondition MediaType { get; } = new("Umb.Workspace.MediaType");
 
     public static WorkspaceAliasCondition Member { get; } = new("Umb.Workspace.Member");
