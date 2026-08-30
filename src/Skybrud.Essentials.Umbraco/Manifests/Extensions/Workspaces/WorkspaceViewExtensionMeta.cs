@@ -1,14 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
 
 namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.Workspaces;
 
-public class WorkspaceViewExtensionMeta {
-
-    public required string Label { get; set; }
-
-    [JsonPropertyName("pathname")]
-    public required string PathName { get; set; }
-
-    public required string Icon { get; set; }
-
-}
+[Obsolete($"Use the '{nameof(WorkspaceViewMeta)}' class instead.")]
+public class WorkspaceViewExtensionMeta : WorkspaceViewMeta;

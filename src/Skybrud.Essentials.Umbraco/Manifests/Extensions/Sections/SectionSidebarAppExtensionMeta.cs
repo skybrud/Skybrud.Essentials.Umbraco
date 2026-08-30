@@ -1,9 +1,6 @@
-﻿namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.Sections;
+﻿using System;
 
-public class SectionSidebarAppExtensionMeta {
+namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.Sections;
 
-    public required string Label { get; set; }
-
-    public required string Menu { get; set; }
-
-}
+[Obsolete($"Use the '{nameof(SectionSidebarAppMeta)}' class instead.")]
+public class SectionSidebarAppExtensionMeta : SectionSidebarAppMeta;

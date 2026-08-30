@@ -1,7 +1,6 @@
-﻿namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.Workspaces;
+﻿using System;
 
-public class WorkspaceExtensionMeta {
+namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.Workspaces;
 
-    public required string EntityType { get; set; }
-
-}
+[Obsolete($"Use the '{nameof(WorkspaceMeta)}' class instead.")]
+public class WorkspaceExtensionMeta : WorkspaceMeta;

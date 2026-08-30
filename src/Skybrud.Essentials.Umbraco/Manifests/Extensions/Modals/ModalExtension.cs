@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json;
 using System.Text.Json.Serialization;
-using Skybrud.Essentials.Umbraco.Manifests.Conditions;
 
-namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.Sections;
+namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.Modals;
 
 /// <summary>
-/// Represents a section sidebar app extension declared by an Umbraco package manifest.
+/// Represents a modal extension declared by an Umbraco package manifest.
 /// </summary>
-public class SectionSidebarAppExtension : IExtension {
+public class ModalExtension : IExtension {
 
     /// <summary>
     /// Gets the type of the extension.
     /// </summary>
     /// <remarks>
-    /// The value is always <c>sectionSidebarApp</c>.
+    /// The value is always <c>modal</c>.
     /// </remarks>
-    public string Type => "sectionSidebarApp";
+    public string Type => "modal";
 
     /// <summary>
     /// Gets or sets the unique alias of the extension.
@@ -29,54 +29,56 @@ public class SectionSidebarAppExtension : IExtension {
 
     /// <summary>
     /// Gets or sets the location of the JavaScript module that provides the
-    /// section sidebar app element.
+    /// modal element.
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Element { get; set; }
 
     /// <summary>
     /// Gets or sets the optional name of the custom element that provides the
-    /// section sidebar app.
+    /// modal.
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? ElementName { get; set; }
 
     /// <summary>
-    /// Gets or sets the location of the JavaScript module associated with the
-    /// section sidebar app.
+    /// Gets or sets the location of the JavaScript module associated with the modal.
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Js { get; set; }
 
     /// <summary>
-    /// Gets or sets the optional kind of the extension.
+    /// Gets or sets the optional kind of the modal extension.
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Kind { get; set; }
 
     /// <summary>
-    /// Gets or sets the weight used to determine the ordering of the extension.
+    /// Gets or sets the weight used to determine the priority of the extension.
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? Weight { get; set; }
 
     /// <summary>
-    /// Gets or sets the metadata associated with the section sidebar app.
+    /// Gets or sets the metadata associated with the modal extension.
     /// </summary>
+    /// <remarks>
+    /// The structure of the metadata depends on the modal implementation.
+    /// </remarks>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public SectionSidebarAppMeta? Meta { get; set; }
+    public ModalMeta? Meta { get; set; }
+
+}
+
+/// <summary>
+/// Represents metadata associated with an Umbraco modal extension.
+/// </summary>
+public class ModalMeta {
 
     /// <summary>
-    /// Gets or sets the conditions that determine when the section sidebar app
-    /// is available.
+    /// Gets or sets additional metadata associated with the modal.
     /// </summary>
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<ICondition>? Conditions { get; set; }
-
-    /// <summary>
-    /// Gets or sets the aliases of extensions that this extension overwrites.
-    /// </summary>
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string>? Overwrites { get; set; }
+    [JsonExtensionData]
+    public IDictionary<string, JsonElement>? Properties { get; set; }
 
 }

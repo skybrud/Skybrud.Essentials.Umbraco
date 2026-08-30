@@ -3,17 +3,17 @@
 namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.EntryPoints;
 
 /// <summary>
-/// Represents a backoffice entry point extension declared by an Umbraco package manifest.
+/// Represents an app entry point extension declared by an Umbraco package manifest.
 /// </summary>
-public class BackofficeEntryPointExtension : IExtension {
+public class AppEntryPointExtension : IExtension {
 
     /// <summary>
     /// Gets the type of the extension.
     /// </summary>
     /// <remarks>
-    /// The value is always <c>backofficeEntryPoint</c>.
+    /// The value is always <c>appEntryPoint</c>.
     /// </remarks>
-    public string Type => "backofficeEntryPoint";
+    public string Type => "appEntryPoint";
 
     /// <summary>
     /// Gets or sets the unique alias of the extension.
@@ -23,18 +23,17 @@ public class BackofficeEntryPointExtension : IExtension {
     /// <summary>
     /// Gets or sets the human-readable name of the extension.
     /// </summary>
+    [JsonPropertyName("name")]
     public required string Name { get; set; }
 
     /// <summary>
-    /// Gets or sets the location of the JavaScript module that is loaded when the
-    /// Umbraco backoffice starts.
+    /// Gets or sets the location of the JavaScript module to load.
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public required string Js { get; set; }
+    public string? Js { get; set; }
 
     /// <summary>
-    /// Gets or sets the optional kind used to identify a specialized variant of
-    /// the extension.
+    /// Gets or sets the optional kind used to group the extension.
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Kind { get; set; }
