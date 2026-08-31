@@ -11,7 +11,6 @@ public class EssentialsPackageManifestReader : IPackageManifestReader {
 
         List<PackageManifest> temp = [
             new() {
-
                 Id = EssentialsPackage.Alias,
                 Name = EssentialsPackage.Name,
                 AllowTelemetry = true,
