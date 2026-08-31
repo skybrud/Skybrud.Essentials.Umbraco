@@ -69,16 +69,3 @@ public class ModalExtension : IExtension {
     public ModalMeta? Meta { get; set; }
 
 }
-
-/// <summary>
-/// Represents metadata associated with an Umbraco modal extension.
-/// </summary>
-public class ModalMeta {
-
-    /// <summary>
-    /// Gets or sets additional metadata associated with the modal.
-    /// </summary>
-    [JsonExtensionData]
-    public IDictionary<string, JsonElement>? Properties { get; set; }
-
-}
