@@ -1,9 +1,9 @@
-﻿using System;
+﻿namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.Clipboard;
 
-namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.Clipboard;
-
-[Obsolete($"Use '{nameof(ClipboardPastePropertyValueTranslatorExtension)}' class instead.")]
-public class ClipboardPastePropertyValueTranslator : IExtension {
+/// <summary>
+/// Represents an extension for translating a clipboard entry value to a property editor value.
+/// </summary>
+public class ClipboardPastePropertyValueTranslatorExtension : IExtension {
 
     /// <summary>
     /// Gets the extension type.
