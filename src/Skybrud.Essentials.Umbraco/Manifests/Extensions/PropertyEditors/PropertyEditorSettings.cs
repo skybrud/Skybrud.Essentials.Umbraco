@@ -6,6 +6,7 @@ namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.PropertyEditors;
 /// <summary>
 /// Represents the configurable settings of an Umbraco property editor schema.
 /// </summary>
+/// Based on <c>PropertyEditorSettings</c> in <c>umbraco-package-schema.json</c>.
 public class PropertyEditorSettings {
 
     /// <summary>

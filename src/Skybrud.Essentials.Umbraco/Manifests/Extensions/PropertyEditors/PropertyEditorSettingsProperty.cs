@@ -1,10 +1,12 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.PropertyEditors;
 
 /// <summary>
 /// Represents a configurable property exposed by an Umbraco property editor schema.
 /// </summary>
+/// Based on <c>PropertyEditorSettingsProperty</c> in <c>umbraco-package-schema.json</c>.
 public class PropertyEditorSettingsProperty {
 
     /// <summary>
@@ -35,7 +37,7 @@ public class PropertyEditorSettingsProperty {
     /// The value can contain arbitrary JSON specific to the selected property editor UI.
     /// </remarks>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public object? Config { get; set; }
+    public List<PropertyEditorConfigProperty>? Config { get; set; }
 
     /// <summary>
     /// Gets or sets the weight used to determine the ordering of the setting.

@@ -2,6 +2,25 @@
 
 public static class UmbracoPropertyEditorUiAliases {
 
+    // Date & Time
+    public const string DateTimePicker = "Umb.PropertyEditorUi.DateTimePicker";
+    public const string DateTimeWithTimeZonePicker = "Umb.PropertyEditorUi.DateTimeWithTimeZonePicker";
+    public const string DateOnlyPicker = "Umb.PropertyEditorUi.DateOnlyPicker";
+    public const string TimeOnlyPicker = "Umb.PropertyEditorUi.TimeOnlyPicker";
+    public const string TimeZonePicker = "Umb.PropertyEditorUi.TimeZonePicker";
+
+
+    // Blocks - configuration
+    public const string BlockListTypeConfiguration = "Umb.PropertyEditorUi.BlockListTypeConfiguration";
+    public const string BlockSingleTypeConfiguration = "Umb.PropertyEditorUi.BlockSingleTypeConfiguration";
+    public const string BlockRteTypeConfiguration = "Umb.PropertyEditorUi.BlockRteTypeConfiguration";
+    public const string BlockGridTypeConfiguration = "Umb.PropertyEditorUi.BlockGridTypeConfiguration";
+    public const string BlockGridAreaTypePermission = "Umb.PropertyEditorUi.BlockGridAreaTypePermission";
+    public const string BlockGridAreasConfig = "Umb.PropertyEditorUi.BlockGridAreasConfig";
+    public const string BlockGridColumnSpan = "Umb.PropertyEditorUi.BlockGridColumnSpan";
+    public const string BlockTypeGroupConfiguration = "Umb.PropertyEditorUi.BlockTypeGroupConfiguration";
+    public const string BlockGridLayoutStylesheet = "Umb.PropertyEditorUi.BlockGridLayoutStylesheet";
+
     // Text
     public const string TextBox = "Umb.PropertyEditorUi.TextBox";
     public const string TextArea = "Umb.PropertyEditorUi.TextArea";
@@ -39,10 +58,15 @@ public static class UmbracoPropertyEditorUiAliases {
     public const string UserPicker = "Umb.PropertyEditorUi.UserPicker";
     public const string Tags = "Umb.PropertyEditorUi.Tags";
 
+    // Media
+    public const string UploadField = "Umb.PropertyEditorUi.UploadField";
+    public const string ImageCropper = "Umb.PropertyEditorUi.ImageCropper";
+
     // Rich content
-    public const string RichText = "Umb.PropertyEditorUi.TinyMce";
-    public const string MarkdownEditor = "Umb.PropertyEditorUi.MarkdownEditor";
     public const string CodeEditor = "Umb.PropertyEditorUi.CodeEditor";
+    public const string MarkdownEditor = "Umb.PropertyEditorUi.MarkdownEditor";
+    public const string TinyMce = "Umb.PropertyEditorUi.TinyMce";
+    public const string Tiptap = "Umb.PropertyEditorUi.Tiptap";
 
     // Blocks
     public const string BlockList = "Umb.PropertyEditorUi.BlockList";
@@ -53,9 +77,13 @@ public static class UmbracoPropertyEditorUiAliases {
     public const string IconPicker = "Umb.PropertyEditorUi.IconPicker";
     public const string Collection = "Umb.PropertyEditorUi.Collection";
 
-    // Configuration editors
+    // Configuration / infrastructure editors
+    public const string AcceptedUploadTypes = "Umb.PropertyEditorUi.AcceptedUploadTypes";
+    public const string Dimensions = "Umb.PropertyEditorUI.Dimensions";
     public const string DocumentTypePicker = "Umb.PropertyEditorUi.DocumentTypePicker";
     public const string MediaTypePicker = "Umb.PropertyEditorUi.MediaTypePicker";
+    public const string Missing = "Umb.PropertyEditorUi.Missing";
+    public const string MissingUi = "Umb.PropertyEditorUi.MissingUi";
     public const string StylesheetPicker = "Umb.PropertyEditorUi.StylesheetPicker";
     public const string StaticFilePicker = "Umb.PropertyEditorUi.StaticFilePicker";
     public const string ValueType = "Umb.PropertyEditorUi.ValueType";

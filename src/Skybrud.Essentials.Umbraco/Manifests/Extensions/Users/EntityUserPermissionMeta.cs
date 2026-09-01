@@ -2,7 +2,7 @@
 
 namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.Users;
 
-public class EntityUserPermissionExtensionMeta {
+public class EntityUserPermissionMeta {
 
     public required List<string> Verbs { get; set; }
 

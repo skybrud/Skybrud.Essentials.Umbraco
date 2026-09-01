@@ -12,6 +12,6 @@ public class EntityUserPermissionExtension : IExtension {
 
     public required List<string> ForEntityTypes { get; set; }
 
-    public required EntityUserPermissionExtensionMeta Meta { get; set; }
+    public required EntityUserPermissionMeta Meta { get; set; }
 
 }
