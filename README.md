@@ -35,13 +35,13 @@
 To install the package via [**NuGet**](https://www.nuget.org/packages/Skybrud.Essentials.Umbraco), you can use either .NET CLI:
 
 ```
-dotnet add package Skybrud.Essentials.Umbraco --version 17.0.0-alpha006
+dotnet add package Skybrud.Essentials.Umbraco --version 17.0.0-alpha008
 ```
 
 or the NuGet Package Manager:
 
 ```
-Install-Package Skybrud.Essentials.Umbraco -Version 17.0.0-alpha006
+Install-Package Skybrud.Essentials.Umbraco -Version 17.0.0-alpha008
 ```
 
 ### Other versions of Umbraco
