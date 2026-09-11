@@ -14,9 +14,9 @@ public class DashboardMeta {
     public required string Label { get; set; }
 
     /// <summary>
-    /// Gets or sets the routable URL pathname of the dashboard.
+    /// Gets or sets the routable URL path name of the dashboard.
     /// </summary>
     [JsonPropertyName("pathname")]
-    public required string Pathname { get; set; }
+    public required string PathName { get; set; }
 
 }
