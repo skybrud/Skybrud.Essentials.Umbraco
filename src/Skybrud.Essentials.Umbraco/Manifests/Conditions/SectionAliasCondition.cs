@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Skybrud.Essentials.Umbraco.Constants;
 
 namespace Skybrud.Essentials.Umbraco.Manifests.Conditions;
 
@@ -8,11 +9,21 @@ public class SectionAliasCondition : Condition {
 
     #region Properties
 
-    public static SectionAliasCondition Content { get; } = new("Umb.Section.Content");
+    public static SectionAliasCondition Content { get; } = new(UmbracoUiSectionAliases.Content);
 
-    public static SectionAliasCondition Media { get; } = new("Umb.Section.Media");
+    public static SectionAliasCondition Media { get; } = new(UmbracoUiSectionAliases.Media);
 
-    public static SectionAliasCondition Settings { get; } = new("Umb.Section.Settings");
+    public static SectionAliasCondition Members { get; } = new(UmbracoUiSectionAliases.Members);
+
+    public static SectionAliasCondition Settings { get; } = new(UmbracoUiSectionAliases.Settings);
+
+    public static SectionAliasCondition Packages { get; } = new(UmbracoUiSectionAliases.Packages);
+
+    public static SectionAliasCondition Translation { get; } = new(UmbracoUiSectionAliases.Translation);
+
+    public static SectionAliasCondition Users { get; } = new(UmbracoUiSectionAliases.Users);
+
+    public static SectionAliasCondition Forms { get; } = new(UmbracoUiSectionAliases.Forms);
 
     /// <summary>
     /// The section that this extension should be available in.
