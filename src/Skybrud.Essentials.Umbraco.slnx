@@ -9,4 +9,5 @@
     <File Path="Skybrud.Essentials.Umbraco.sln.DotSettings" />
   </Folder>
   <Project Path="Skybrud.Essentials.Umbraco/Skybrud.Essentials.Umbraco.csproj" />
+  <Project Path="TestProject1/TestProject1.csproj" Id="f869d7a2-277f-404e-9658-57658d946f17" />
 </Solution>

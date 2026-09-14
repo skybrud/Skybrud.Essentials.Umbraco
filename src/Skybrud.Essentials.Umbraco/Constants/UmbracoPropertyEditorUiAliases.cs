@@ -50,6 +50,8 @@ public static class UmbracoPropertyEditorUiAliases {
 
     // Pickers
     public const string ContentPicker = "Umb.PropertyEditorUi.ContentPicker";
+    public const string ContentPickerSource = "Umb.PropertyEditorUi.ContentPicker.Source";
+    public const string ContentPickerSourceType = "Umb.PropertyEditorUi.ContentPicker.SourceType";
     public const string DocumentPicker = "Umb.PropertyEditorUi.DocumentPicker";
     public const string MediaPicker = "Umb.PropertyEditorUi.MediaPicker";
     public const string MultiUrlPicker = "Umb.PropertyEditorUi.MultiUrlPicker";
