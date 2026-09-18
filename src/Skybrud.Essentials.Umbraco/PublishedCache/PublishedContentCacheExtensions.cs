@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PublishedCache;
 
-namespace Skybrud.Essentials.Umbraco;
+namespace Skybrud.Essentials.Umbraco.PublishedCache;
 
 /// <summary>
 /// Static class with various extension methods for <see cref="IPublishedContentCache"/>.
