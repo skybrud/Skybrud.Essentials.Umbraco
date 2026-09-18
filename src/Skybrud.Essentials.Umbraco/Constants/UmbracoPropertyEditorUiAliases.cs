@@ -94,4 +94,10 @@ public static class UmbracoPropertyEditorUiAliases {
     public const string NumberRange = "Umb.PropertyEditorUi.NumberRange";
     public const string ColorSwatchesEditor = "Umb.PropertyEditorUi.ColorSwatchesEditor";
 
+
+    // Umbraco Products
+    public const string FormPickerSingle = "Forms.PropertyEditorUi.FormPicker.Single";
+    public const string FormPickerMultiple = "Forms.PropertyEditorUi.FormPicker.Multiple";
+    public const string FormDetailsPicker = "Forms.PropertyEditorUi.FormDetailsPicker";
+
 }

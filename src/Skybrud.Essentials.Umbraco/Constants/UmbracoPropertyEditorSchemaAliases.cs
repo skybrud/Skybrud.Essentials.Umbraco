@@ -50,4 +50,8 @@ public static class UmbracoPropertyEditorSchemaAliases {
     public const string Label = "Umbraco.Label";
     public const string Collection = "Umbraco.ListView";
 
+
+    // Umbraco Products
+    public const string FormPicker = "UmbracoForms.FormPicker";
+
 }
