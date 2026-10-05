@@ -1,29 +1,28 @@
-﻿namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.Clipboard;
+﻿using System.Text.Json.Serialization;
+
+namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.Clipboard;
 
 /// <summary>
 /// Represents an extension for translating a property editor value to a clipboard entry value.
 /// </summary>
-public class ClipboardCopyPropertyValueTranslatorExtension : IExtension {
+public class ClipboardCopyPropertyValueTranslatorExtension : Extension, IApiExtension {
 
     /// <summary>
     /// Gets the extension type.
     /// </summary>
-    public string Type => "clipboardCopyPropertyValueTranslator";
-
-    /// <summary>
-    /// Gets or sets the unique alias of the extension.
-    /// </summary>
-    public required string Alias { get; set; }
-
-    /// <summary>
-    /// Gets or sets the friendly name of the extension.
-    /// </summary>
-    public required string Name { get; set; }
+    public override string Type => "clipboardCopyPropertyValueTranslator";
 
     /// <summary>
     /// Gets or sets the path to the JavaScript module providing the extension API.
     /// </summary>
-    public required string Api { get; set; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Api { get; set; }
+
+    /// <summary>
+    /// Gets the path to the JavaScript module to load for the extension.
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Js { get; set; }
 
     /// <summary>
     /// Gets or sets the alias of the property editor UI from which values can be copied.

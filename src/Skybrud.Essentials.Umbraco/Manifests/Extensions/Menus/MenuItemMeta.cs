@@ -36,7 +36,7 @@ public class MenuItemMeta {
     public string? Icon { get; set; }
 
     /// <summary>
-    /// Gets or sets the URL of the link. Only works if <see cref="MenuItemExtension.Kind"/>. is set to <c>link</c>.
+    /// Gets or sets the URL of the link. Only works if <see cref="Extension.Kind"/>. is set to <c>link</c>.
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Href { get; set; }

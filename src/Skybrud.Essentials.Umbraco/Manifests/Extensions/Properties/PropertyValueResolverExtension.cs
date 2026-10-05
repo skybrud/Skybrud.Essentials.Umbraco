@@ -3,22 +3,12 @@
 /// <summary>
 /// Represents an extension for resolving values belonging to a property editor.
 /// </summary>
-public class PropertyValueResolverExtension : IExtension {
+public class PropertyValueResolverExtension : Extension, IExtension {
 
     /// <summary>
     /// Gets the extension type.
     /// </summary>
-    public string Type => "propertyValueResolver";
-
-    /// <summary>
-    /// Gets or sets the unique alias of the extension.
-    /// </summary>
-    public required string Alias { get; set; }
-
-    /// <summary>
-    /// Gets or sets the friendly name of the extension.
-    /// </summary>
-    public required string Name { get; set; }
+    public override string Type => "propertyValueResolver";
 
     /// <summary>
     /// Gets or sets the path to the JavaScript module providing the extension API.

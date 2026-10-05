@@ -5,7 +5,7 @@ namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.PropertyEditors;
 /// <summary>
 /// Represents an Umbraco property editor UI extension.
 /// </summary>
-public class PropertyEditorUiExtension : IExtension {
+public class PropertyEditorUiExtension : Extension, IElementExtension {
 
     /// <summary>
     /// Gets the extension type for the property editor UI.
@@ -13,17 +13,7 @@ public class PropertyEditorUiExtension : IExtension {
     /// <remarks>
     /// The value is typically <c>propertyEditorUi</c>.
     /// </remarks>
-    public string Type => "propertyEditorUi";
-
-    /// <summary>
-    /// Gets or sets the unique alias of the property editor UI.
-    /// </summary>
-    public required string Alias { get; set; }
-
-    /// <summary>
-    /// Gets or sets the human-readable name of the property editor UI.
-    /// </summary>
-    public required string Name { get; set; }
+    public override string Type => "propertyEditorUi";
 
     /// <summary>
     /// Gets or sets the location of the JavaScript module that provides the
@@ -43,21 +33,6 @@ public class PropertyEditorUiExtension : IExtension {
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Js { get; set; }
-
-    /// <summary>
-    /// Gets or sets the optional kind used to identify a specialized variant of the property editor UI.
-    /// </summary>
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? Kind { get; set; }
-
-    /// <summary>
-    /// Gets or sets the weight used to determine the ordering of the property editor UI.
-    /// </summary>
-    /// <remarks>
-    /// Higher values are given greater priority when ordering property editor UIs.
-    /// </remarks>
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Weight { get; set; }
 
     /// <summary>
     /// Gets or sets the metadata associated with the property editor UI.

@@ -1,4 +1,6 @@
-﻿namespace Skybrud.Essentials.Umbraco.Manifests.Extensions;
+﻿using System.Text.Json.Serialization;
+
+namespace Skybrud.Essentials.Umbraco.Manifests.Extensions;
 
 /// <summary>
 /// Represents the base configuration of an Umbraco extension manifest.
@@ -26,11 +28,13 @@ public abstract class Extension : IExtension {
     /// <remarks>
     /// The kind identifies a predefined configuration or specialization of the extension type.
     /// </remarks>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Kind { get; init; }
 
     /// <summary>
     /// Gets the weight used when ordering the extension relative to other extensions.
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? Weight { get; init; }
 
 }
