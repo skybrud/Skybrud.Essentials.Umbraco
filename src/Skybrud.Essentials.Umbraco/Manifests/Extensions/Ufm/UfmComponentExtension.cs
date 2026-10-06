@@ -22,7 +22,7 @@ namespace Skybrud.Essentials.Umbraco.Manifests.Extensions.Ufm;
 /// for more information.
 /// </para>
 /// </remarks>
-public class UfmComponentExtension : IExtension {
+public class UfmComponentExtension : Extension, IApiExtension {
 
     /// <summary>
     /// Gets the extension type.
@@ -30,22 +30,7 @@ public class UfmComponentExtension : IExtension {
     /// <value>
     /// Always <c>"ufmComponent"</c>.
     /// </value>
-    public string Type => "ufmComponent";
-
-    /// <summary>
-    /// Gets or sets the unique alias of the extension.
-    /// </summary>
-    /// <remarks>
-    /// This alias identifies the extension in the Umbraco extension registry
-    /// and is distinct from <see cref="UfmComponentMeta.Alias"/>, which identifies
-    /// the component within UFM.
-    /// </remarks>
-    public required string Alias { get; set; }
-
-    /// <summary>
-    /// Gets or sets the human-readable name of the extension.
-    /// </summary>
-    public required string Name { get; set; }
+    public override string Type => "ufmComponent";
 
     /// <summary>
     /// Gets or sets the path to the JavaScript module for the extension.
@@ -67,28 +52,6 @@ public class UfmComponentExtension : IExtension {
     /// </remarks>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Api { get; set; }
-
-    /// <summary>
-    /// Gets or sets the kind of the extension.
-    /// </summary>
-    /// <remarks>
-    /// The kind can be used to inherit additional configuration from a
-    /// registered extension kind. This property is omitted during serialization
-    /// when its value is <see langword="null"/>.
-    /// </remarks>
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? Kind { get; set; }
-
-    /// <summary>
-    /// Gets or sets the weight used to order the extension relative to other
-    /// extensions of the same type.
-    /// </summary>
-    /// <remarks>
-    /// Lower values are ordered before higher values. This property is omitted
-    /// during serialization when its value is <see langword="null"/>.
-    /// </remarks>
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Weight { get; set; }
 
     /// <summary>
     /// Gets or sets the UFM-specific configuration for the component.
