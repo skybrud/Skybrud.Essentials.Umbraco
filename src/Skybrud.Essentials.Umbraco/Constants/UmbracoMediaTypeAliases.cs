@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Skybrud.Essentials.Umbraco.Constants;
+﻿namespace Skybrud.Essentials.Umbraco.Constants;
 
 /// <summary>
 /// Constants for aliases of Umbraco's build-in media types.

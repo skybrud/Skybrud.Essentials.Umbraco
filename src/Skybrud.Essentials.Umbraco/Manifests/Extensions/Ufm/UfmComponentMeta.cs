@@ -19,7 +19,7 @@ public class UfmComponentMeta {
     /// Gets or sets the alias used to identify the component within UFM.
     /// </summary>
     /// <remarks>
-    /// This alias is distinct from <see cref="UfmComponentExtension.Alias"/>,
+    /// This alias is distinct from <see cref="Extension.Alias"/>,
     /// which identifies the extension in the Umbraco extension registry.
     /// </remarks>
     public required string Alias { get; set; }
