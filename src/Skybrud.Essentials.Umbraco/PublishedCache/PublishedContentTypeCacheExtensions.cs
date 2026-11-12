@@ -3,6 +3,8 @@ using System.Diagnostics.CodeAnalysis;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PublishedCache;
 
+// ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+
 namespace Skybrud.Essentials.Umbraco.PublishedCache;
 
 /// <summary>
@@ -57,12 +59,13 @@ public static class PublishedContentTypeCacheExtensions {
     public static bool TryGet(this IPublishedContentTypeCache cache, PublishedItemType itemType, Guid key, [NotNullWhen(true)] out IPublishedContentType? contentType) {
         try {
             contentType = cache.Get(itemType, key);
-            return true;
+            return contentType is not null;
         } catch (Exception) {
             contentType = null;
             return false;
         }
     }
+
     /// <summary>
     /// Attempts to retrieve a published content type with the specified alias.
     /// </summary>
@@ -76,7 +79,7 @@ public static class PublishedContentTypeCacheExtensions {
     public static bool TryGet(this IPublishedContentTypeCache cache, PublishedItemType itemType, string alias, [NotNullWhen(true)] out IPublishedContentType? contentType) {
         try {
             contentType = cache.Get(itemType, alias);
-            return true;
+            return contentType is not null;
         } catch (Exception) {
             contentType = null;
             return false;
