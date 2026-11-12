@@ -21,7 +21,7 @@ public static class ContentServiceExtensions {
     /// <param name="service">A reference to the current <see cref="IContentService"/>.</param>
     /// <param name="parentId">The ID of the parent node.</param>
     /// <returns>An instance of <see cref="IEnumerable{IContent}"/>.</returns>
-    public static IEnumerable<IContent> GetChildren(this IContentService service, int parentId) {
+    public static IEnumerable<IContent> GetAllChildren(this IContentService service, int parentId) {
         return service.GetPagedChildren(parentId, 0, int.MaxValue, out long _);
     }
 
@@ -32,7 +32,7 @@ public static class ContentServiceExtensions {
     /// <param name="parentId">The ID of the parent node.</param>
     /// <param name="total">When this method returns, holds the amount of children returned.</param>
     /// <returns>An instance of <see cref="IEnumerable{IContent}"/>.</returns>
-    public static IEnumerable<IContent> GetChildren(this IContentService service, int parentId, out long total) {
+    public static IEnumerable<IContent> GetAllChildren(this IContentService service, int parentId, out long total) {
         return service.GetPagedChildren(parentId, 0, int.MaxValue, out total);
     }
 
@@ -42,7 +42,7 @@ public static class ContentServiceExtensions {
     /// <param name="service">A reference to the current <see cref="IContentService"/>.</param>
     /// <param name="parent">The parent node.</param>
     /// <returns>An instance of <see cref="IEnumerable{IContent}"/>.</returns>
-    public static IEnumerable<IContent> GetChildren(this IContentService service, IContent parent) {
+    public static IEnumerable<IContent> GetAllChildren(this IContentService service, IContent parent) {
         return service.GetPagedChildren(parent.Id, 0, int.MaxValue, out long _);
     }
 
@@ -53,7 +53,7 @@ public static class ContentServiceExtensions {
     /// <param name="parent">The parent node.</param>
     /// <param name="total">When this method returns, holds the amount of children returned.</param>
     /// <returns>An instance of <see cref="IEnumerable{IContent}"/>.</returns>
-    public static IEnumerable<IContent> GetChildren(this IContentService service, IContent parent, out long total) {
+    public static IEnumerable<IContent> GetAllChildren(this IContentService service, IContent parent, out long total) {
         return service.GetPagedChildren(parent.Id, 0, int.MaxValue, out total);
     }
 
@@ -67,7 +67,7 @@ public static class ContentServiceExtensions {
     /// <param name="userId">The ID of the user responsible for the sort actions. Defaults to <see cref="SuperUserId"/> if not specified.</param>
     /// <returns>An instance of <see cref="OperationResult"/> representing the result of the sort operation.</returns>
     public static OperationResult SortAscending<TKey>(this IContentService service, int parentId, Func<IContent, TKey> keySelector, int userId = SuperUserId) {
-        return service.Sort(GetChildren(service, parentId).OrderBy(keySelector), userId);
+        return service.Sort(GetAllChildren(service, parentId).OrderBy(keySelector), userId);
     }
 
     /// <summary>
@@ -80,7 +80,7 @@ public static class ContentServiceExtensions {
     /// <param name="userId">The ID of the user responsible for the sort actions. Defaults to <see cref="SuperUserId"/> if not specified.</param>
     /// <returns>An instance of <see cref="OperationResult"/> representing the result of the sort operation.</returns>
     public static OperationResult SortAscending<TKey>(this IContentService service, IContent parent, Func<IContent, TKey> keySelector, int userId = SuperUserId) {
-        return service.Sort(GetChildren(service, parent.Id).OrderBy(keySelector), userId);
+        return service.Sort(GetAllChildren(service, parent.Id).OrderBy(keySelector), userId);
     }
 
     /// <summary>
@@ -93,7 +93,7 @@ public static class ContentServiceExtensions {
     /// <param name="userId">The ID of the user responsible for the sort actions. Defaults to <see cref="SuperUserId"/> if not specified.</param>
     /// <returns>An instance of <see cref="OperationResult"/> representing the result of the sort operation.</returns>
     public static OperationResult SortDescending<TKey>(this IContentService service, int parentId, Func<IContent, TKey> keySelector, int userId = SuperUserId) {
-        return service.Sort(GetChildren(service, parentId).OrderByDescending(keySelector), userId);
+        return service.Sort(GetAllChildren(service, parentId).OrderByDescending(keySelector), userId);
     }
 
     /// <summary>
@@ -106,7 +106,7 @@ public static class ContentServiceExtensions {
     /// <param name="userId">The ID of the user responsible for the sort actions. Defaults to <see cref="SuperUserId"/> if not specified.</param>
     /// <returns>An instance of <see cref="OperationResult"/> representing the result of the sort operation.</returns>
     public static OperationResult SortDescending<TKey>(this IContentService service, IContent parent, Func<IContent, TKey> keySelector, int userId = SuperUserId) {
-        return service.Sort(GetChildren(service, parent.Id).OrderByDescending(keySelector), userId);
+        return service.Sort(GetAllChildren(service, parent.Id).OrderByDescending(keySelector), userId);
     }
 
 }
