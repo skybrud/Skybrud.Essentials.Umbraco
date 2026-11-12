@@ -7,9 +7,9 @@ namespace Skybrud.Essentials.Umbraco.Manifests;
 
 public class EssentialsPackageManifestReader : IPackageManifestReader {
 
-    public async Task<IEnumerable<PackageManifest>> ReadPackageManifestsAsync() {
+    public Task<IEnumerable<PackageManifest>> ReadPackageManifestsAsync() {
 
-        List<PackageManifest> temp = [
+        IEnumerable<PackageManifest> manifests = [
             new() {
                 Id = EssentialsPackage.Alias,
                 Name = EssentialsPackage.Name,
@@ -17,10 +17,9 @@ public class EssentialsPackageManifestReader : IPackageManifestReader {
                 Version = EssentialsPackage.InformationalVersion,
                 Extensions = []
             }
-
         ];
 
-        return await Task.FromResult(temp);
+        return Task.FromResult(manifests);
 
     }
 
