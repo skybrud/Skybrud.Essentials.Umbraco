@@ -18,13 +18,13 @@ public static class PublishedElementExtensions {
     #region Boolean
 
     /// <summary>
-    /// Returns the boolean value of the property with the specified <paramref name="alias"/>, or <see langword="false"/> if a matching property could not be found, or it's value converted to a <see cref="bool"/> instance.
+    /// Returns the boolean value of the property with the specified <paramref name="propertyAlias"/>, or <see langword="false"/> if a matching property could not be found, or it's value converted to a <see cref="bool"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>An instance of <see cref="bool"/>.</returns>
-    public static bool GetBoolean(this IPublishedElement element, string alias) {
-        return element.Value(alias) switch {
+    public static bool GetBoolean(this IPublishedElement? element, string propertyAlias) {
+        return element?.Value(propertyAlias) switch {
             bool boolean => boolean,
             int number => number == 1,
             string str => StringUtils.ParseBoolean(str),
@@ -39,8 +39,8 @@ public static class PublishedElementExtensions {
     /// <param name="propertyAlias">The alias of the property.</param>
     /// <param name="fallback">The fallback value.</param>
     /// <returns>An instance of <see cref="bool"/> if successful; otherwise, <paramref name="fallback"/>.</returns>
-    public static bool GetBoolean(this IPublishedElement element, string propertyAlias, bool fallback) {
-        return element.Value(propertyAlias) switch {
+    public static bool GetBoolean(this IPublishedElement? element, string propertyAlias, bool fallback) {
+        return element?.Value(propertyAlias) switch {
             bool boolean => boolean,
             int number => number switch {
                 0 => false,
@@ -53,13 +53,13 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Returns the boolean value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="bool"/> instance.
+    /// Returns the boolean value of the property with the specified <paramref name="propertyAlias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="bool"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>An instance of <see cref="bool"/> if successful; otherwise, <see langword="null"/>.</returns>
-    public static bool? GetBooleanOrNull(this IPublishedElement? element, string alias) {
-        return element?.Value(alias) switch {
+    public static bool? GetBooleanOrNull(this IPublishedElement? element, string propertyAlias) {
+        return element?.Value(propertyAlias) switch {
             bool boolean => boolean,
             int number => number == 1,
             string str => StringUtils.ParseBooleanOrNull(str),
@@ -68,39 +68,39 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Attempts to get a boolean value from the property with the specified <paramref name="alias"/>.
+    /// Attempts to get a boolean value from the property with the specified <paramref name="propertyAlias"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
-    /// <param name="result">When this method returns, holds the <see cref="bool"/> value if successful; otherwise, <see langword="false"/>.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <param name="value">When this method returns, holds the <see cref="bool"/> value if successful; otherwise, <see langword="false"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool TryGetBoolean(this IPublishedElement? element, string alias, out bool result) {
+    public static bool TryGetBoolean(this IPublishedElement? element, string propertyAlias, out bool value) {
 
-        if (element.TryGetBoolean(alias, out bool? temp)) {
-            result = temp.Value;
+        if (element.TryGetBoolean(propertyAlias, out bool? temp)) {
+            value = temp.Value;
             return true;
         }
 
-        result = false;
+        value = false;
         return false;
 
     }
 
     /// <summary>
-    /// Attempts to get a boolean value from the property with the specified <paramref name="alias"/>.
+    /// Attempts to get a boolean value from the property with the specified <paramref name="propertyAlias"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
-    /// <param name="result">When this method returns, holds the <see cref="bool"/> value if successful; otherwise, <see langword="null"/>.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <param name="value">When this method returns, holds the <see cref="bool"/> value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool TryGetBoolean(this IPublishedElement? element, string alias, [NotNullWhen(true)] out bool? result) {
+    public static bool TryGetBoolean(this IPublishedElement? element, string propertyAlias, [NotNullWhen(true)] out bool? value) {
 
-        if (element is not null && element.HasProperty(alias)) {
-            result = element.GetBooleanOrNull(alias);
-            return result is not null;
+        if (element is not null && element.HasProperty(propertyAlias)) {
+            value = element.GetBooleanOrNull(propertyAlias);
+            return value is not null;
         }
 
-        result = null;
+        value = null;
         return false;
 
     }
@@ -110,23 +110,23 @@ public static class PublishedElementExtensions {
     #region Int32
 
     /// <summary>
-    /// Returns the 32-bit signed integer value of the property with the specified <paramref name="alias"/>, or <c>0</c> if a matching property could not be found, or it's value converted to a <see cref="int"/> instance.
+    /// Returns the 32-bit signed integer value of the property with the specified <paramref name="propertyAlias"/>, or <c>0</c> if a matching property could not be found, or it's value converted to a <see cref="int"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>An instance of <see cref="int"/>.</returns>
-    public static int GetInt32(this IPublishedElement element, string alias) {
-        return GetInt32OrNull(element, alias) ?? 0;
+    public static int GetInt32(this IPublishedElement element, string propertyAlias) {
+        return GetInt32OrNull(element, propertyAlias) ?? 0;
     }
 
     /// <summary>
-    /// Returns the 32-bit signed integer value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="int"/> instance.
+    /// Returns the 32-bit signed integer value of the property with the specified <paramref name="propertyAlias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="int"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>An instance of <see cref="int"/> if successful; otherwise, <see langword="null"/>.</returns>
-    public static int? GetInt32OrNull(this IPublishedElement? element, string alias) {
-        return element?.Value(alias) switch {
+    public static int? GetInt32OrNull(this IPublishedElement? element, string propertyAlias) {
+        return element?.Value(propertyAlias) switch {
             bool boolean => boolean ? 1 : 0,
             int number => number,
             string str => StringUtils.ParseInt32OrNull(str),
@@ -135,39 +135,39 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Attempts to get a 32-bit signed integer value from the property with the specified <paramref name="alias"/>.
+    /// Attempts to get a 32-bit signed integer value from the property with the specified <paramref name="propertyAlias"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
-    /// <param name="result">When this method returns, holds the <see cref="int"/> value if successful; otherwise, <see langword="false"/>.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <param name="value">When this method returns, holds the <see cref="int"/> value if successful; otherwise, <see langword="false"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool TryGetInt32(this IPublishedElement? element, string alias, out int result) {
+    public static bool TryGetInt32(this IPublishedElement? element, string propertyAlias, out int value) {
 
-        if (element.TryGetInt32(alias, out int? temp)) {
-            result = temp.Value;
+        if (element.TryGetInt32(propertyAlias, out int? temp)) {
+            value = temp.Value;
             return true;
         }
 
-        result = 0;
+        value = 0;
         return false;
 
     }
 
     /// <summary>
-    /// Attempts to get a 32-bit signed integer value from the property with the specified <paramref name="alias"/>.
+    /// Attempts to get a 32-bit signed integer value from the property with the specified <paramref name="propertyAlias"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
-    /// <param name="result">When this method returns, holds the <see cref="int"/> value if successful; otherwise, <see langword="null"/>.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <param name="value">When this method returns, holds the <see cref="int"/> value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool TryGetInt32(this IPublishedElement? element, string alias, [NotNullWhen(true)] out int? result) {
+    public static bool TryGetInt32(this IPublishedElement? element, string propertyAlias, [NotNullWhen(true)] out int? value) {
 
-        if (element is not null && element.HasProperty(alias)) {
-            result = element.GetInt32OrNull(alias);
-            return result is not null;
+        if (element is not null && element.HasProperty(propertyAlias)) {
+            value = element.GetInt32OrNull(propertyAlias);
+            return value is not null;
         }
 
-        result = null;
+        value = null;
         return false;
 
     }
@@ -177,23 +177,23 @@ public static class PublishedElementExtensions {
     #region Int64
 
     /// <summary>
-    /// Returns the 64-bit signed integer value of the property with the specified <paramref name="alias"/>, or <c>0</c> if a matching property could not be found, or it's value converted to a <see cref="long"/> instance.
+    /// Returns the 64-bit signed integer value of the property with the specified <paramref name="propertyAlias"/>, or <c>0</c> if a matching property could not be found, or it's value converted to a <see cref="long"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>An instance of <see cref="long"/>.</returns>
-    public static long GetInt64(this IPublishedElement element, string alias) {
-        return GetInt64OrNull(element, alias) ?? 0;
+    public static long GetInt64(this IPublishedElement element, string propertyAlias) {
+        return GetInt64OrNull(element, propertyAlias) ?? 0;
     }
 
     /// <summary>
-    /// Returns the 64-bit signed integer value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="long"/> instance.
+    /// Returns the 64-bit signed integer value of the property with the specified <paramref name="propertyAlias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="long"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>An instance of <see cref="long"/> if successful; otherwise, <see langword="null"/>.</returns>
-    public static long? GetInt64OrNull(this IPublishedElement? element, string alias) {
-        return element?.Value(alias) switch {
+    public static long? GetInt64OrNull(this IPublishedElement? element, string propertyAlias) {
+        return element?.Value(propertyAlias) switch {
             bool boolean => boolean ? 1 : 0,
             long number => number,
             string str => StringUtils.ParseInt64OrNull(str),
@@ -202,39 +202,39 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Attempts to get a 64-bit signed integer value from the property with the specified <paramref name="alias"/>.
+    /// Attempts to get a 64-bit signed integer value from the property with the specified <paramref name="propertyAlias"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
-    /// <param name="result">When this method returns, holds the <see cref="long"/> value if successful; otherwise, <see langword="false"/>.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <param name="value">When this method returns, holds the <see cref="long"/> value if successful; otherwise, <see langword="false"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool TryGetInt64(this IPublishedElement? element, string alias, out long result) {
+    public static bool TryGetInt64(this IPublishedElement? element, string propertyAlias, out long value) {
 
-        if (element.TryGetInt64(alias, out long? temp)) {
-            result = temp.Value;
+        if (element.TryGetInt64(propertyAlias, out long? temp)) {
+            value = temp.Value;
             return true;
         }
 
-        result = 0;
+        value = 0;
         return false;
 
     }
 
     /// <summary>
-    /// Attempts to get a 64-bit signed integer value from the property with the specified <paramref name="alias"/>.
+    /// Attempts to get a 64-bit signed integer value from the property with the specified <paramref name="propertyAlias"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
-    /// <param name="result">When this method returns, holds the <see cref="long"/> value if successful; otherwise, <see langword="null"/>.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <param name="value">When this method returns, holds the <see cref="long"/> value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool TryGetInt64(this IPublishedElement? element, string alias, [NotNullWhen(true)] out long? result) {
+    public static bool TryGetInt64(this IPublishedElement? element, string propertyAlias, [NotNullWhen(true)] out long? value) {
 
-        if (element is not null && element.HasProperty(alias)) {
-            result = element.GetInt64OrNull(alias);
-            return result is not null;
+        if (element is not null && element.HasProperty(propertyAlias)) {
+            value = element.GetInt64OrNull(propertyAlias);
+            return value is not null;
         }
 
-        result = null;
+        value = null;
         return false;
 
     }
@@ -244,23 +244,23 @@ public static class PublishedElementExtensions {
     #region Float
 
     /// <summary>
-    /// Returns the single-precision floating point value of the property with the specified <paramref name="alias"/>, or <c>0</c> if a matching property could not be found, or it's value converted to a <see cref="float"/> instance.
+    /// Returns the single-precision floating point value of the property with the specified <paramref name="propertyAlias"/>, or <c>0</c> if a matching property could not be found, or it's value converted to a <see cref="float"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>An instance of <see cref="float"/>.</returns>
-    public static float GetFloat(this IPublishedElement element, string alias) {
-        return GetFloatOrNull(element, alias) ?? 0;
+    public static float GetFloat(this IPublishedElement element, string propertyAlias) {
+        return GetFloatOrNull(element, propertyAlias) ?? 0;
     }
 
     /// <summary>
-    /// Returns the single-precision floating point value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="float"/> instance.
+    /// Returns the single-precision floating point value of the property with the specified <paramref name="propertyAlias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="float"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>An instance of <see cref="float"/> if successful; otherwise, <see langword="null"/>.</returns>
-    public static float? GetFloatOrNull(this IPublishedElement? element, string alias) {
-        return element?.Value(alias) switch {
+    public static float? GetFloatOrNull(this IPublishedElement? element, string propertyAlias) {
+        return element?.Value(propertyAlias) switch {
             int number => number,
             float floating => floating,
             string str => StringUtils.ParseFloatOrNull(str),
@@ -269,39 +269,39 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Attempts to get a single-precision floating point value from the property with the specified <paramref name="alias"/>.
+    /// Attempts to get a single-precision floating point value from the property with the specified <paramref name="propertyAlias"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
-    /// <param name="result">When this method returns, holds the <see cref="float"/> value if successful; otherwise, <see langword="false"/>.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <param name="value">When this method returns, holds the <see cref="float"/> value if successful; otherwise, <see langword="false"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool TryGetFloat(this IPublishedElement? element, string alias, out float result) {
+    public static bool TryGetFloat(this IPublishedElement? element, string propertyAlias, out float value) {
 
-        if (element.TryGetFloat(alias, out float? temp)) {
-            result = temp.Value;
+        if (element.TryGetFloat(propertyAlias, out float? temp)) {
+            value = temp.Value;
             return true;
         }
 
-        result = 0;
+        value = 0;
         return false;
 
     }
 
     /// <summary>
-    /// Attempts to get a single-precision floating point value from the property with the specified <paramref name="alias"/>.
+    /// Attempts to get a single-precision floating point value from the property with the specified <paramref name="propertyAlias"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
-    /// <param name="result">When this method returns, holds the <see cref="float"/> value if successful; otherwise, <see langword="null"/>.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <param name="value">When this method returns, holds the <see cref="float"/> value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool TryGetFloat(this IPublishedElement? element, string alias, [NotNullWhen(true)] out float? result) {
+    public static bool TryGetFloat(this IPublishedElement? element, string propertyAlias, [NotNullWhen(true)] out float? value) {
 
-        if (element is not null && element.HasProperty(alias)) {
-            result = element.GetFloatOrNull(alias);
-            return result is not null;
+        if (element is not null && element.HasProperty(propertyAlias)) {
+            value = element.GetFloatOrNull(propertyAlias);
+            return value is not null;
         }
 
-        result = null;
+        value = null;
         return false;
 
     }
@@ -311,23 +311,23 @@ public static class PublishedElementExtensions {
     #region Double
 
     /// <summary>
-    /// Returns the double-precision floating point value of the property with the specified <paramref name="alias"/>, or <c>0</c> if a matching property could not be found, or it's value converted to a <see cref="double"/> instance.
+    /// Returns the double-precision floating point value of the property with the specified <paramref name="propertyAlias"/>, or <c>0</c> if a matching property could not be found, or it's value converted to a <see cref="double"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>An instance of <see cref="double"/>.</returns>
-    public static double GetDouble(this IPublishedElement element, string alias) {
-        return GetDoubleOrNull(element, alias) ?? 0;
+    public static double GetDouble(this IPublishedElement element, string propertyAlias) {
+        return GetDoubleOrNull(element, propertyAlias) ?? 0;
     }
 
     /// <summary>
-    /// Returns the double-precision floating point value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="double"/> instance.
+    /// Returns the double-precision floating point value of the property with the specified <paramref name="propertyAlias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="double"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>An instance of <see cref="double"/> if successful; otherwise, <see langword="null"/>.</returns>
-    public static double? GetDoubleOrNull(this IPublishedElement? element, string alias) {
-        return element?.Value(alias) switch {
+    public static double? GetDoubleOrNull(this IPublishedElement? element, string propertyAlias) {
+        return element?.Value(propertyAlias) switch {
             long number => number,
             double floating => floating,
             string str => StringUtils.ParseDoubleOrNull(str),
@@ -336,39 +336,39 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Attempts to get a double-precision floating point value from the property with the specified <paramref name="alias"/>.
+    /// Attempts to get a double-precision floating point value from the property with the specified <paramref name="propertyAlias"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
-    /// <param name="result">When this method returns, holds the <see cref="double"/> value if successful; otherwise, <see langword="false"/>.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <param name="value">When this method returns, holds the <see cref="double"/> value if successful; otherwise, <see langword="false"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool TryGetDouble(this IPublishedElement? element, string alias, out double result) {
+    public static bool TryGetDouble(this IPublishedElement? element, string propertyAlias, out double value) {
 
-        if (element.TryGetDouble(alias, out double? temp)) {
-            result = temp.Value;
+        if (element.TryGetDouble(propertyAlias, out double? temp)) {
+            value = temp.Value;
             return true;
         }
 
-        result = 0;
+        value = 0;
         return false;
 
     }
 
     /// <summary>
-    /// Attempts to get a double-precision floating point value from the property with the specified <paramref name="alias"/>.
+    /// Attempts to get a double-precision floating point value from the property with the specified <paramref name="propertyAlias"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
-    /// <param name="result">When this method returns, holds the <see cref="double"/> value if successful; otherwise, <see langword="null"/>.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <param name="value">When this method returns, holds the <see cref="double"/> value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool TryGetDouble(this IPublishedElement? element, string alias, [NotNullWhen(true)] out double? result) {
+    public static bool TryGetDouble(this IPublishedElement? element, string propertyAlias, [NotNullWhen(true)] out double? value) {
 
-        if (element is not null && element.HasProperty(alias)) {
-            result = element.GetDoubleOrNull(alias);
-            return result is not null;
+        if (element is not null && element.HasProperty(propertyAlias)) {
+            value = element.GetDoubleOrNull(propertyAlias);
+            return value is not null;
         }
 
-        result = null;
+        value = null;
         return false;
 
     }
@@ -378,13 +378,13 @@ public static class PublishedElementExtensions {
     #region Guid
 
     /// <summary>
-    /// Returns the GUID value of the property with the specified <paramref name="alias"/>, or <see cref="Guid.Empty"/> if a matching property could not be found, or it's value converted to a <see cref="Guid"/> instance.
+    /// Returns the GUID value of the property with the specified <paramref name="propertyAlias"/>, or <see cref="Guid.Empty"/> if a matching property could not be found, or it's value converted to a <see cref="Guid"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>An instance of <see cref="Guid"/>.</returns>
-    public static Guid GetGuid(this IPublishedElement element, string alias) {
-        return element.Value(alias) switch {
+    public static Guid GetGuid(this IPublishedElement element, string propertyAlias) {
+        return element.Value(propertyAlias) switch {
             Guid guid => guid,
             string str => Guid.TryParse(str, out Guid g) ? g : Guid.Empty,
             _ => Guid.Empty
@@ -392,13 +392,13 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Returns the GUID value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="Guid"/> instance.
+    /// Returns the GUID value of the property with the specified <paramref name="propertyAlias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="Guid"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>An instance of <see cref="Guid"/> if successful; otherwise, <see langword="null"/>.</returns>
-    public static Guid? GetGuidOrNull(this IPublishedElement? element, string alias) {
-        return element?.Value(alias) switch {
+    public static Guid? GetGuidOrNull(this IPublishedElement? element, string propertyAlias) {
+        return element?.Value(propertyAlias) switch {
             Guid guid => guid,
             string str => (Guid.TryParse(str, out Guid g) ? g : null),
             _ => null
@@ -410,32 +410,32 @@ public static class PublishedElementExtensions {
     /// </summary>
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
-    /// <param name="result">When this method returns, holds <see cref="Guid"/> value if successful; otherwise, <see cref="Guid.Empty"/>.</param>
+    /// <param name="value">When this method returns, holds <see cref="Guid"/> value if successful; otherwise, <see cref="Guid.Empty"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool TryGetGuid(this IPublishedElement? element, string alias, out Guid result) {
+    public static bool TryGetGuid(this IPublishedElement? element, string alias, out Guid value) {
         if (element.TryGetGuid(alias, out Guid? guid)) {
-            result = guid.Value;
+            value = guid.Value;
             return true;
         }
-        result = Guid.Empty;
+        value = Guid.Empty;
         return false;
     }
 
     /// <summary>
-    /// Attempts to get a GUID value from the property with the specified <paramref name="alias"/>.
+    /// Attempts to get a GUID value from the property with the specified <paramref name="propertyAlias"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
-    /// <param name="result">When this method returns, holds <see cref="Guid"/> value if successful; otherwise, <see langword="null"/>.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <param name="value">When this method returns, holds <see cref="Guid"/> value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool TryGetGuid(this IPublishedElement? element, string alias, [NotNullWhen(true)] out Guid? result) {
+    public static bool TryGetGuid(this IPublishedElement? element, string propertyAlias, [NotNullWhen(true)] out Guid? value) {
 
-        if (element is not null && element.HasProperty(alias)) {
-            result = element.GetGuidOrNull(alias);
-            return result is not null;
+        if (element is not null && element.HasProperty(propertyAlias)) {
+            value = element.GetGuidOrNull(propertyAlias);
+            return value is not null;
         }
 
-        result = null;
+        value = null;
         return false;
 
     }
@@ -445,67 +445,67 @@ public static class PublishedElementExtensions {
     #region String
 
     /// <summary>
-    /// Returns the string value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="string"/> instance.
+    /// Returns the string value of the property with the specified <paramref name="propertyAlias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="string"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>An instance of <see cref="string"/> if successful; otherwise, <see langword="null"/>.</returns>
-    public static string? GetString(this IPublishedElement? element, string alias) {
-        return element?.Value<string>(alias);
+    public static string? GetString(this IPublishedElement? element, string propertyAlias) {
+        return element?.Value<string>(propertyAlias);
     }
 
     /// <summary>
-    /// Returns the string value of the property with the specified <paramref name="alias"/>, or <paramref name="fallback"/> if a matching property could not be found, or it's value converted to a <see cref="string"/> instance.
+    /// Returns the string value of the property with the specified <paramref name="propertyAlias"/>, or <paramref name="fallback"/> if a matching property could not be found, or it's value converted to a <see cref="string"/> instance.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <param name="fallback">The fallback value.</param>
     /// <returns>An instance of <see cref="string"/> if successful; otherwise, <paramref name="fallback"/>.</returns>
     [return: NotNullIfNotNull(nameof(fallback))]
-    public static string? GetString(this IPublishedElement? element, string alias, string? fallback) {
-        string? value = element?.Value<string>(alias);
+    public static string? GetString(this IPublishedElement? element, string propertyAlias, string? fallback) {
+        string? value = element?.Value<string>(propertyAlias);
         return string.IsNullOrWhiteSpace(value) ? fallback : value;
     }
 
     /// <summary>
-    /// Returns the first string value of the properties matching the specified <paramref name="aliases"/>. If a matching property or a non-empty string value isn't found, <see langword="null"/> is returned instead.
+    /// Returns the first string value of the properties matching the specified <paramref name="propertyAliases"/>. If a matching property or a non-empty string value isn't found, <see langword="null"/> is returned instead.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="aliases">A collection of property aliases to look for.</param>
-    /// <returns></returns>
-    public static string? GetString(this IPublishedElement? element, IEnumerable<string> aliases) {
-        foreach (string alias in aliases) if (TryGetString(element, alias, out string? result)) return result;
+    /// <param name="propertyAliases">A collection of property aliases to look for.</param>
+    /// <returns></returns>propertyAlias
+    public static string? GetString(this IPublishedElement? element, IEnumerable<string> propertyAliases) {
+        foreach (string alias in propertyAliases) if (TryGetString(element, alias, out string? value)) return value;
         return null;
     }
 
     /// <summary>
-    /// Attempts to get a string value from the property with the specified <paramref name="alias"/>.
+    /// Attempts to get a string value from the property with the specified <paramref name="propertyAlias"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
-    /// <param name="result">When this method returns, holds the string value if successful; otherwise, <see langword="null"/>.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <param name="value">When this method returns, holds the string value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool TryGetString(this IPublishedElement? element, string alias, [NotNullWhen(true)] out string? result) {
+    public static bool TryGetString(this IPublishedElement? element, string propertyAlias, [NotNullWhen(true)] out string? value) {
 
-        if (element is not null && element.HasProperty(alias)) {
-            result = element.GetString(alias).NullIfWhiteSpace();
-            return result is not null;
+        if (element is not null && element.HasProperty(propertyAlias)) {
+            value = element.GetString(propertyAlias).NullIfWhiteSpace();
+            return value is not null;
         }
 
-        result = null;
+        value = null;
         return false;
 
     }
 
     /// <summary>
-    /// Attempts to get the first string value of the properties matching the specified <paramref name="aliases"/>. If a matching property or a non-empty string value isn't found, <see langword="null"/> is returned instead.
+    /// Attempts to get the first string value of the properties matching the specified <paramref name="propertyAliases"/>. If a matching property or a non-empty string value isn't found, <see langword="null"/> is returned instead.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="aliases">The aliases of the properties.</param>
-    /// <param name="result">When this method returns, holds the string value if successful; otherwise, <see langword="null"/>.</param>
+    /// <param name="propertyAliases">The aliases of the properties.</param>
+    /// <param name="value">When this method returns, holds the string value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool TryGetString(this IPublishedElement element, IEnumerable<string> aliases, [NotNullWhen(true)] out string? result) {
-        return (result = GetStringOrNull(element, aliases)) is not null;
+    public static bool TryGetString(this IPublishedElement element, IEnumerable<string> propertyAliases, [NotNullWhen(true)] out string? value) {
+        return (value = GetStringOrNull(element, propertyAliases)) is not null;
     }
 
     /// <summary>
@@ -522,13 +522,13 @@ public static class PublishedElementExtensions {
     /// Returns the first string value of the properties matching the specified <paramref name="propertyAliases"/>. If
     /// a non-empty string value isn't found, <see langword="null"/> is returned instead.
     /// </summary>
-    /// <param name="content"></param>
+    /// <param name="element">The element holding the property.</param>
     /// <param name="propertyAliases">The property aliases to check.</param>
     /// <returns>The string value if successful; otherwise, <see langword="null"/>.</returns>
-    public static string? GetStringOrNull(this IPublishedElement content, IEnumerable<string> propertyAliases) {
+    public static string? GetStringOrNull(this IPublishedElement element, IEnumerable<string> propertyAliases) {
 
         foreach (string propertyAlias in propertyAliases) {
-            if (content.TryGetString(propertyAlias, out string? result)) return result;
+            if (element.TryGetString(propertyAlias, out string? value)) return value;
         }
 
         return null;
@@ -540,15 +540,15 @@ public static class PublishedElementExtensions {
     #region DateTime
 
     /// <summary>
-    /// Returns a <see cref="DateTime"/> value of the property with the specified <paramref name="alias"/>.
+    /// Returns a <see cref="DateTime"/> value of the property with the specified <paramref name="propertyAlias"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>An instance of <see cref="DateTime"/>.</returns>
-    public static DateTime GetDateTime(this IPublishedElement? element, string alias) {
+    public static DateTime GetDateTime(this IPublishedElement? element, string propertyAlias) {
 
         // Get the property value
-        DateTime? dt = element?.Value<DateTime>(alias);
+        DateTime? dt = element?.Value<DateTime>(propertyAlias);
 
         // Correct for wrong time zone as Umbraco returns the DateTime as "Utc" even though it is actually "Local"
         return dt is null ? DateTime.MinValue : new DateTime(dt.Value.Ticks, DateTimeKind.Local);
@@ -556,16 +556,16 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Returns a <see cref="DateTime"/> value of the property with the specified <paramref name="alias"/>, or
+    /// Returns a <see cref="DateTime"/> value of the property with the specified <paramref name="propertyAlias"/>, or
     /// <see langword="null"/> if the type of the property value doesn't match a <see cref="DateTime"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>An instance of <see cref="DateTime"/> if successful; otherwise, <see langword="null"/>.</returns>
-    public static DateTime? GetDateTimeOrNull(this IPublishedElement? element, string alias) {
+    public static DateTime? GetDateTimeOrNull(this IPublishedElement? element, string propertyAlias) {
 
         // Get the property value
-        DateTime? dt = element?.Value<DateTime>(alias);
+        DateTime? dt = element?.Value<DateTime>(propertyAlias);
 
         // Correct for wrong time zone as Umbraco returns the DateTime as "Utc" even though it is actually "Local"
         return dt is null ? null : new DateTime(dt.Value.Ticks, DateTimeKind.Local);
@@ -573,15 +573,15 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Attempts to get the <see cref="DateTime"/> value of the property with the specified <paramref name="alias"/>.
+    /// Attempts to get the <see cref="DateTime"/> value of the property with the specified <paramref name="propertyAlias"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <param name="value">When this method returns, holds the <see cref="DateTime"/> value if successful; otherwise <see cref="DateTime.MinValue"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool TryGetDateTime(this IPublishedElement? element, string alias, out DateTime value) {
+    public static bool TryGetDateTime(this IPublishedElement? element, string propertyAlias, out DateTime value) {
 
-        if (element is not null && element.HasValue(alias) && element.Value(alias) is DateTime dt) {
+        if (element is not null && element.HasValue(propertyAlias) && element.Value(propertyAlias) is DateTime dt) {
 
             // Correct for wrong time zone as Umbraco returns the DateTime as "Utc" even though it is actually "Local"
             value = new DateTime(dt.Ticks, DateTimeKind.Local);
@@ -596,15 +596,15 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Attempts to get the <see cref="DateTime"/> value of the property with the specified <paramref name="alias"/>.
+    /// Attempts to get the <see cref="DateTime"/> value of the property with the specified <paramref name="propertyAlias"/>.
     /// </summary>
     /// <param name="element">The element holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <param name="value">When this method returns, holds the <see cref="DateTime"/> value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool TryGetDateTime(this IPublishedElement? element, string alias, out DateTime? value) {
+    public static bool TryGetDateTime(this IPublishedElement? element, string propertyAlias, out DateTime? value) {
 
-        if (element is not null && element.HasValue(alias) && element.Value(alias) is DateTime dt) {
+        if (element is not null && element.HasValue(propertyAlias) && element.Value(propertyAlias) is DateTime dt) {
 
             // Correct for wrong time zone as Umbraco returns the DateTime as "Utc" even though it is actually "Local"
             value = new DateTime(dt.Ticks, DateTimeKind.Local);
@@ -623,13 +623,13 @@ public static class PublishedElementExtensions {
     #region Udi
 
     /// <summary>
-    /// Returns the UDI value of the property with the specified <paramref name="alias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="Udi"/> instance.
+    /// Returns the UDI value of the property with the specified <paramref name="propertyAlias"/>, or <see langword="null"/> if a matching property could not be found, or it's value converted to a <see cref="Udi"/> instance.
     /// </summary>
     /// <param name="element">The <see cref="IPublishedElement"/> holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>An instance of <see cref="Udi"/> if successful; otherwise, <see langword="null"/>.</returns>
-    public static Udi? GetUdi(this IPublishedElement element, string alias) {
-        object? value = element.Value(alias);
+    public static Udi? GetUdi(this IPublishedElement element, string propertyAlias) {
+        object? value = element.Value(propertyAlias);
         return value switch {
             Udi udi => udi,
             IEnumerable<Udi> udis => udis.FirstOrDefault(),
@@ -639,13 +639,13 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Returns a collection of UDI values of the property with the specified <paramref name="alias"/>, or an empty collection if a matching property could not be found, or it's value converted to a collection of <see cref="Udi"/> instances.
+    /// Returns a collection of UDI values of the property with the specified <paramref name="propertyAlias"/>, or an empty collection if a matching property could not be found, or it's value converted to a collection of <see cref="Udi"/> instances.
     /// </summary>
     /// <param name="element">The <see cref="IPublishedElement"/> holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>A collection of <see cref="Udi"/> instances.</returns>
-    public static IEnumerable<Udi> GetUdis(this IPublishedElement element, string alias) {
-        object? value = element.Value(alias);
+    public static IEnumerable<Udi> GetUdis(this IPublishedElement element, string propertyAlias) {
+        object? value = element.Value(propertyAlias);
         return value switch {
             Udi udi => [udi],
             IEnumerable<Udi> udis => udis,
@@ -655,15 +655,15 @@ public static class PublishedElementExtensions {
     }
 
     /// <summary>
-    /// Attempts to get a UDI value from the property with the specified <paramref name="alias"/>.
+    /// Attempts to get a UDI value from the property with the specified <paramref name="propertyAlias"/>.
     /// </summary>
     /// <param name="element">The <see cref="IPublishedElement"/> holding the property.</param>
-    /// <param name="alias">The alias of the property.</param>
-    /// <param name="result">When this method returns, holds the <see cref="Udi"/> value if successful; otherwise, <see langword="null"/>.</param>
+    /// <param name="propertyAlias">The alias of the property.</param>
+    /// <param name="value">When this method returns, holds the <see cref="Udi"/> value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool TryGetUdi(this IPublishedElement element, string alias, [NotNullWhen(true)] out Udi? result) {
-        result = GetUdi(element, alias);
-        return result is not null;
+    public static bool TryGetUdi(this IPublishedElement element, string propertyAlias, [NotNullWhen(true)] out Udi? value) {
+        value = GetUdi(element, propertyAlias);
+        return value is not null;
     }
 
     #endregion
@@ -697,17 +697,17 @@ public static class PublishedElementExtensions {
     /// <typeparam name="T">The type of the value.</typeparam>
     /// <param name="element">The <see cref="IPublishedElement"/> holding the property.</param>
     /// <param name="propertyAlias">The alias of the property.</param>
-    /// <param name="result">When this method returns, holds the <typeparamref name="T"/> value of the property if successful; otherwise, <see langword="null"/>.</param>
+    /// <param name="value">When this method returns, holds the <typeparamref name="T"/> value of the property if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
-    public static bool TryGetValue<T>(this IPublishedElement? element, string propertyAlias, out T? result) {
+    public static bool TryGetValue<T>(this IPublishedElement? element, string propertyAlias, out T? value) {
 
-        result = default;
+        value = default;
 
         if (element == null) return false;
         if (!element.HasValue(propertyAlias)) return false;
 
-        result = element.Value<T>(propertyAlias);
-        return result != null;
+        value = element.Value<T>(propertyAlias);
+        return value != null;
 
     }
 
