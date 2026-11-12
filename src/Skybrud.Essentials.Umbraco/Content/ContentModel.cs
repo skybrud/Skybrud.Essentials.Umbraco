@@ -33,16 +33,16 @@ public class ContentModel<TModel> : ContentModel where TModel : PublishedContent
 
     public ContentModel<TModel> SetValue<TProperty>(Expression<Func<TModel, TProperty>> selector, object? value) {
 
-        // Get the name/alias of the property
-        string alias = ReflectionUtils.GetPropertyInfo(selector).Name;
+        // Get the name of the property
+        string name = ReflectionUtils.GetPropertyInfo(selector).Name;
 
         // Not sure how much casing matters, so we better lookup the correct casing of the property type
-        IPublishedPropertyType? propertyType = ContentType.GetPropertyType(alias);
-        if (propertyType is null) throw new Exception($"Property type with alias '{alias}' not found for content type '{ContentType.Alias}'.");
+        IPublishedPropertyType? propertyType = ContentType.GetPropertyType(name);
+        if (propertyType is null) throw new Exception($"Property type with name '{name}' not found for content type '{ContentType.Alias}'.");
 
         // Set the property value
         if (value is null) {
-            Properties.Remove(alias);
+            Properties.Remove(propertyType.Alias);
         } else {
             Properties[propertyType.Alias] = value;
         }
