@@ -11,6 +11,7 @@ namespace Skybrud.Essentials.Umbraco;
 /// <summary>
 /// Static class with various extension methods for <see cref="IContentService"/>.
 /// </summary>
+[Obsolete("Use the 'Skybrud.Essentials.Umbraco.Content.ContentServiceExtensions' class instead.")]
 public static class ContentServiceExtensions {
 
     internal const int SuperUserId = global::Umbraco.Cms.Core.Constants.Security.SuperUserId;
@@ -21,6 +22,7 @@ public static class ContentServiceExtensions {
     /// <param name="service">A reference to the current <see cref="IContentService"/>.</param>
     /// <param name="parentId">The ID of the parent node.</param>
     /// <returns>An instance of <see cref="IEnumerable{IContent}"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.Content.ContentServiceExtensions.GetChildren' method instead.")]
     public static IEnumerable<IContent> GetChildren(this IContentService service, int parentId) {
         return service.GetPagedChildren(parentId, 0, int.MaxValue, out long _);
     }
@@ -32,6 +34,7 @@ public static class ContentServiceExtensions {
     /// <param name="parentId">The ID of the parent node.</param>
     /// <param name="total">When this method returns, holds the amount of children returned.</param>
     /// <returns>An instance of <see cref="IEnumerable{IContent}"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.Content.ContentServiceExtensions.GetChildren' method instead.")]
     public static IEnumerable<IContent> GetChildren(this IContentService service, int parentId, out long total) {
         return service.GetPagedChildren(parentId, 0, int.MaxValue, out total);
     }
@@ -42,6 +45,7 @@ public static class ContentServiceExtensions {
     /// <param name="service">A reference to the current <see cref="IContentService"/>.</param>
     /// <param name="parent">The parent node.</param>
     /// <returns>An instance of <see cref="IEnumerable{IContent}"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.Content.ContentServiceExtensions.GetChildren' method instead.")]
     public static IEnumerable<IContent> GetChildren(this IContentService service, IContent parent) {
         return service.GetPagedChildren(parent.Id, 0, int.MaxValue, out long _);
     }
@@ -53,6 +57,7 @@ public static class ContentServiceExtensions {
     /// <param name="parent">The parent node.</param>
     /// <param name="total">When this method returns, holds the amount of children returned.</param>
     /// <returns>An instance of <see cref="IEnumerable{IContent}"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.Content.ContentServiceExtensions.GetChildren' method instead.")]
     public static IEnumerable<IContent> GetChildren(this IContentService service, IContent parent, out long total) {
         return service.GetPagedChildren(parent.Id, 0, int.MaxValue, out total);
     }
@@ -66,6 +71,7 @@ public static class ContentServiceExtensions {
     /// <param name="keySelector">A function to extract a key from an element.</param>
     /// <param name="userId">The ID of the user responsible for the sort actions. Defaults to <see cref="SuperUserId"/> if not specified.</param>
     /// <returns>An instance of <see cref="OperationResult"/> representing the result of the sort operation.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.Content.ContentServiceExtensions.SortAscending' method instead.")]
     public static OperationResult SortAscending<TKey>(this IContentService service, int parentId, Func<IContent, TKey> keySelector, int userId = SuperUserId) {
         return service.Sort(GetChildren(service, parentId).OrderBy(keySelector), userId);
     }
@@ -79,6 +85,7 @@ public static class ContentServiceExtensions {
     /// <param name="keySelector">A function to extract a key from an element.</param>
     /// <param name="userId">The ID of the user responsible for the sort actions. Defaults to <see cref="SuperUserId"/> if not specified.</param>
     /// <returns>An instance of <see cref="OperationResult"/> representing the result of the sort operation.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.Content.ContentServiceExtensions.SortAscending' method instead.")]
     public static OperationResult SortAscending<TKey>(this IContentService service, IContent parent, Func<IContent, TKey> keySelector, int userId = SuperUserId) {
         return service.Sort(GetChildren(service, parent.Id).OrderBy(keySelector), userId);
     }
@@ -92,6 +99,7 @@ public static class ContentServiceExtensions {
     /// <param name="keySelector">A function to extract a key from an element.</param>
     /// <param name="userId">The ID of the user responsible for the sort actions. Defaults to <see cref="SuperUserId"/> if not specified.</param>
     /// <returns>An instance of <see cref="OperationResult"/> representing the result of the sort operation.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.Content.ContentServiceExtensions.SortDescending' method instead.")]
     public static OperationResult SortDescending<TKey>(this IContentService service, int parentId, Func<IContent, TKey> keySelector, int userId = SuperUserId) {
         return service.Sort(GetChildren(service, parentId).OrderByDescending(keySelector), userId);
     }
@@ -105,6 +113,7 @@ public static class ContentServiceExtensions {
     /// <param name="keySelector">A function to extract a key from an element.</param>
     /// <param name="userId">The ID of the user responsible for the sort actions. Defaults to <see cref="SuperUserId"/> if not specified.</param>
     /// <returns>An instance of <see cref="OperationResult"/> representing the result of the sort operation.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.Content.ContentServiceExtensions.SortDescending' method instead.")]
     public static OperationResult SortDescending<TKey>(this IContentService service, IContent parent, Func<IContent, TKey> keySelector, int userId = SuperUserId) {
         return service.Sort(GetChildren(service, parent.Id).OrderByDescending(keySelector), userId);
     }

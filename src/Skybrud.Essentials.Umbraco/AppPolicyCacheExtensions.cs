@@ -6,6 +6,7 @@ namespace Skybrud.Essentials.Umbraco;
 /// <summary>
 /// Static class with various extension methods for <see cref="IAppPolicyCache"/>.
 /// </summary>
+[Obsolete("Use the extension methods in the Skybrud.Essentials.Umbraco.Caching namespace instead.")]
 public static class AppPolicyCacheExtensions {
 
     /// <summary>
@@ -15,8 +16,9 @@ public static class AppPolicyCacheExtensions {
     /// <param name="cache">The cache.</param>
     /// <param name="key">The key of the cached item.</param>
     /// <returns>An instance of <typeparamref name="T"/> if successful; otherwise, <see langword="default"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.Caching.AppPolicyCacheExtensions.Get' method instead.")]
     public static T? Get<T>(this IAppPolicyCache cache, string key) {
-        return cache.Get(key) is T value ? value : default;
+        return Caching.AppPolicyCacheExtensions.Get<T>(cache, key);
     }
 
     /// <summary>
@@ -29,8 +31,9 @@ public static class AppPolicyCacheExtensions {
     /// <param name="timeout">An optional cache timeout.</param>
     /// <param name="isSliding">An optional value indicating whether the cache timeout is sliding (default is <see langword="false"/>).</param>
     /// <returns>An instance of <typeparamref name="T"/> if successful; otherwise, <see langword="default"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.Caching.AppPolicyCacheExtensions.Get' method instead.")]
     public static T? Get<T>(this IAppPolicyCache cache, string key, Func<object?> factory, TimeSpan? timeout = null, bool isSliding = false) {
-        return cache.Get(key, factory, timeout, isSliding) is T value ? value : default;
+        return Caching.AppPolicyCacheExtensions.Get<T>(cache, key, factory, timeout, isSliding);
     }
 
 }

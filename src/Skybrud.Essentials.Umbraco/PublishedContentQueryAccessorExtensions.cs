@@ -3,6 +3,7 @@ using Umbraco.Cms.Core;
 
 namespace Skybrud.Essentials.Umbraco;
 
+[Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedContentQueryAccessorExtensions' class instead.")]
 public static class PublishedContentQueryAccessorExtensions {
 
     /// <summary>
@@ -14,8 +15,9 @@ public static class PublishedContentQueryAccessorExtensions {
     /// The current <see cref="IPublishedContentQuery"/>, or <see langword="null"/> if no
     /// published content query is available.
     /// </returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedContentQueryAccessorExtensions.GetValueOrNull' method instead.")]
     public static IPublishedContentQuery? GetValueOrNull(this IPublishedContentQueryAccessor accessor) {
-        return accessor.TryGetValue(out IPublishedContentQuery? publishedContentQuery) ? publishedContentQuery : null;
+        return PublishedContent.PublishedContentQueryAccessorExtensions.GetValueOrNull(accessor);
     }
 
     /// <summary>
@@ -26,9 +28,9 @@ public static class PublishedContentQueryAccessorExtensions {
     /// <exception cref="InvalidOperationException">
     /// Thrown when no published content query is available.
     /// </exception>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedContentQueryAccessorExtensions.GetRequiredValue' method instead.")]
     public static IPublishedContentQuery GetRequiredValue(this IPublishedContentQueryAccessor accessor) {
-        if (accessor.TryGetValue(out IPublishedContentQuery? publishedContentQuery)) return publishedContentQuery;
-        throw new InvalidOperationException("No published content query is available in the current context.");
+        return PublishedContent.PublishedContentQueryAccessorExtensions.GetRequiredValue(accessor);
     }
 
 }

@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using Skybrud.Essentials.Strings;
-using Skybrud.Essentials.Strings.Extensions;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Models.PublishedContent;
-using Umbraco.Extensions;
 
 namespace Skybrud.Essentials.Umbraco;
 
 /// <summary>
 /// Static class with various extension methods for <see cref="IPublishedElement"/>.
 /// </summary>
+[Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions' class instead.")]
 public static class PublishedElementExtensions {
 
     #region Boolean
@@ -24,12 +21,7 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="bool"/>.</returns>
     public static bool GetBoolean(this IPublishedElement element, string alias) {
-        return element.Value(alias) switch {
-            bool boolean => boolean,
-            int number => number == 1,
-            string str => StringUtils.ParseBoolean(str),
-            _ => false
-        };
+        return PublishedContent.PublishedElementExtensions.GetBoolean(element, alias);
     }
 
     /// <summary>
@@ -40,16 +32,7 @@ public static class PublishedElementExtensions {
     /// <param name="fallback">The fallback value.</param>
     /// <returns>An instance of <see cref="bool"/> if successful; otherwise, <paramref name="fallback"/>.</returns>
     public static bool GetBoolean(this IPublishedElement element, string propertyAlias, bool fallback) {
-        return element.Value(propertyAlias) switch {
-            bool boolean => boolean,
-            int number => number switch {
-                0 => false,
-                1 => true,
-                _ => fallback
-            },
-            string str => StringUtils.ParseBoolean(str, fallback),
-            _ => fallback
-        };
+        return PublishedContent.PublishedElementExtensions.GetBoolean(element, propertyAlias, fallback);
     }
 
     /// <summary>
@@ -59,12 +42,7 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="bool"/> if successful; otherwise, <see langword="null"/>.</returns>
     public static bool? GetBooleanOrNull(this IPublishedElement? element, string alias) {
-        return element?.Value(alias) switch {
-            bool boolean => boolean,
-            int number => number == 1,
-            string str => StringUtils.ParseBooleanOrNull(str),
-            _ => null
-        };
+        return PublishedContent.PublishedElementExtensions.GetBooleanOrNull(element, alias);
     }
 
     /// <summary>
@@ -75,15 +53,7 @@ public static class PublishedElementExtensions {
     /// <param name="result">When this method returns, holds the <see cref="bool"/> value if successful; otherwise, <see langword="false"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static bool TryGetBoolean(this IPublishedElement? element, string alias, out bool result) {
-
-        if (element.TryGetBoolean(alias, out bool? temp)) {
-            result = temp.Value;
-            return true;
-        }
-
-        result = false;
-        return false;
-
+        return PublishedContent.PublishedElementExtensions.TryGetBoolean(element, alias, out result);
     }
 
     /// <summary>
@@ -94,15 +64,7 @@ public static class PublishedElementExtensions {
     /// <param name="result">When this method returns, holds the <see cref="bool"/> value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static bool TryGetBoolean(this IPublishedElement? element, string alias, [NotNullWhen(true)] out bool? result) {
-
-        if (element is not null && element.HasProperty(alias)) {
-            result = element.GetBooleanOrNull(alias);
-            return result is not null;
-        }
-
-        result = null;
-        return false;
-
+        return PublishedContent.PublishedElementExtensions.TryGetBoolean(element, alias, out result);
     }
 
     #endregion
@@ -116,7 +78,7 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="int"/>.</returns>
     public static int GetInt32(this IPublishedElement element, string alias) {
-        return GetInt32OrNull(element, alias) ?? 0;
+        return PublishedContent.PublishedElementExtensions.GetInt32(element, alias);
     }
 
     /// <summary>
@@ -126,12 +88,7 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="int"/> if successful; otherwise, <see langword="null"/>.</returns>
     public static int? GetInt32OrNull(this IPublishedElement? element, string alias) {
-        return element?.Value(alias) switch {
-            bool boolean => boolean ? 1 : 0,
-            int number => number,
-            string str => StringUtils.ParseInt32OrNull(str),
-            _ => null
-        };
+        return PublishedContent.PublishedElementExtensions.GetInt32OrNull(element, alias);
     }
 
     /// <summary>
@@ -142,15 +99,7 @@ public static class PublishedElementExtensions {
     /// <param name="result">When this method returns, holds the <see cref="int"/> value if successful; otherwise, <see langword="false"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static bool TryGetInt32(this IPublishedElement? element, string alias, out int result) {
-
-        if (element.TryGetInt32(alias, out int? temp)) {
-            result = temp.Value;
-            return true;
-        }
-
-        result = 0;
-        return false;
-
+        return PublishedContent.PublishedElementExtensions.TryGetInt32(element, alias, out result);
     }
 
     /// <summary>
@@ -161,15 +110,7 @@ public static class PublishedElementExtensions {
     /// <param name="result">When this method returns, holds the <see cref="int"/> value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static bool TryGetInt32(this IPublishedElement? element, string alias, [NotNullWhen(true)] out int? result) {
-
-        if (element is not null && element.HasProperty(alias)) {
-            result = element.GetInt32OrNull(alias);
-            return result is not null;
-        }
-
-        result = null;
-        return false;
-
+        return PublishedContent.PublishedElementExtensions.TryGetInt32(element, alias, out result);
     }
 
     #endregion
@@ -183,7 +124,7 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="long"/>.</returns>
     public static long GetInt64(this IPublishedElement element, string alias) {
-        return GetInt64OrNull(element, alias) ?? 0;
+        return PublishedContent.PublishedElementExtensions.GetInt64(element, alias);
     }
 
     /// <summary>
@@ -193,12 +134,7 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="long"/> if successful; otherwise, <see langword="null"/>.</returns>
     public static long? GetInt64OrNull(this IPublishedElement? element, string alias) {
-        return element?.Value(alias) switch {
-            bool boolean => boolean ? 1 : 0,
-            long number => number,
-            string str => StringUtils.ParseInt64OrNull(str),
-            _ => null
-        };
+        return PublishedContent.PublishedElementExtensions.GetInt64OrNull(element, alias);
     }
 
     /// <summary>
@@ -209,15 +145,7 @@ public static class PublishedElementExtensions {
     /// <param name="result">When this method returns, holds the <see cref="long"/> value if successful; otherwise, <see langword="false"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static bool TryGetInt64(this IPublishedElement? element, string alias, out long result) {
-
-        if (element.TryGetInt64(alias, out long? temp)) {
-            result = temp.Value;
-            return true;
-        }
-
-        result = 0;
-        return false;
-
+        return PublishedContent.PublishedElementExtensions.TryGetInt64(element, alias, out result);
     }
 
     /// <summary>
@@ -228,15 +156,7 @@ public static class PublishedElementExtensions {
     /// <param name="result">When this method returns, holds the <see cref="long"/> value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static bool TryGetInt64(this IPublishedElement? element, string alias, [NotNullWhen(true)] out long? result) {
-
-        if (element is not null && element.HasProperty(alias)) {
-            result = element.GetInt64OrNull(alias);
-            return result is not null;
-        }
-
-        result = null;
-        return false;
-
+        return PublishedContent.PublishedElementExtensions.TryGetInt64(element, alias, out result);
     }
 
     #endregion
@@ -250,7 +170,7 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="float"/>.</returns>
     public static float GetFloat(this IPublishedElement element, string alias) {
-        return GetFloatOrNull(element, alias) ?? 0;
+        return PublishedContent.PublishedElementExtensions.GetFloat(element, alias);
     }
 
     /// <summary>
@@ -260,12 +180,7 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="float"/> if successful; otherwise, <see langword="null"/>.</returns>
     public static float? GetFloatOrNull(this IPublishedElement? element, string alias) {
-        return element?.Value(alias) switch {
-            int number => number,
-            float floating => floating,
-            string str => StringUtils.ParseFloatOrNull(str),
-            _ => null
-        };
+        return PublishedContent.PublishedElementExtensions.GetFloatOrNull(element, alias);
     }
 
     /// <summary>
@@ -276,15 +191,7 @@ public static class PublishedElementExtensions {
     /// <param name="result">When this method returns, holds the <see cref="float"/> value if successful; otherwise, <see langword="false"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static bool TryGetFloat(this IPublishedElement? element, string alias, out float result) {
-
-        if (element.TryGetFloat(alias, out float? temp)) {
-            result = temp.Value;
-            return true;
-        }
-
-        result = 0;
-        return false;
-
+        return PublishedContent.PublishedElementExtensions.TryGetFloat(element, alias, out result);
     }
 
     /// <summary>
@@ -295,15 +202,7 @@ public static class PublishedElementExtensions {
     /// <param name="result">When this method returns, holds the <see cref="float"/> value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static bool TryGetFloat(this IPublishedElement? element, string alias, [NotNullWhen(true)] out float? result) {
-
-        if (element is not null && element.HasProperty(alias)) {
-            result = element.GetFloatOrNull(alias);
-            return result is not null;
-        }
-
-        result = null;
-        return false;
-
+        return PublishedContent.PublishedElementExtensions.TryGetFloat(element, alias, out result);
     }
 
     #endregion
@@ -317,7 +216,7 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="double"/>.</returns>
     public static double GetDouble(this IPublishedElement element, string alias) {
-        return GetDoubleOrNull(element, alias) ?? 0;
+        return PublishedContent.PublishedElementExtensions.GetDouble(element, alias);
     }
 
     /// <summary>
@@ -327,12 +226,7 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="double"/> if successful; otherwise, <see langword="null"/>.</returns>
     public static double? GetDoubleOrNull(this IPublishedElement? element, string alias) {
-        return element?.Value(alias) switch {
-            long number => number,
-            double floating => floating,
-            string str => StringUtils.ParseDoubleOrNull(str),
-            _ => null
-        };
+        return PublishedContent.PublishedElementExtensions.GetDoubleOrNull(element, alias);
     }
 
     /// <summary>
@@ -343,15 +237,7 @@ public static class PublishedElementExtensions {
     /// <param name="result">When this method returns, holds the <see cref="double"/> value if successful; otherwise, <see langword="false"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static bool TryGetDouble(this IPublishedElement? element, string alias, out double result) {
-
-        if (element.TryGetDouble(alias, out double? temp)) {
-            result = temp.Value;
-            return true;
-        }
-
-        result = 0;
-        return false;
-
+        return PublishedContent.PublishedElementExtensions.TryGetDouble(element, alias, out result);
     }
 
     /// <summary>
@@ -362,15 +248,7 @@ public static class PublishedElementExtensions {
     /// <param name="result">When this method returns, holds the <see cref="double"/> value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static bool TryGetDouble(this IPublishedElement? element, string alias, [NotNullWhen(true)] out double? result) {
-
-        if (element is not null && element.HasProperty(alias)) {
-            result = element.GetDoubleOrNull(alias);
-            return result is not null;
-        }
-
-        result = null;
-        return false;
-
+        return PublishedContent.PublishedElementExtensions.TryGetDouble(element, alias, out result);
     }
 
     #endregion
@@ -384,11 +262,7 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="Guid"/>.</returns>
     public static Guid GetGuid(this IPublishedElement element, string alias) {
-        return element.Value(alias) switch {
-            Guid guid => guid,
-            string str => Guid.TryParse(str, out Guid g) ? g : Guid.Empty,
-            _ => Guid.Empty
-        };
+        return PublishedContent.PublishedElementExtensions.GetGuid(element, alias);
     }
 
     /// <summary>
@@ -398,11 +272,7 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="Guid"/> if successful; otherwise, <see langword="null"/>.</returns>
     public static Guid? GetGuidOrNull(this IPublishedElement? element, string alias) {
-        return element?.Value(alias) switch {
-            Guid guid => guid,
-            string str => (Guid.TryParse(str, out Guid g) ? g : null),
-            _ => null
-        };
+        return PublishedContent.PublishedElementExtensions.GetGuidOrNull(element, alias);
     }
 
     /// <summary>
@@ -413,12 +283,7 @@ public static class PublishedElementExtensions {
     /// <param name="result">When this method returns, holds <see cref="Guid"/> value if successful; otherwise, <see cref="Guid.Empty"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static bool TryGetGuid(this IPublishedElement? element, string alias, out Guid result) {
-        if (element.TryGetGuid(alias, out Guid? guid)) {
-            result = guid.Value;
-            return true;
-        }
-        result = Guid.Empty;
-        return false;
+        return PublishedContent.PublishedElementExtensions.TryGetGuid(element, alias, out result);
     }
 
     /// <summary>
@@ -429,15 +294,7 @@ public static class PublishedElementExtensions {
     /// <param name="result">When this method returns, holds <see cref="Guid"/> value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
     public static bool TryGetGuid(this IPublishedElement? element, string alias, [NotNullWhen(true)] out Guid? result) {
-
-        if (element is not null && element.HasProperty(alias)) {
-            result = element.GetGuidOrNull(alias);
-            return result is not null;
-        }
-
-        result = null;
-        return false;
-
+        return PublishedContent.PublishedElementExtensions.TryGetGuid(element, alias, out result);
     }
 
     #endregion
@@ -450,8 +307,9 @@ public static class PublishedElementExtensions {
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="string"/> if successful; otherwise, <see langword="null"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions.GetString' method instead.")]
     public static string? GetString(this IPublishedElement? element, string alias) {
-        return element?.Value<string>(alias);
+        return PublishedContent.PublishedElementExtensions.GetString(element, alias);
     }
 
     /// <summary>
@@ -461,10 +319,10 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <param name="fallback">The fallback value.</param>
     /// <returns>An instance of <see cref="string"/> if successful; otherwise, <paramref name="fallback"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions.GetString' method instead.")]
     [return: NotNullIfNotNull(nameof(fallback))]
     public static string? GetString(this IPublishedElement? element, string alias, string? fallback) {
-        string? value = element?.Value<string>(alias);
-        return string.IsNullOrWhiteSpace(value) ? fallback : value;
+        return PublishedContent.PublishedElementExtensions.GetString(element, alias, fallback);
     }
 
     /// <summary>
@@ -473,9 +331,9 @@ public static class PublishedElementExtensions {
     /// <param name="element">The element holding the property.</param>
     /// <param name="aliases">A collection of property aliases to look for.</param>
     /// <returns></returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions.GetString' method instead.")]
     public static string? GetString(this IPublishedElement? element, IEnumerable<string> aliases) {
-        foreach (string alias in aliases) if (TryGetString(element, alias, out string? result)) return result;
-        return null;
+        return PublishedContent.PublishedElementExtensions.GetString(element, aliases);
     }
 
     /// <summary>
@@ -485,16 +343,9 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <param name="result">When this method returns, holds the string value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions.TryGetString' method instead.")]
     public static bool TryGetString(this IPublishedElement? element, string alias, [NotNullWhen(true)] out string? result) {
-
-        if (element is not null && element.HasProperty(alias)) {
-            result = element.GetString(alias).NullIfWhiteSpace();
-            return result is not null;
-        }
-
-        result = null;
-        return false;
-
+        return PublishedContent.PublishedElementExtensions.TryGetString(element, alias, out result);
     }
 
     /// <summary>
@@ -504,8 +355,9 @@ public static class PublishedElementExtensions {
     /// <param name="aliases">The aliases of the properties.</param>
     /// <param name="result">When this method returns, holds the string value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions.TryGetString' method instead.")]
     public static bool TryGetString(this IPublishedElement element, IEnumerable<string> aliases, [NotNullWhen(true)] out string? result) {
-        return (result = GetStringOrNull(element, aliases)) is not null;
+        return PublishedContent.PublishedElementExtensions.TryGetString(element, aliases, out result);
     }
 
     /// <summary>
@@ -514,8 +366,9 @@ public static class PublishedElementExtensions {
     /// <param name="element">The element holding the property.</param>
     /// <param name="propertyAlias">The property aliases to check.</param>
     /// <returns>A string value if successful; otherwise, <see langword="null"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions.GetStringOrNull' method instead.")]
     public static string? GetStringOrNull(this IPublishedElement element, string propertyAlias) {
-        return element.GetString(propertyAlias).NullIfWhiteSpace();
+        return PublishedContent.PublishedElementExtensions.GetString(element, propertyAlias);
     }
 
     /// <summary>
@@ -525,14 +378,9 @@ public static class PublishedElementExtensions {
     /// <param name="content"></param>
     /// <param name="propertyAliases">The property aliases to check.</param>
     /// <returns>The string value if successful; otherwise, <see langword="null"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions.GetStringOrNull' method instead.")]
     public static string? GetStringOrNull(this IPublishedElement content, IEnumerable<string> propertyAliases) {
-
-        foreach (string propertyAlias in propertyAliases) {
-            if (content.TryGetString(propertyAlias, out string? result)) return result;
-        }
-
-        return null;
-
+        return PublishedContent.PublishedElementExtensions.GetString(content, propertyAliases);
     }
 
     #endregion
@@ -545,14 +393,9 @@ public static class PublishedElementExtensions {
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="DateTime"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions.GetDateTime' method instead.")]
     public static DateTime GetDateTime(this IPublishedElement? element, string alias) {
-
-        // Get the property value
-        DateTime? dt = element?.Value<DateTime>(alias);
-
-        // Correct for wrong time zone as Umbraco returns the DateTime as "Utc" even though it is actually "Local"
-        return dt is null ? DateTime.MinValue : new DateTime(dt.Value.Ticks, DateTimeKind.Local);
-
+        return PublishedContent.PublishedElementExtensions.GetDateTime(element, alias);
     }
 
     /// <summary>
@@ -562,14 +405,9 @@ public static class PublishedElementExtensions {
     /// <param name="element">The element holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="DateTime"/> if successful; otherwise, <see langword="null"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions.GetDateTimeOrNull' method instead.")]
     public static DateTime? GetDateTimeOrNull(this IPublishedElement? element, string alias) {
-
-        // Get the property value
-        DateTime? dt = element?.Value<DateTime>(alias);
-
-        // Correct for wrong time zone as Umbraco returns the DateTime as "Utc" even though it is actually "Local"
-        return dt is null ? null : new DateTime(dt.Value.Ticks, DateTimeKind.Local);
-
+        return PublishedContent.PublishedElementExtensions.GetDateTimeOrNull(element, alias);
     }
 
     /// <summary>
@@ -579,20 +417,9 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <param name="value">When this method returns, holds the <see cref="DateTime"/> value if successful; otherwise <see cref="DateTime.MinValue"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions.TryGetDateTime' method instead.")]
     public static bool TryGetDateTime(this IPublishedElement? element, string alias, out DateTime value) {
-
-        if (element is not null && element.HasValue(alias) && element.Value(alias) is DateTime dt) {
-
-            // Correct for wrong time zone as Umbraco returns the DateTime as "Utc" even though it is actually "Local"
-            value = new DateTime(dt.Ticks, DateTimeKind.Local);
-
-            return true;
-
-        }
-
-        value = default;
-        return false;
-
+        return PublishedContent.PublishedElementExtensions.TryGetDateTime(element, alias, out value);
     }
 
     /// <summary>
@@ -602,20 +429,9 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <param name="value">When this method returns, holds the <see cref="DateTime"/> value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions.TryGetDateTime' method instead.")]
     public static bool TryGetDateTime(this IPublishedElement? element, string alias, out DateTime? value) {
-
-        if (element is not null && element.HasValue(alias) && element.Value(alias) is DateTime dt) {
-
-            // Correct for wrong time zone as Umbraco returns the DateTime as "Utc" even though it is actually "Local"
-            value = new DateTime(dt.Ticks, DateTimeKind.Local);
-
-            return true;
-
-        }
-
-        value = null;
-        return false;
-
+        return PublishedContent.PublishedElementExtensions.TryGetDateTime(element, alias, out value);
     }
 
     #endregion
@@ -628,14 +444,9 @@ public static class PublishedElementExtensions {
     /// <param name="element">The <see cref="IPublishedElement"/> holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
     /// <returns>An instance of <see cref="Udi"/> if successful; otherwise, <see langword="null"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions.GetUdi' method instead.")]
     public static Udi? GetUdi(this IPublishedElement element, string alias) {
-        object? value = element.Value(alias);
-        return value switch {
-            Udi udi => udi,
-            IEnumerable<Udi> udis => udis.FirstOrDefault(),
-            string str when UdiParser.TryParse(str, out Udi? udi) => udi,
-            _ => null
-        };
+        return PublishedContent.PublishedElementExtensions.GetUdi(element, alias);
     }
 
     /// <summary>
@@ -644,14 +455,9 @@ public static class PublishedElementExtensions {
     /// <param name="element">The <see cref="IPublishedElement"/> holding the property.</param>
     /// <param name="alias">The alias of the property.</param>
     /// <returns>A collection of <see cref="Udi"/> instances.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions.GetUdi' method instead.")]
     public static IEnumerable<Udi> GetUdis(this IPublishedElement element, string alias) {
-        object? value = element.Value(alias);
-        return value switch {
-            Udi udi => [udi],
-            IEnumerable<Udi> udis => udis,
-            string str => UdiUtils.ParseUdis(str),
-            _ => []
-        };
+        return PublishedContent.PublishedElementExtensions.GetUdis(element, alias);
     }
 
     /// <summary>
@@ -661,12 +467,14 @@ public static class PublishedElementExtensions {
     /// <param name="alias">The alias of the property.</param>
     /// <param name="result">When this method returns, holds the <see cref="Udi"/> value if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions.TryGetUdi' method instead.")]
     public static bool TryGetUdi(this IPublishedElement element, string alias, [NotNullWhen(true)] out Udi? result) {
-        result = GetUdi(element, alias);
-        return result is not null;
+        return PublishedContent.PublishedElementExtensions.TryGetUdi(element, alias, out result);
     }
 
     #endregion
+
+    #region Enum
 
     /// <summary>
     /// Returns the enum value of the property with the specified <paramref name="propertyAlias"/>, or the default value of <typeparamref name="TEnum"/> if a matching property could not be found, or it's value converted to a <typeparamref name="TEnum"/> instance.
@@ -675,8 +483,9 @@ public static class PublishedElementExtensions {
     /// <param name="element">The <see cref="IPublishedElement"/> holding the property.</param>
     /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>An instance of <typeparamref name="TEnum"/>, or the default value if not found.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions.GetEnum' method instead.")]
     public static TEnum GetEnum<TEnum>(this IPublishedElement element, string propertyAlias) where TEnum : struct, Enum {
-        return element.Value<TEnum>(propertyAlias);
+        return PublishedContent.PublishedElementExtensions.GetEnum<TEnum>(element, propertyAlias);
     }
 
     /// <summary>
@@ -687,8 +496,9 @@ public static class PublishedElementExtensions {
     /// <param name="propertyAlias">The alias of the property.</param>
     /// <param name="fallback">The fallback value to return if the property is not found.</param>
     /// <returns>An instance of <typeparamref name="TEnum"/>, or the fallback value if not found.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions.GetEnum' method instead.")]
     public static TEnum GetEnum<TEnum>(this IPublishedElement element, string propertyAlias, TEnum fallback) where TEnum : struct, Enum {
-        return element.Value(propertyAlias) is TEnum value ? value : fallback;
+        return PublishedContent.PublishedElementExtensions.GetEnum(element, propertyAlias, fallback);
     }
 
     /// <summary>
@@ -699,16 +509,9 @@ public static class PublishedElementExtensions {
     /// <param name="propertyAlias">The alias of the property.</param>
     /// <param name="result">When this method returns, holds the <typeparamref name="T"/> value of the property if successful; otherwise, <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if successful; otherwise, <see langword="false"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions.TryGetValue' method instead.")]
     public static bool TryGetValue<T>(this IPublishedElement? element, string propertyAlias, out T? result) {
-
-        result = default;
-
-        if (element == null) return false;
-        if (!element.HasValue(propertyAlias)) return false;
-
-        result = element.Value<T>(propertyAlias);
-        return result != null;
-
+        return PublishedContent.PublishedElementExtensions.TryGetValue(element, propertyAlias, out result);
     }
 
     /// <summary>
@@ -720,8 +523,11 @@ public static class PublishedElementExtensions {
     /// <param name="element">The <see cref="IPublishedElement"/> holding the property.</param>
     /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>A list of <typeparamref name="T"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedElementExtensions.GetReadOnlyList' method instead.")]
     public static IReadOnlyList<T> GetReadOnlyList<T>(this IPublishedElement element, string propertyAlias) {
-        return element.Value<IReadOnlyList<T>>(propertyAlias) ?? [];
+        return PublishedContent.PublishedElementExtensions.GetReadOnlyList<T>(element, propertyAlias);
     }
+
+    #endregion
 
 }

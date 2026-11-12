@@ -5,13 +5,13 @@ using Umbraco.Cms.Core.PublishedCache;
 using Umbraco.Cms.Core.Routing;
 using Umbraco.Cms.Core.Services.Navigation;
 using Umbraco.Cms.Core.Web;
-using Umbraco.Extensions;
 
 namespace Skybrud.Essentials.Umbraco;
 
 /// <summary>
 /// Static class with various extension methods for working with <see cref="IPublishedContent"/>.
 /// </summary>
+[Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedContentExtensions' class instead.")]
 public static class PublishedContentExtensions {
 
     /// <summary>
@@ -39,17 +39,9 @@ public static class PublishedContentExtensions {
     /// has been found or the top of the tree has been reached. If none of the content items along the path specify
     /// a culture, the default culture configured in Umbraco (typically <c>en-US</c>) will be used as fallback.</para>
     /// </remarks>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedContentExtensions.GetCultureInfo' method instead.")]
     public static CultureInfo? GetCultureInfo(this IPublishedContent? content, Uri? uri = null) {
-
-        // If no content item is specified, we return the default culture
-        if (content == null) return null;
-
-        // Get culture code via Umbraco's extension method
-        string? code = content.GetCultureFromDomains(uri);
-
-        // If no culture code was found, try the parent node - otherwise return the matching CultureInfo
-        return string.IsNullOrWhiteSpace(code) ? GetCultureInfo(content.Parent(), uri) : CultureInfo.GetCultureInfo(code);
-
+        return PublishedContent.PublishedContentExtensions.GetCultureInfo(content, uri);
     }
 
     /// <summary>
@@ -82,20 +74,9 @@ public static class PublishedContentExtensions {
     /// has been found or the top of the tree has been reached. If none of the content items along the path specify
     /// a culture, the default culture configured in Umbraco (typically <c>en-US</c>) will be used as fallback.</para>
     /// </remarks>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.PublishedContent.PublishedContentExtensions.GetCultureInfo' method instead.")]
     public static CultureInfo? GetCultureInfo(this IPublishedContent? content, IUmbracoContextAccessor umbracoContextAccessor, ISiteDomainMapper siteDomainMapper, IDomainCache domainCache, INavigationQueryService navigationQueryService, IPublishedStatusFilteringService publishedStatusFilteringService, Uri? uri = null) {
-
-        // If no content item is specified, we return the default culture
-        if (content == null) {
-            IUmbracoContext ctx = umbracoContextAccessor.GetRequiredUmbracoContext();
-            return CultureInfo.GetCultureInfo(ctx.Domains!.DefaultCulture);
-        }
-
-        // Get culture code via Umbraco's extension method
-        string? code = content.GetCultureFromDomains(umbracoContextAccessor, siteDomainMapper, domainCache, navigationQueryService, publishedStatusFilteringService, uri);
-
-        // If no culture code was found, try the parent node - otherwise return the matching CultureInfo
-        return string.IsNullOrWhiteSpace(code) ? GetCultureInfo(content.Parent(), umbracoContextAccessor, siteDomainMapper, domainCache, navigationQueryService, publishedStatusFilteringService, uri) : CultureInfo.GetCultureInfo(code);
-
+        return PublishedContent.PublishedContentExtensions.GetCultureInfo(content, umbracoContextAccessor, siteDomainMapper, domainCache, navigationQueryService, publishedStatusFilteringService, uri);
     }
 
 }

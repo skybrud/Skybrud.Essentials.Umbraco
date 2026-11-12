@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Models;
 
@@ -10,6 +9,7 @@ namespace Skybrud.Essentials.Umbraco;
 /// <summary>
 /// Static class with various extension methods for <see cref="IContentBase"/>.
 /// </summary>
+[Obsolete("Use the extension methods in the Skybrud.Essentials.Umbraco.Content namespace instead.")]
 public static class ContentBaseExtensions {
 
     /// <summary>
@@ -22,10 +22,9 @@ public static class ContentBaseExtensions {
     /// <param name="propertyAlias">The alias of the property to set.</param>
     /// <param name="value">The value to assign to the property. Can be <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if the property exists and the value was successfully set; otherwise, <see langword="false"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.Content.ContentBaseExtensions.TrySetValue' method instead.")]
     public static bool TrySetValue(this IContentBase content, string propertyAlias, string? value) {
-        if (!content.HasProperty(propertyAlias)) return false;
-        content.SetValue(propertyAlias, value);
-        return true;
+        return Content.ContentBaseExtensions.TrySetValue(content, propertyAlias, value);
     }
 
     /// <summary>
@@ -38,10 +37,9 @@ public static class ContentBaseExtensions {
     /// <param name="propertyAlias">The alias of the property to set.</param>
     /// <param name="value">The value to assign to the property. Can be <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if the property exists and the value was successfully set; otherwise, <see langword="false"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.Content.ContentBaseExtensions.TrySetValue' method instead.")]
     public static bool TrySetValue(this IContentBase content, string propertyAlias, object? value) {
-        if (!content.HasProperty(propertyAlias)) return false;
-        content.SetValue(propertyAlias, value);
-        return true;
+        return Content.ContentBaseExtensions.TrySetValue(content, propertyAlias, value);
     }
 
     /// <summary>
@@ -56,8 +54,9 @@ public static class ContentBaseExtensions {
     /// item's properties until a match is found. This means this method is <c>O(n)</c> in terms of performance and
     /// lookups, and not <c>O(1)</c>.
     /// </remarks>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.Content.ContentBaseExtensions.HasProperty' method instead.")]
     public static bool HasProperty(this IContentBase content, string propertyAlias) {
-        return content.Properties.FirstOrDefault(x => x.Alias == propertyAlias) != null;
+        return Content.ContentBaseExtensions.HasProperty(content, propertyAlias);
     }
 
     /// <summary>
@@ -73,9 +72,9 @@ public static class ContentBaseExtensions {
     /// item's properties until a match is found. This means this method is <c>O(n)</c> in terms of performance and
     /// lookups, and not <c>O(1)</c>.
     /// </remarks>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.Content.ContentBaseExtensions.TryGetProperty' method instead.")]
     public static bool TryGetProperty(this IContentBase content, string propertyAlias, [NotNullWhen(true)] out IProperty? result) {
-        result = content.Properties.FirstOrDefault(x => x.Alias == propertyAlias);
-        return result != null;
+        return Content.ContentBaseExtensions.TryGetProperty(content, propertyAlias, out result);
     }
 
     /// <summary>
@@ -85,9 +84,9 @@ public static class ContentBaseExtensions {
     /// <param name="predicate">A function to test each element for a condition.</param>
     /// <param name="result">When this method returns, holds the first instance of <see cref="IProperty"/> element that passes the test specified by <paramref name="predicate"/>, or <see langword="null"/> if not match is found.</param>
     /// <returns><see langword="true"/> if a matching property is found; otherwise, <see langword="false"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.Content.ContentBaseExtensions.TryGetProperty' method instead.")]
     public static bool TryGetProperty(this IContentBase content, Func<IProperty, bool> predicate, [NotNullWhen(true)] out IProperty? result) {
-        result = content.Properties.FirstOrDefault(predicate);
-        return result != null;
+        return Content.ContentBaseExtensions.TryGetProperty(content, predicate, out result);
     }
 
     /// <summary>
@@ -96,8 +95,9 @@ public static class ContentBaseExtensions {
     /// <param name="content">An instance of <see cref="IContentBase"/> - e.g. <see cref="IContent"/> or <see cref="IMedia"/>.</param>
     /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>The <see cref="Udi"/> instance if found; otherwise, <see langword="null"/>.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.Content.ContentBaseExtensions.GetUdi' method instead.")]
     public static Udi? GetUdi(this IContentBase content, string propertyAlias) {
-        return UdiUtils.TryParse(content.GetValue<string>(propertyAlias), out var result) ? result : null;
+        return Content.ContentBaseExtensions.GetUdi(content, propertyAlias);
     }
 
     /// <summary>
@@ -106,8 +106,9 @@ public static class ContentBaseExtensions {
     /// <param name="content">An instance of <see cref="IContentBase"/> - e.g. <see cref="IContent"/> or <see cref="IMedia"/>.</param>
     /// <param name="propertyAlias">The alias of the property.</param>
     /// <returns>A collection of <see cref="Udi"/> instances.</returns>
+    [Obsolete("Use the 'Skybrud.Essentials.Umbraco.Content.ContentBaseExtensions.GetUdis' method instead.")]
     public static IEnumerable<Udi> GetUdis(this IContentBase content, string propertyAlias) {
-        return UdiUtils.ParseUdis(content.GetValue<string>(propertyAlias));
+        return Content.ContentBaseExtensions.GetUdis(content, propertyAlias);
     }
 
 }
