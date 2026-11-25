@@ -25,12 +25,12 @@ public static class PublishedMediaCacheExtensions {
     /// <summary>
     /// Gets the media item with the specified ID <paramref name="id"/> and converts it to <typeparamref name="TResult"/>.
     /// </summary>
-    /// <typeparam name="TResult">The type of the converted media.</typeparam>
+    /// <typeparam name="TResult">The type of the result returned by the callback function.</typeparam>
     /// <param name="mediaCache">A reference to the current <see cref="IPublishedMediaCache"/>.</param>
     /// <param name="id">The ID of the media item.</param>
     /// <param name="function">A callback function used for converting an <see cref="IPublishedContent"/> instance to <typeparamref name="TResult"/>.</param>
     /// <returns>The result of invoking <paramref name="function"/> with the media item if the lookup is successful, or the <see langword="default"/> value of <typeparamref name="TResult"/> if the media item is not found.</returns>
-    public static TResult? GetById<TResult>(this IPublishedMediaCache mediaCache, int id, Func<IPublishedContent, TResult> function) where TResult : IPublishedContent {
+    public static TResult? GetById<TResult>(this IPublishedMediaCache mediaCache, int id, Func<IPublishedContent, TResult> function) {
         IPublishedContent? media = mediaCache.GetById(id);
         return media is null ? default : function(media);
     }
@@ -49,12 +49,12 @@ public static class PublishedMediaCacheExtensions {
     /// <summary>
     /// Gets the media item with the specified GUID key <paramref name="key"/> and converts it to <typeparamref name="TResult"/>.
     /// </summary>
-    /// <typeparam name="TResult">The type of the converted media.</typeparam>
+    /// <typeparam name="TResult">The type of the result returned by the callback function.</typeparam>
     /// <param name="mediaCache">A reference to the current <see cref="IPublishedMediaCache"/>.</param>
     /// <param name="key">The GUID key of the media item.</param>
     /// <param name="function">A callback function used for converting an <see cref="IPublishedContent"/> instance to <typeparamref name="TResult"/>.</param>
     /// <returns>The result of invoking <paramref name="function"/> with the media item if the lookup is successful, or the <see langword="default"/> value of <typeparamref name="TResult"/> if the media item is not found.</returns>
-    public static TResult? GetById<TResult>(this IPublishedMediaCache mediaCache, Guid key, Func<IPublishedContent, TResult> function) where TResult : IPublishedContent {
+    public static TResult? GetById<TResult>(this IPublishedMediaCache mediaCache, Guid key, Func<IPublishedContent, TResult> function) {
         IPublishedContent? media = mediaCache.GetById(key);
         return media is null ? default : function(media);
     }
@@ -83,12 +83,12 @@ public static class PublishedMediaCacheExtensions {
     /// <summary>
     /// Gets the media item with the specified UDI <paramref name="udi"/> and converts it to <typeparamref name="TResult"/>.
     /// </summary>
-    /// <typeparam name="TResult">The type of the converted media.</typeparam>
+    /// <typeparam name="TResult">The type of the result returned by the callback function.</typeparam>
     /// <param name="mediaCache">A reference to the current <see cref="IPublishedMediaCache"/>.</param>
     /// <param name="udi">The UDI of the media item.</param>
     /// <param name="function">A callback function used for converting an <see cref="IPublishedContent"/> instance to <typeparamref name="TResult"/>.</param>
     /// <returns>The result of invoking <paramref name="function"/> with the media item if the lookup is successful, or the <see langword="default"/> value of <typeparamref name="TResult"/> if <paramref name="udi"/> is not an instance of <see cref="GuidUdi"/>, or the media item is not found.</returns>
-    public static TResult? GetById<TResult>(this IPublishedMediaCache mediaCache, Udi udi, Func<IPublishedContent, TResult> function) where TResult : IPublishedContent {
+    public static TResult? GetById<TResult>(this IPublishedMediaCache mediaCache, Udi udi, Func<IPublishedContent, TResult> function) {
         IPublishedContent? media = mediaCache.GetById(udi);
         return media is null ? default : function(media);
     }
@@ -128,13 +128,13 @@ public static class PublishedMediaCacheExtensions {
     /// <summary>
     /// Attempts to get the media item with the specified ID <paramref name="id"/> and convert it to <typeparamref name="TResult"/>.
     /// </summary>
-    /// <typeparam name="TResult">The type of the converted media.</typeparam>
+    /// <typeparam name="TResult">The type of the result returned by the callback function.</typeparam>
     /// <param name="mediaCache">A reference to the current <see cref="IPublishedMediaCache"/>.</param>
     /// <param name="id">The ID of the media item.</param>
     /// <param name="function">A callback function used for converting an <see cref="IPublishedContent"/> instance to <typeparamref name="TResult"/>.</param>
-    /// <param name="result">When this method returns, holds the result of invoking <paramref name="function"/> with the media item if successful; otherwise, the <see langword="default"/> value of <typeparamref name="TResult"/>.</param>
+    /// <param name="result">When this method returns, holds the result of invoking <paramref name="function"/> with the media item if the lookup is successful (which may be <see langword="null"/>); otherwise, the <see langword="default"/> value of <typeparamref name="TResult"/>.</param>
     /// <returns><see langword="false"/> if the media item is not found; otherwise, <see langword="true"/>.</returns>
-    public static bool TryGetById<TResult>(this IPublishedMediaCache mediaCache, int id, Func<IPublishedContent, TResult> function, [NotNullWhen(true)] out TResult? result) where TResult : IPublishedContent {
+    public static bool TryGetById<TResult>(this IPublishedMediaCache mediaCache, int id, Func<IPublishedContent, TResult> function, out TResult? result) {
 
         IPublishedContent? media = mediaCache.GetById(id);
 
@@ -183,13 +183,13 @@ public static class PublishedMediaCacheExtensions {
     /// <summary>
     /// Attempts to get the media item with the specified GUID key <paramref name="key"/> and convert it to <typeparamref name="TResult"/>.
     /// </summary>
-    /// <typeparam name="TResult">The type of the converted media.</typeparam>
+    /// <typeparam name="TResult">The type of the result returned by the callback function.</typeparam>
     /// <param name="mediaCache">A reference to the current <see cref="IPublishedMediaCache"/>.</param>
     /// <param name="key">The GUID key of the media item.</param>
     /// <param name="function">A callback function used for converting an <see cref="IPublishedContent"/> instance to <typeparamref name="TResult"/>.</param>
-    /// <param name="result">When this method returns, holds the result of invoking <paramref name="function"/> with the media item if successful; otherwise, the <see langword="default"/> value of <typeparamref name="TResult"/>.</param>
+    /// <param name="result">When this method returns, holds the result of invoking <paramref name="function"/> with the media item if the lookup is successful (which may be <see langword="null"/>); otherwise, the <see langword="default"/> value of <typeparamref name="TResult"/>.</param>
     /// <returns><see langword="false"/> if the media item is not found; otherwise, <see langword="true"/>.</returns>
-    public static bool TryGetById<TResult>(this IPublishedMediaCache mediaCache, Guid key, Func<IPublishedContent, TResult> function, [NotNullWhen(true)] out TResult? result) where TResult : IPublishedContent {
+    public static bool TryGetById<TResult>(this IPublishedMediaCache mediaCache, Guid key, Func<IPublishedContent, TResult> function, out TResult? result) {
 
         IPublishedContent? media = mediaCache.GetById(key);
 
@@ -238,13 +238,13 @@ public static class PublishedMediaCacheExtensions {
     /// <summary>
     /// Attempts to get the media item with the specified UDI <paramref name="udi"/> and convert it to <typeparamref name="TResult"/>.
     /// </summary>
-    /// <typeparam name="TResult">The type of the converted media.</typeparam>
+    /// <typeparam name="TResult">The type of the result returned by the callback function.</typeparam>
     /// <param name="mediaCache">A reference to the current <see cref="IPublishedMediaCache"/>.</param>
     /// <param name="udi">The UDI of the media item.</param>
     /// <param name="function">A callback function used for converting an <see cref="IPublishedContent"/> instance to <typeparamref name="TResult"/>.</param>
-    /// <param name="result">When this method returns, holds the result of invoking <paramref name="function"/> with the media item if successful; otherwise, the <see langword="default"/> value of <typeparamref name="TResult"/>.</param>
+    /// <param name="result">When this method returns, holds the result of invoking <paramref name="function"/> with the media item if the lookup is successful (which may be <see langword="null"/>); otherwise, the <see langword="default"/> value of <typeparamref name="TResult"/>.</param>
     /// <returns><see langword="false"/> if <paramref name="udi"/> is not an instance of <see cref="GuidUdi"/>, or the media item is not found; otherwise, <see langword="true"/>.</returns>
-    public static bool TryGetById<TResult>(this IPublishedMediaCache mediaCache, Udi udi, Func<IPublishedContent, TResult> function, [NotNullWhen(true)] out TResult? result) where TResult : IPublishedContent {
+    public static bool TryGetById<TResult>(this IPublishedMediaCache mediaCache, Udi udi, Func<IPublishedContent, TResult> function, out TResult? result) {
 
         IPublishedContent? media = mediaCache.GetById(udi);
 

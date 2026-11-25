@@ -25,12 +25,12 @@ public static class PublishedContentCacheExtensions {
     /// <summary>
     /// Gets the content item with the specified ID <paramref name="id"/> and converts it to <typeparamref name="TResult"/>.
     /// </summary>
-    /// <typeparam name="TResult">The type of the converted content.</typeparam>
+    /// <typeparam name="TResult">The type of the result returned by the callback function.</typeparam>
     /// <param name="contentCache">A reference to the current <see cref="IPublishedContentCache"/>.</param>
     /// <param name="id">The ID of the content item.</param>
     /// <param name="function">A callback function used for converting an <see cref="IPublishedContent"/> instance to <typeparamref name="TResult"/>.</param>
     /// <returns>The result of invoking <paramref name="function"/> with the content item if the lookup is successful, or the <see langword="default"/> value of <typeparamref name="TResult"/> if the content item is not found.</returns>
-    public static TResult? GetById<TResult>(this IPublishedContentCache contentCache, int id, Func<IPublishedContent, TResult> function) where TResult : IPublishedContent {
+    public static TResult? GetById<TResult>(this IPublishedContentCache contentCache, int id, Func<IPublishedContent, TResult> function) {
         IPublishedContent? content = contentCache.GetById(id);
         return content is null ? default : function(content);
     }
@@ -49,12 +49,12 @@ public static class PublishedContentCacheExtensions {
     /// <summary>
     /// Gets the content item with the specified GUID key <paramref name="key"/> and converts it to <typeparamref name="TResult"/>.
     /// </summary>
-    /// <typeparam name="TResult">The type of the converted content.</typeparam>
+    /// <typeparam name="TResult">The type of the result returned by the callback function.</typeparam>
     /// <param name="contentCache">A reference to the current <see cref="IPublishedContentCache"/>.</param>
     /// <param name="key">The GUID key of the content item.</param>
     /// <param name="function">A callback function used for converting an <see cref="IPublishedContent"/> instance to <typeparamref name="TResult"/>.</param>
     /// <returns>The result of invoking <paramref name="function"/> with the content item if the lookup is successful, or the <see langword="default"/> value of <typeparamref name="TResult"/> if the content item is not found.</returns>
-    public static TResult? GetById<TResult>(this IPublishedContentCache contentCache, Guid key, Func<IPublishedContent, TResult> function) where TResult : IPublishedContent {
+    public static TResult? GetById<TResult>(this IPublishedContentCache contentCache, Guid key, Func<IPublishedContent, TResult> function) {
         IPublishedContent? content = contentCache.GetById(key);
         return content is null ? default : function(content);
     }
@@ -83,12 +83,12 @@ public static class PublishedContentCacheExtensions {
     /// <summary>
     /// Gets the content item with the specified UDI <paramref name="udi"/> and converts it to <typeparamref name="TResult"/>.
     /// </summary>
-    /// <typeparam name="TResult">The type of the converted content.</typeparam>
+    /// <typeparam name="TResult">The type of the result returned by the callback function.</typeparam>
     /// <param name="contentCache">A reference to the current <see cref="IPublishedContentCache"/>.</param>
     /// <param name="udi">The UDI of the content item.</param>
     /// <param name="function">A callback function used for converting an <see cref="IPublishedContent"/> instance to <typeparamref name="TResult"/>.</param>
     /// <returns>The result of invoking <paramref name="function"/> with the content item if the lookup is successful, or the <see langword="default"/> value of <typeparamref name="TResult"/> if <paramref name="udi"/> is not an instance of <see cref="GuidUdi"/>, or the content item is not found.</returns>
-    public static TResult? GetById<TResult>(this IPublishedContentCache contentCache, Udi udi, Func<IPublishedContent, TResult> function) where TResult : IPublishedContent {
+    public static TResult? GetById<TResult>(this IPublishedContentCache contentCache, Udi udi, Func<IPublishedContent, TResult> function) {
         IPublishedContent? content = contentCache.GetById(udi);
         return content is null ? default : function(content);
     }
@@ -128,13 +128,13 @@ public static class PublishedContentCacheExtensions {
     /// <summary>
     /// Attempts to get the content item with the specified ID <paramref name="id"/> and convert it to <typeparamref name="TResult"/>.
     /// </summary>
-    /// <typeparam name="TResult">The type of the converted content.</typeparam>
+    /// <typeparam name="TResult">The type of the result returned by the callback function.</typeparam>
     /// <param name="contentCache">A reference to the current <see cref="IPublishedContentCache"/>.</param>
     /// <param name="id">The ID of the content item.</param>
     /// <param name="function">A callback function used for converting an <see cref="IPublishedContent"/> instance to <typeparamref name="TResult"/>.</param>
-    /// <param name="result">When this method returns, holds the result of invoking <paramref name="function"/> with the content item if successful; otherwise, the <see langword="default"/> value of <typeparamref name="TResult"/>.</param>
+    /// <param name="result">When this method returns, holds the result of invoking <paramref name="function"/> with the content item if the lookup is successful (which may be <see langword="null"/>); otherwise, the <see langword="default"/> value of <typeparamref name="TResult"/>.</param>
     /// <returns><see langword="false"/> if the content item is not found; otherwise, <see langword="true"/>.</returns>
-    public static bool TryGetById<TResult>(this IPublishedContentCache contentCache, int id, Func<IPublishedContent, TResult> function, [NotNullWhen(true)] out TResult? result) where TResult : IPublishedContent {
+    public static bool TryGetById<TResult>(this IPublishedContentCache contentCache, int id, Func<IPublishedContent, TResult> function, out TResult? result) {
 
         IPublishedContent? content = contentCache.GetById(id);
 
@@ -183,13 +183,13 @@ public static class PublishedContentCacheExtensions {
     /// <summary>
     /// Attempts to get the content item with the specified GUID key <paramref name="key"/> and convert it to <typeparamref name="TResult"/>.
     /// </summary>
-    /// <typeparam name="TResult">The type of the converted content.</typeparam>
+    /// <typeparam name="TResult">The type of the result returned by the callback function.</typeparam>
     /// <param name="contentCache">A reference to the current <see cref="IPublishedContentCache"/>.</param>
     /// <param name="key">The GUID key of the content item.</param>
     /// <param name="function">A callback function used for converting an <see cref="IPublishedContent"/> instance to <typeparamref name="TResult"/>.</param>
-    /// <param name="result">When this method returns, holds the result of invoking <paramref name="function"/> with the content item if successful; otherwise, the <see langword="default"/> value of <typeparamref name="TResult"/>.</param>
+    /// <param name="result">When this method returns, holds the result of invoking <paramref name="function"/> with the content item if the lookup is successful (which may be <see langword="null"/>); otherwise, the <see langword="default"/> value of <typeparamref name="TResult"/>.</param>
     /// <returns><see langword="false"/> if the content item is not found; otherwise, <see langword="true"/>.</returns>
-    public static bool TryGetById<TResult>(this IPublishedContentCache contentCache, Guid key, Func<IPublishedContent, TResult> function, [NotNullWhen(true)] out TResult? result) where TResult : IPublishedContent {
+    public static bool TryGetById<TResult>(this IPublishedContentCache contentCache, Guid key, Func<IPublishedContent, TResult> function, out TResult? result) {
 
         IPublishedContent? content = contentCache.GetById(key);
 
@@ -238,13 +238,13 @@ public static class PublishedContentCacheExtensions {
     /// <summary>
     /// Attempts to get the content item with the specified UDI <paramref name="udi"/> and convert it to <typeparamref name="TResult"/>.
     /// </summary>
-    /// <typeparam name="TResult">The type of the converted content.</typeparam>
+    /// <typeparam name="TResult">The type of the result returned by the callback function.</typeparam>
     /// <param name="contentCache">A reference to the current <see cref="IPublishedContentCache"/>.</param>
     /// <param name="udi">The UDI of the content item.</param>
     /// <param name="function">A callback function used for converting an <see cref="IPublishedContent"/> instance to <typeparamref name="TResult"/>.</param>
-    /// <param name="result">When this method returns, holds the result of invoking <paramref name="function"/> with the content item if successful; otherwise, the <see langword="default"/> value of <typeparamref name="TResult"/>.</param>
+    /// <param name="result">When this method returns, holds the result of invoking <paramref name="function"/> with the content item if the lookup is successful (which may be <see langword="null"/>); otherwise, the <see langword="default"/> value of <typeparamref name="TResult"/>.</param>
     /// <returns><see langword="false"/> if <paramref name="udi"/> is not an instance of <see cref="GuidUdi"/>, or the content item is not found; otherwise, <see langword="true"/>.</returns>
-    public static bool TryGetById<TResult>(this IPublishedContentCache contentCache, Udi udi, Func<IPublishedContent, TResult> function, [NotNullWhen(true)] out TResult? result) where TResult : IPublishedContent {
+    public static bool TryGetById<TResult>(this IPublishedContentCache contentCache, Udi udi, Func<IPublishedContent, TResult> function, out TResult? result) {
 
         IPublishedContent? content = contentCache.GetById(udi);
 
